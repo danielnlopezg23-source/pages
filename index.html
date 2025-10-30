@@ -19,50 +19,65 @@
     body { font-family: 'Roboto', sans-serif; background: white; color: var(--text); line-height: 1.8; font-size: 1rem; }
     .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
 
-    /* ENCABEZADO */
+    /* ENCABEZADO UNIFICADO */
     .header-wrapper {
       background: var(--primary);
       color: white;
       padding: 1.8rem 0;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     }
     .header-content {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.8rem;
-      max-width: var(--max-width);
-      margin: 0 auto;
+      gap: 0.6rem;
     }
-    .logo-group {
+    .brand-block {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
+      gap: 1rem;
+      flex-wrap: nowrap;
     }
-    .logo-tics img {
-      width: 110px;
+    .logo-tics {
+      width: 100px;
       height: auto;
       filter: brightness(0) invert(1);
     }
-    .logo-elite img {
-      width: 280px;
-      height: auto;
-      filter: brightness(0) invert(1);
-    }
-    .header-title {
+    .brand-text {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
       font-family: 'Montserrat', sans-serif;
-      font-size: 2.8rem;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      letter-spacing: 0.05em;
+    }
+    .by-text {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+    .logo-elite-inline {
+      width: 180px;
+      height: auto;
+      filter: brightness(0) invert(1);
+    }
+    .page-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.3rem;
       font-weight: 800;
       color: white;
       margin: 0;
+      letter-spacing: -0.02em;
     }
-    .header-subtitle {
-      font-size: 1.2rem;
+    .page-subtitle {
+      font-size: 1.1rem;
       color: #e0e0e0;
       font-weight: 500;
+      margin: 0;
+      letter-spacing: 0.02em;
     }
 
     /* HERO */
@@ -209,9 +224,11 @@
 
     @media (max-width: 600px) {
       .container { padding: 0 1.2rem; }
-      .header-title { font-size: 2.2rem; }
-      .logo-tics img { width: 90px; }
-      .logo-elite img { width: 220px; }
+      .brand-block { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+      .logo-tics { width: 80px; }
+      .logo-elite-inline { width: 140px; }
+      .by-text { font-size: 0.75rem; }
+      .page-title { font-size: 1.9rem; }
       .hero h1 { font-size: 2rem; }
       .coming-soon { font-size: 0.85rem; }
       .btn-whatsapp { padding: 0.9rem 1.6rem; font-size: 1rem; }
@@ -220,19 +237,20 @@
 </head>
 <body>
 
-  <!-- ENCABEZADO -->
+  <!-- ENCABEZADO UNIFICADO -->
   <header class="header-wrapper">
-    <div class="header-content">
-      <div class="logo-group">
-        <div class="logo-tics">
-          <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" alt="TICS Logo">
-        </div>
-        <div class="logo-elite">
-          <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+    <div class="container header-content">
+      <div class="brand-block">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
+             alt="TICS" class="logo-tics">
+        <div class="brand-text">
+          <span class="by-text">by</span>
+          <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
+               alt="The Elite Group" class="logo-elite-inline">
         </div>
       </div>
-      <h1 class="header-title">TICS</h1>
-      <p class="header-subtitle">Technology Information Communication System</p>
+      <h1 class="page-title">TICS</h1>
+      <p class="page-subtitle">Technology Information Communication System</p>
     </div>
   </header>
 
