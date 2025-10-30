@@ -6,7 +6,7 @@
   <title>TICS</title>
   <meta name="description" content="TICS." />
   
-  <!-- === SEGURIDAD MEJORADA === -->
+  <!-- === SEGURIDAD === -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline';
@@ -23,7 +23,7 @@
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
   <meta name="referrer" content="no-referrer">
 
-  <!-- Preload crítico -->
+  <!-- Preload -->
   <link rel="preload" href="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" as="image">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@700;900&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
       --glass-border: rgba(168, 223, 252, 0.18);
       --shadow: rgba(90, 90, 180, 0.3);
       --particle: #a8dffc;
-      --cursor-size: 32px;
+      --cursor-size: 28px;
     }
 
     [data-theme="light"] {
@@ -57,8 +57,7 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { 
       height: 100%; 
-      overflow: hidden; 
-      cursor: none !important; /* OCULTAR CURSOR NATIVO */
+      overflow: hidden;
     }
     body {
       font-family: 'Inter', sans-serif;
@@ -69,7 +68,13 @@
       transition: background 0.6s ease, color 0.6s ease;
     }
 
-    /* === CURSOR PERSONALIZADO PREMIUM === */
+    /* === DETECCIÓN MÓVIL === */
+    @media (max-width: 768px) {
+      html, body { cursor: default !important; }
+      #custom-cursor { display: none !important; }
+    }
+
+    /* === CURSOR PERSONALIZADO - SOLO PC, SIN LAG === */
     #custom-cursor {
       position: fixed;
       width: var(--cursor-size);
@@ -77,11 +82,11 @@
       border: 2px solid var(--accent);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 999999;
       transform: translate(-50%, -50%);
-      transition: transform 0.08s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
       backdrop-filter: blur(2px);
       box-shadow: 0 0 15px var(--accent-glow);
+      will-change: transform;
     }
     #custom-cursor::before {
       content: '';
@@ -93,34 +98,82 @@
       transform: scale(0);
       transition: transform 0.3s ease;
     }
-    #custom-cursor.hover::before {
-      transform: scale(1);
-    }
+    #custom-cursor.hover::before { transform: scale(1); }
     #custom-cursor.hover {
       width: calc(var(--cursor-size) * 1.4);
       height: calc(var(--cursor-size) * 1.4);
-      border-color: var(--accent);
       box-shadow: 0 0 25px var(--accent-glow);
     }
 
-    /* === PORTAL CERRADO - LOGO ORIGINAL CON BRILLO === */
+    /* === TOGGLE TEMA === */
+    .theme-toggle {
+      position: fixed; 
+      top: clamp(0.8rem, 2.5vw, 1.2rem); 
+      right: clamp(0.8rem, 2.5vw, 1.2rem);
+      width: clamp(44px, 10vw, 50px); 
+      height: clamp(44px, 10vw, 50px); 
+      background: var(--glass);
+      border: 2px solid var(--glass-border); 
+      border-radius: 50%;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999999;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+    @media (max-width: 768px) {
+      .theme-toggle { width: 48px; height: 48px; top: 1rem; right: 1rem; }
+    }
+    .theme-toggle:hover { transform: scale(1.1); }
+
+    .theme-toggle .icon {
+      position: absolute; 
+      width: 60%; 
+      height: 60%;
+      fill: var(--accent); 
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .icon-moon { opacity: 1; transform: rotate(0deg); }
+    .icon-sun { opacity: 0; transform: rotate(90deg); }
+    [data-theme="light"] .icon-moon { opacity: 0; transform: rotate(-90deg); }
+    [data-theme="light"] .icon-sun { opacity: 1; transform: rotate(0deg); }
+
+    /* === PORTAL === */
     .portal {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      display: flex; justify-content: center; align-items: center;
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100vw; 
+      height: 100vh;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
       z-index: 1000;
       transition: opacity 0.8s ease;
+      pointer-events: none;
     }
+    .portal > * { pointer-events: auto; }
+
     .portal-ring {
-      position: absolute; width: 260px; height: 260px;
+      position: absolute; 
+      width: clamp(220px, 60vw, 280px); 
+      height: clamp(220px, 60vw, 280px);
       border: 2px solid var(--accent);
-      border-radius: 50%; opacity: 0.3;
+      border-radius: 50%; 
+      opacity: 0.3;
       animation: pulseRing 3s infinite ease-in-out;
       box-shadow: 0 0 40px var(--accent-glow);
     }
     .portal-ring::before {
-      content: ''; position: absolute; inset: -20px;
-      border: 1px solid var(--accent); border-radius: 50%;
-      opacity: 0.15; animation: pulseRing 3s infinite 0.5s ease-in-out;
+      content: ''; 
+      position: absolute; 
+      inset: -18px;
+      border: 1px solid var(--accent); 
+      border-radius: 50%;
+      opacity: 0.15; 
+      animation: pulseRing 3s infinite 0.5s ease-in-out;
     }
     @keyframes pulseRing {
       0%, 100% { transform: scale(1); opacity: 0.3; }
@@ -128,51 +181,35 @@
     }
 
     .portal-logo {
-      width: clamp(160px, 28vw, 220px);
+      width: clamp(140px, 38vw, 200px);
       filter: drop-shadow(0 0 50px var(--accent-glow));
       transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
       z-index: 10;
       transform-style: preserve-3d;
-      cursor: none;
+      cursor: pointer;
     }
     .portal-logo:hover {
       transform: scale(1.08) translateZ(40px);
       filter: drop-shadow(0 0 80px var(--accent-glow));
     }
 
-    /* === TOGGLE TEMA - FUNCIONA SIEMPRE === */
-    .theme-toggle {
-      position: fixed; top: 1.5rem; right: 1.5rem;
-      width: 50px; height: 50px; background: var(--glass);
-      border: 2px solid var(--glass-border); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: none;
-      z-index: 999;
-      backdrop-filter: blur(10px);
-      transition: all 0.4s ease;
-    }
-    .theme-toggle:hover { transform: scale(1.1); }
-
-    .theme-toggle .icon {
-      position: absolute; width: 22px; height: 22px;
-      fill: var(--accent); transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .icon-moon { opacity: 1; transform: rotate(0deg); }
-    .icon-sun { opacity: 0; transform: rotate(90deg); }
-    [data-theme="light"] .icon-moon { opacity: 0; transform: rotate(-90deg); }
-    [data-theme="light"] .icon-sun { opacity: 1; transform: rotate(0deg); }
-
     /* === EXPLOSIÓN === */
     .explosion {
-      position: fixed; top: 50%; left: 50%; width: 0; height: 0;
+      position: fixed; 
+      top: 50%; 
+      left: 50%; 
+      width: 0; 
+      height: 0;
       background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
-      opacity: 0; pointer-events: none;
+      opacity: 0; 
+      pointer-events: none;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       z-index: 999;
     }
     .explosion.active {
-      width: 300vw; height: 300vh;
+      width: 300vw; 
+      height: 300vh;
       opacity: 1;
       animation: explode 1.2s ease-out forwards;
     }
@@ -184,26 +221,35 @@
 
     /* === CONTENIDO === */
     .content {
-      position: absolute; top: 0; left: 0; width: 100vw; height: auto;
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100vw; 
+      height: auto;
       min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-start; align-items: center;
-      padding: clamp(2rem, 8vw, 4rem) 0;
-      text-align: center; margin: 0 auto;
-      opacity: 0; visibility: hidden; pointer-events: none;
+      display: flex; 
+      flex-direction: column; 
+      justify-content: flex-start; 
+      align-items: center;
+      padding: clamp(2.5rem, 10vw, 4.5rem) 1.5rem 3rem;
+      text-align: center; 
+      opacity: 0; 
+      visibility: hidden; 
+      pointer-events: none;
       transition: opacity 1.8s ease;
       z-index: 900;
-      overflow-y: hidden;
-    }
-    .content.revealed {
-      opacity: 1; visibility: visible; pointer-events: auto;
       overflow-y: auto;
     }
+    .content.revealed {
+      opacity: 1; 
+      visibility: visible; 
+      pointer-events: auto;
+    }
 
-    /* === LOGO EN CONTENIDO - SIN BRILLO === */
     .content-logo {
       display: none;
-      width: clamp(140px, 22vw, 180px); 
-      margin-bottom: 3rem;
+      width: clamp(120px, 30vw, 160px); 
+      margin-bottom: 2.5rem;
       filter: none;
     }
     .content.revealed .content-logo {
@@ -212,14 +258,14 @@
       animation: fadeIn 1.6s 0.8s ease-out forwards;
     }
 
-    /* === TÍTULO === */
     .title {
-      font-family: 'Space Grotesk', sans-serif; font-weight: 900;
-      font-size: clamp(3.8rem, 12vw, 6.8rem);
+      font-family: 'Space Grotesk', sans-serif; 
+      font-weight: 900;
+      font-size: clamp(2.8rem, 11vw, 5.5rem);
       letter-spacing: 0.18em;
-      line-height: 0.9;
+      line-height: 1;
       color: var(--text);
-      margin: 0 0 1.8rem 0;
+      margin: 0 0 1.5rem 0;
       position: relative;
       text-shadow: 0 0 30px var(--accent-glow);
       opacity: 0;
@@ -227,78 +273,88 @@
       text-transform: uppercase;
     }
     .title::after {
-      content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
-      background: var(--accent); transform: scaleX(0);
+      content: ''; 
+      position: absolute; 
+      bottom: -0.5rem; 
+      left: 50%; 
+      width: 60%; 
+      height: 2px;
+      background: var(--accent); 
+      transform: translateX(-50%) scaleX(0);
       animation: lineGrow 1.6s 2s ease-out forwards;
     }
 
-    /* === ACCIONES === */
     .actions {
-      display: flex; flex-direction: column; gap: clamp(2.5rem, 7vw, 3.5rem); width: 100%;
+      display: flex; 
+      flex-direction: column; 
+      gap: clamp(2rem, 8vw, 3rem); 
+      width: 100%;
+      max-width: 400px;
       opacity: 0;
       animation: fadeIn 1.6s 1.2s ease-out forwards;
       align-items: center;
     }
 
-    /* === QR === */
     .qr-magnet {
-      position: relative; max-width: 360px; margin: 0 auto;
-      padding: clamp(2rem, 6vw, 2.8rem); border-radius: 32px;
-      background: var(--glass); border: 4px solid var(--glass-border);
-      backdrop-filter: blur(20px); box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-      transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
+      position: relative; 
+      width: 100%;
+      max-width: 340px; 
+      margin: 0 auto;
+      padding: clamp(1.8rem, 5vw, 2.5rem); 
+      border-radius: 28px;
+      background: var(--glass); 
+      border: 3px solid var(--glass-border);
+      backdrop-filter: blur(18px); 
+      box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+      transition: all 0.6s ease;
       opacity: 0;
       animation: fadeIn 1.6s 1s ease-out forwards;
-      cursor: none;
+      cursor: pointer;
     }
-    [data-theme="light"] .qr-magnet { box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
+    [data-theme="light"] .qr-magnet { box-shadow: 0 25px 70px rgba(0,0,0,0.12); }
     .qr-magnet:hover {
-      transform: translateY(-15px) scale(1.05);
-      box-shadow: 0 50px 120px rgba(0,0,0,0.5);
+      transform: translateY(-10px) scale(1.03);
       border-color: var(--accent);
     }
     .qr-img {
-      width: 100%; border-radius: 20px;
-      filter: drop-shadow(0 0 8px rgba(168, 223, 252, 0.3));
-      animation: qrFloat 5s infinite ease-in-out;
+      width: 100%; 
+      border-radius: 18px;
+      filter: drop-shadow(0 0 6px rgba(168, 223, 252, 0.3));
     }
     .qr-call {
-      margin-top: 1.6rem; font-weight: 800; color: var(--accent);
-      font-size: clamp(1.1rem, 3vw, 1.3rem); letter-spacing: 0.1em;
-      text-transform: uppercase; text-align: center;
-      text-shadow: 0 0 20px var(--accent-glow);
-    }
-    @keyframes qrFloat {
-      0%, 100% { transform: translateY(0) rotate(0); }
-      50% { transform: translateY(-8px) rotate(1deg); }
+      margin-top: 1.2rem; 
+      font-weight: 800; 
+      color: var(--accent);
+      font-size: clamp(1rem, 2.8vw, 1.2rem); 
+      letter-spacing: 0.1em;
+      text-transform: uppercase; 
+      text-shadow: 0 0 18px var(--accent-glow);
     }
 
-    /* === BOTÓN === */
     .btn {
       background: var(--primary);
       color: #fff;
-      padding: clamp(1.4rem, 4vw, 1.7rem) clamp(3rem, 7vw, 4.5rem);
-      border-radius: 60px;
+      padding: clamp(1.2rem, 3.5vw, 1.5rem) clamp(2.5rem, 6vw, 4rem);
+      border-radius: 50px;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: clamp(1.15rem, 3.2vw, 1.32rem);
+      font-size: clamp(1.05rem, 3vw, 1.25rem);
       text-decoration: none;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 1.4rem;
+      gap: 1rem;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 15px 40px var(--shadow);
-      transition: all 0.5s cubic-bezier(0.23,1,0.32,1);
-      backdrop-filter: blur(12px);
-      width: auto;
-      max-width: 420px;
-      margin: 0 auto;
+      box-shadow: 0 12px 35px var(--shadow);
+      transition: all 0.5s ease;
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 360px;
       border: 2px solid transparent;
-      cursor: none;
+      cursor: pointer;
     }
     [data-theme="light"] .btn { color: #0a0a0f; }
     .btn::before {
@@ -311,53 +367,64 @@
     }
     .btn:hover::before { transform: translateX(100%); }
     .btn:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 60px var(--shadow);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px var(--shadow);
       border-color: var(--accent);
     }
     .btn-icon {
-      width: clamp(36px, 7vw, 42px);
+      width: clamp(32px, 7vw, 38px);
       height: auto;
       filter: brightness(0) invert(1);
     }
     [data-theme="light"] .btn-icon { filter: brightness(0) invert(0); }
 
-    /* === FOOTER === */
     .footer {
-      margin-top: clamp(3rem, 8vw, 5rem); width: 100%;
+      margin-top: clamp(2.5rem, 7vw, 4rem); 
+      width: 100%;
       opacity: 0;
       animation: fadeIn 1.6s 1.5s ease-out forwards;
-      text-align: center; padding-bottom: 3rem;
+      text-align: center; 
+      padding-bottom: 2rem;
     }
     .elite {
-      display: flex; align-items: center; justify-content: center; gap: 1rem;
-      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-      font-size: clamp(0.95rem, 2.5vw, 1.18rem); color: var(--accent); letter-spacing: 0.08em;
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 0.8rem;
+      font-family: 'Space Grotesk', sans-serif; 
+      font-weight: 700;
+      font-size: clamp(0.9rem, 2.3vw, 1.1rem); 
+      color: var(--accent); 
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
     .elite-logo { 
-      width: clamp(200px, 35vw, 260px); 
-      filter: brightness(0) invert(1) opacity(0.9); transition: 0.5s; 
+      width: clamp(180px, 45vw, 240px); 
+      filter: brightness(0) invert(1) opacity(0.9); 
+      transition: 0.5s; 
     }
     [data-theme="light"] .elite-logo { filter: brightness(0) invert(0) opacity(0.9); }
     .elite:hover .elite-logo { opacity: 1; }
     .tagline {
-      margin-top: clamp(2rem, 5vw, 3rem); font-size: clamp(0.75rem, 2vw, 0.88rem); 
-      color: var(--text); font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
+      margin-top: clamp(1.5rem, 4vw, 2.5rem); 
+      font-size: clamp(0.7rem, 1.8vw, 0.85rem); 
+      color: var(--text); 
+      font-weight: 600; 
+      letter-spacing: 0.25em; 
+      text-transform: uppercase;
     }
 
     @keyframes fadeIn { to { opacity: 1; } }
-    @keyframes lineGrow { to { transform: scaleX(1); } }
+    @keyframes lineGrow { to { transform: translateX(-50%) scaleX(1); } }
 
-    /* === IDIOMAS === */
     [lang="en"] .es, [lang="fr"] .es,
     [lang="es"] .en, [lang="fr"] .en,
     [lang="es"] .fr, [lang="en"] .fr { display: none; }
   </style>
 </head>
-<body data-theme="dark">
+<body>
 
-  <!-- CURSOR PERSONALIZADO -->
+  <!-- CURSOR (solo PC) -->
   <div id="custom-cursor"></div>
 
   <!-- TOGGLE TEMA -->
@@ -391,7 +458,6 @@
     </h1>
 
     <div class="actions">
-      <!-- QR PRIMERO -->
       <div class="qr-magnet">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS" class="qr-img">
@@ -402,7 +468,6 @@
         </div>
       </div>
 
-      <!-- BOTÓN DESPUÉS -->
       <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
              alt="WhatsApp" class="btn-icon">
@@ -426,42 +491,34 @@
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
 
   <script>
-    // === CURSOR PERSONALIZADO ===
+    // === DETECCIÓN DE TEMA AUTOMÁTICO ===
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.body.setAttribute('data-theme', initialTheme);
+
+    // === CURSOR SIN LAG (solo PC) ===
     const cursor = document.getElementById('custom-cursor');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
+    let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
+    if (!isMobile && cursor) {
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      });
 
-    function updateCursor() {
-      cursorX += (mouseX - cursorX) * 0.15;
-      cursorY += (mouseY - cursorY) * 0.15;
-      cursor.style.left = `${cursorX}px`;
-      cursor.style.top = `${cursorY}px`;
-      requestAnimationFrame(updateCursor);
+      const hoverables = document.querySelectorAll('.portal-logo, .theme-toggle, .btn, .qr-magnet');
+      hoverables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
     }
-    updateCursor();
 
-    // Hover en elementos interactivos
-    const hoverables = document.querySelectorAll('.portal-logo, .theme-toggle, .btn, .qr-magnet');
-    hoverables.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-
-    // === TEMA (SIEMPRE FUNCIONA) ===
+    // === TEMA ===
     const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    body.setAttribute('data-theme', currentTheme);
-
     themeToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      body.setAttribute('data-theme', newTheme);
+      const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
     });
 
@@ -487,25 +544,8 @@
         content.classList.add('revealed');
         document.body.style.overflowY = 'auto';
         contentLogo.src = portalLogo.src;
-        lockScrollToFooter();
       }, 1200);
     });
-
-    // === SCROLL LOCK ===
-    function lockScrollToFooter() {
-      const footer = document.querySelector('.footer');
-      const footerBottom = footer.offsetTop + footer.offsetHeight;
-      const viewportHeight = window.innerHeight;
-
-      function checkScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop + viewportHeight > footerBottom) {
-          window.scrollTo(0, footerBottom - viewportHeight);
-        }
-      }
-      window.addEventListener('scroll', checkScroll);
-      window.addEventListener('resize', () => setTimeout(checkScroll, 100));
-    }
 
     // === PARTÍCULAS ===
     const canvas = document.getElementById('bg-canvas');
@@ -516,11 +556,11 @@
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
       particles = [];
-      const count = Math.min(60, Math.floor(w * h / 14000));
+      const count = Math.min(50, Math.floor(w * h / 16000));
       for(let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w, y: Math.random() * h,
-          size: Math.random() * 2.5 + 1, speed: Math.random() * 0.8 + 0.4,
+          size: Math.random() * 2 + 1, speed: Math.random() * 0.6 + 0.3,
           angle: Math.random() * Math.PI * 2, depth: Math.random(),
           pulse: Math.random() * Math.PI
         });
@@ -532,17 +572,17 @@
       time += 0.01;
       particles.forEach(p => {
         const pulse = Math.sin(time + p.pulse) * 0.3 + 1;
-        p.x += Math.cos(p.angle) * p.speed * (1 + p.depth * 0.5);
-        p.y += Math.sin(p.angle + time * 0.5) * p.speed * 0.6 * (1 + p.depth * 0.5);
+        p.x += Math.cos(p.angle) * p.speed * (1 + p.depth * 0.4);
+        p.y += Math.sin(p.angle + time * 0.4) * p.speed * 0.5 * (1 + p.depth * 0.4);
         if(p.x < -100 || p.x > w + 100 || p.y < -100 || p.y > h + 100) {
           p.x = Math.random() * w; p.y = h + 50;
         }
-        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4 * pulse);
-        gradient.addColorStop(0, `rgba(168,223,252,${0.7 * (1 - p.depth)})`);
+        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3.5 * pulse);
+        gradient.addColorStop(0, `rgba(168,223,252,${0.6 * (1 - p.depth)})`);
         gradient.addColorStop(1, 'rgba(168,223,252,0)');
         ctx.fillStyle = gradient;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * 4 * pulse, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * 3.5 * pulse, 0, Math.PI * 2);
         ctx.fill();
       });
       requestAnimationFrame(draw);
