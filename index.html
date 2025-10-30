@@ -4,123 +4,176 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. El sistema que lo cambia todo." />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
+  <meta name="description" content="TICS. El nuevo estándar." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #0f5132;
-      --lime: #d4edda;
-      --dark: #121212;
-      --light: #f8f9fa;
+      --primary: #545386;
+      --accent-1: #C2DFEA;
+      --accent-2: #F4C7CE;
+      --accent-3: #d8d2c4;
+      --neutral: #383A35;
+      --bg: #0f0f1a;
+      --text: #f5f5f7;
+      --glow: rgba(84,83,134,0.45);
     }
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow:hidden; background:var(--dark); font-family:'Space Grotesk',sans-serif; }
+    html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); font-family:'Inter',sans-serif; color:var(--text); }
     
-    /* === ROOT: FULL SCREEN === */
-    #root {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      display:grid; place-items:center; color:var(--light);
+    /* === LAYOUT: PRECISO, CORPORATIVO, MODERNO === */
+    .container {
+      width:100%; height:100%; display:grid; place-items:center; padding:4rem;
+      position:relative;
     }
 
-    /* === TICS: 40vw, BOLD, CENTERED === */
-    #tics {
-      font-weight:900; font-size:40vw; line-height:0.85; letter-spacing:-0.05em;
-      background:linear-gradient(135deg, var(--lime) 0%, #ffffff 50%, var(--green) 100%);
+    /* === LOGO: 160px, PERFECTO === */
+    .logo {
+      width:160px; height:auto; margin-bottom:3rem;
+      filter:drop-shadow(0 12px 30px rgba(84,83,134,0.25));
+    }
+
+    /* === TICS: 14rem, Inter 900, ESPACIADO PERFECTO === */
+    .title {
+      font-weight:900; font-size:14rem; line-height:0.92; letter-spacing:-0.06em;
+      background:linear-gradient(135deg, #ffffff 0%, #e8e8ed 45%, #c0c0d8 100%);
       -webkit-background-clip:text; background-clip:text;
       -webkit-text-fill-color:transparent;
-      user-select:none;
+      margin:0 0 2.5rem;
     }
 
-    /* === HINT: MICRO, BOTTOM === */
-    #hint {
-      position:absolute; bottom:6vh; left:50%; transform:translateX(-50%);
-      font-weight:700; font-size:1.1rem; letter-spacing:0.3em; color:rgba(255,255,255,0.5);
+    /* === PISTA: INTRIGA PURA, 1.4rem, 300 === */
+    .hint {
+      font-weight:300; font-size:1.4rem; max-width:720px; text-align:center;
+      letter-spacing:0.02em; line-height:1.7; opacity:0.88;
+      margin-bottom:4rem;
     }
 
-    /* === ACCESO: DUAL ICONS, BOTTOM === */
-    #access {
-      position:absolute; bottom:12vh; left:50%; transform:translateX(-50%);
-      display:flex; gap:4vw;
+    /* === ACCIONES: BOTÓN + QR, ALINEADOS === */
+    .actions {
+      display:flex; gap:3rem; align-items:center;
     }
-    .icon {
-      width:12vw; max-width:90px; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.4));
-      transition:transform 0.3s ease;
+    .btn {
+      background:var(--primary); color:#fff; padding:1.4rem 3.2rem;
+      border-radius:16px; font-weight:700; font-size:1.2rem;
+      text-decoration:none; display:inline-flex; align-items:center; gap:1rem;
+      box-shadow:0 16px 40px rgba(84,83,134,0.35);
+      transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
     }
-    .icon:hover { transform:scale(1.12) translateY(-6px); }
+    .btn:hover { transform:translateY(-6px); box-shadow:0 24px 50px rgba(84,83,134,0.45); }
+    .btn-icon { width:32px; height:32px; filter:brightness(0) invert(1); }
 
-    /* === ELITE: TINY, CORNER === */
-    #elite {
-      position:absolute; bottom:2vh; right:2vw;
-      font-weight:700; font-size:0.9rem; letter-spacing:0.2em; color:rgba(255,255,255,0.3);
+    .qr {
+      background:#fff; padding:2.2rem; border-radius:20px;
+      box-shadow:0 20px 45px rgba(0,0,0,0.18); border:4px solid var(--primary);
     }
-    #elite img { height:1.8rem; vertical-align:middle; margin-left:0.6rem; filter:invert(1) opacity(0.5); }
+    .qr img { width:100%; border-radius:12px; }
+    .qr p { margin-top:1.2rem; font-weight:600; color:#222; font-size:1.1rem; text-align:center; }
 
-    /* === BG: SUBTLE GRID + GROWTH === */
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.08; }
+    /* === FOOTER: CORPORATIVO, DISCRETO === */
+    .footer {
+      position:absolute; bottom:3rem; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:1rem;
+    }
+    .brand {
+      display:flex; align-items:center; gap:1rem; font-weight:500; font-size:1rem; color:rgba(255,255,255,0.65); letter-spacing:0.06em;
+    }
+    .brand img { height:40px; filter:brightness(0) invert(1) opacity(0.75); }
+    .tagline {
+      font-weight:300; font-size:0.95rem; letter-spacing:0.28em; color:rgba(255,255,255,0.5);
+    }
+
+    /* === BG: SUBTLE GROWTH GRID === */
+    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.12; }
+
+    /* === RESPONSIVE: PERFECTO === */
+    @media (max-width:1024px) {
+      .title { font-size:10rem; }
+      .hint { font-size:1.25rem; }
+      .actions { gap:2rem; }
+      .btn { padding:1.2rem 2.8rem; font-size:1.1rem; }
+      .logo { width:140px; }
+    }
+    @media (max-width:768px) {
+      .title { font-size:7.5rem; letter-spacing:-0.05em; }
+      .hint { font-size:1.15rem; }
+      .actions { flex-direction:column; }
+      .btn { padding:1.1rem 2.4rem; }
+      .logo { width:120px; margin-bottom:2rem; }
+      .footer { bottom:2rem; }
+    }
   </style>
 </head>
 <body>
 
   <canvas id="bg"></canvas>
 
-  <div id="root">
-    <div id="tics">TICS</div>
-  </div>
+  <div class="container">
+    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" alt="TICS" class="logo">
 
-  <div id="hint">EN DESARROLLO</div>
+    <h1 class="title">TICS</h1>
 
-  <div id="access">
-    <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" target="_blank">
-      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" class="icon" alt="WhatsApp">
-    </a>
-    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" class="icon" alt="QR">
-  </div>
+    <p class="hint">
+      Un sistema que no explica. <br>
+      Demuestra.
+    </p>
 
-  <div id="elite">
-    by <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+    <div class="actions">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp" class="btn-icon">
+        <span>Acceso Exclusivo</span>
+      </a>
+
+      <div class="qr">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR TICS">
+        <p>Escanea</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="brand">
+        <span>by</span>
+        <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+      </div>
+      <p class="tagline">Technology Information Communication System</p>
+    </div>
   </div>
 
   <script>
-    // === BG: GRID + GROWTH PULSE ===
+    // === BG: GRID + GROWTH NODES ===
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
-    let w, h, t = 0;
+    let w, h, nodes = [], t = 0;
 
     function init() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
+      nodes = [];
+      const cols = Math.floor(w / 80) + 1;
+      const rows = Math.floor(h / 80) + 1;
+      for(let y = 0; y < rows; y++) {
+        for(let x = 0; x < cols; x++) {
+          if(Math.random() > 0.7) {
+            nodes.push({
+              x: x * 80 + 40,
+              y: y * 80 + 40,
+              pulse: Math.random() * Math.PI * 2
+            });
+          }
+        }
+      }
     }
 
     function draw() {
       ctx.clearRect(0, 0, w, h);
-      t += 0.008;
+      t += 0.02;
 
-      // Grid
-      const step = 60;
-      ctx.strokeStyle = 'rgba(212,237,218,0.12)';
-      ctx.lineWidth = 1;
-      for(let x = 0; x < w; x += step) {
+      nodes.forEach(n => {
+        const size = 2 + 2 * Math.sin(t + n.pulse);
         ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-        ctx.stroke();
-      }
-      for(let y = 0; y < h; y += step) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-        ctx.stroke();
-      }
-
-      // Growth pulse
-      const cx = w * 0.5, cy = h * 0.5;
-      const pulse = 0.5 + 0.5 * Math.sin(t * 3);
-      const r = pulse * 300;
-      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      grad.addColorStop(0, 'rgba(212,237,218,0.08)');
-      grad.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, w, h);
+        ctx.arc(n.x, n.y, size, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(194,223,234,0.4)';
+        ctx.fill();
+      });
 
       requestAnimationFrame(draw);
     }
