@@ -4,162 +4,207 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS." />
+  <meta name="description" content="TICS. El nuevo estándar en comunicaciones para horticultura." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
   <style>
-    /* === RESET ABSOLUTO === */
+    :root {
+      --primary: #1a5f3d;
+      --secondary: #4a8c6b;
+      --accent: #7fb69d;
+      --light: #f8f9f5;
+      --dark: #0f2e1f;
+      --gray: #e0e5e0;
+    }
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow:hidden; background:#000; font-family:sans-serif; }
+    html, body { width:100%; height:100%; overflow:hidden; background:var(--light); font-family:'Inter',sans-serif; }
     
-    /* === VOID CANVAS === */
-    #void { position:fixed; top:0; left:0; width:100%; height:100%; }
-
-    /* === TICS: EL ORIGEN === */
-    #tics {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font: 900 28vw/1 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      letter-spacing: -0.02em;
-      color: #fff;
-      text-align: center;
-      pointer-events: none;
-      mix-blend-mode: difference;
-      opacity: 0;
-      transition: opacity 0s;
+    /* === HERO: INVERNADERO DIGITAL === */
+    #hero {
+      position:fixed; top:0; left:0; width:100%; height:100%; 
+      background: linear-gradient(135deg, rgba(26,95,61,0.92) 0%, rgba(15,46,31,0.98) 100%);
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      text-align:center; padding:2rem; color:var(--light);
     }
 
-    /* === ACCESO: WHATSAPP + QR === */
-    #access {
-      position: absolute;
-      bottom: 8vh;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 6vw;
-      opacity: 0;
+    /* === LOGO TICS: PROFESIONAL, MODERNO === */
+    .logo-tics {
+      width:180px; height:auto; margin-bottom:2.5rem;
+      filter: drop-shadow(0 8px 25px rgba(0,0,0,0.3));
     }
-    .access-item {
-      width: 14vw;
-      max-width: 120px;
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .access-item:hover {
-      transform: scale(1.15) translateY(-8px);
-    }
-    .access-item img { width:100%; border-radius:50%; box-shadow:0 0 40px rgba(255,255,255,0.15); }
 
-    /* === ELITE: BY === */
-    #elite {
-      position: absolute;
-      bottom: 2vh;
-      left: 50%;
-      transform: translateX(-50%);
-      font: 500 2.8vw/1 'Helvetica Neue', sans-serif;
-      letter-spacing: 0.3em;
-      color: rgba(255,255,255,0.4);
-      white-space: nowrap;
-      opacity: 0;
+    /* === TÍTULO: CORPORATIVO, IMPACTANTE === */
+    .title {
+      font-weight:900; font-size:6.5rem; letter-spacing:-0.04em;
+      margin:0 0 1.2rem; line-height:1;
+      background: linear-gradient(135deg, #ffffff 0%, #d0e8dc 100%);
+      -webkit-background-clip:text; background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
-    #elite img { height: 3.2vw; vertical-align: middle; margin-left: 1.2vw; filter: brightness(0) invert(1) opacity(0.6); }
 
-    /* === TAGLINE: MICRO === */
-    #tagline {
-      position: absolute;
-      top: 2vh;
-      right: 2vw;
-      font: 300 1.8vw/1 'Helvetica Neue', sans-serif;
-      letter-spacing: 0.4em;
-      color: rgba(255,255,255,0.25);
-      opacity: 0;
+    /* === SUBTÍTULO: PISTA SIN SPOILER === */
+    .subtitle {
+      font-weight:300; font-size:1.35rem; max-width:720px; margin:0 auto 3.5rem;
+      letter-spacing:0.02em; opacity:0.95; line-height:1.6;
+    }
+
+    /* === ACCIONES: DIRECTAS, PROFESIONALES === */
+    .actions {
+      display:flex; gap:2.5rem; margin-bottom:4rem;
+    }
+    .btn {
+      background:var(--light); color:var(--dark); padding:1.2rem 2.8rem;
+      border-radius:12px; font-weight:700; font-size:1.1rem;
+      text-decoration:none; display:inline-flex; align-items:center; gap:0.8rem;
+      box-shadow:0 12px 30px rgba(0,0,0,0.15);
+      transition:all 0.4s ease;
+    }
+    .btn:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.2); }
+    .btn-icon { width:28px; height:28px; }
+
+    .qr-box {
+      background:var(--light); padding:2rem; border-radius:16px;
+      box-shadow:0 15px 35px rgba(0,0,0,0.12); border:3px solid var(--accent);
+    }
+    .qr-box img { width:100%; border-radius:8px; }
+    .qr-box p { margin-top:1rem; font-weight:600; color:var(--dark); font-size:1rem; }
+
+    /* === MARCA: CORPORATIVA, SUTIL === */
+    .brand {
+      display:flex; align-items:center; gap:1rem; font-weight:500; font-size:1rem;
+      color:rgba(255,255,255,0.7); letter-spacing:0.06em;
+    }
+    .brand img { height:36px; filter:brightness(0) invert(1) opacity(0.8); }
+
+    /* === TAGLINE: MICRO, ELEGANTE === */
+    .tagline {
+      position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+      font-weight:300; font-size:0.9rem; letter-spacing:0.25em; color:rgba(255,255,255,0.5);
+    }
+
+    /* === FONDO: INVERNADERO ABSTRACTO === */
+    #bg-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.35; }
+
+    /* === RESPONSIVE === */
+    @media (max-width:768px) {
+      .title { font-size:4rem; }
+      .subtitle { font-size:1.15rem; }
+      .actions { flex-direction:column; align-items:center; }
+      .btn { padding:1rem 2.2rem; font-size:1rem; }
+      .logo-tics { width:140px; }
     }
   </style>
 </head>
 <body>
 
-  <canvas id="void"></canvas>
+  <!-- CANVAS: INVERNADERO DIGITAL -->
+  <canvas id="bg-canvas"></canvas>
 
-  <div id="tics">TICS</div>
+  <section id="hero">
+    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
+         alt="TICS" class="logo-tics">
 
-  <div id="access">
-    <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" target="_blank" class="access-item">
-      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp">
-    </a>
-    <div class="access-item">
-      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR">
+    <h1 class="title">TICS</h1>
+    <p class="subtitle">
+      El estándar que conecta cada hoja, cada dato, cada decisión. <br>
+      En tiempo real. Sin intermediarios.
+    </p>
+
+    <div class="actions">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
+             alt="WhatsApp" class="btn-icon">
+        <span>Únete al Canal</span>
+      </a>
+
+      <div class="qr-box">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
+             alt="QR TICS">
+        <p>Escanea para acceso inmediato</p>
+      </div>
     </div>
+
+    <div class="brand">
+      <span>by</span>
+      <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
+           alt="The Elite Group">
     </div>
 
-  <div id="elite">
-    by <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
-  </div>
-
-  <div id="tagline">Technology Information Communication System</div>
+    <p class="tagline">Technology Information Communication System</p>
+  </section>
 
   <script>
-    // === VOID: EL UNIVERSO PRIMIGENIO ===
-    const canvas = document.getElementById('void');
+    // === CANVAS: INVERNADERO ABSTRACTO (LÍNEAS + HOJAS) ===
+    const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
-    let w, h, stars = [], time = 0;
+    let w, h, lines = [], leaves = [];
 
     function init() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      stars = [];
-      for(let i = 0; i < 800; i++) {
-        stars.push({
+      lines = []; leaves = [];
+
+      // Estructura de invernadero (líneas)
+      for(let i = 0; i < 12; i++) {
+        lines.push({
+          x1: w * 0.1 + Math.random() * w * 0.8,
+          y1: h * 0.1,
+          x2: w * 0.1 + Math.random() * w * 0.8,
+          y2: h * 0.9,
+          opacity: 0.08 + Math.random() * 0.06
+        });
+      }
+
+      // Hojas flotantes
+      for(let i = 0; i < 25; i++) {
+        leaves.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          r: Math.random() * 1.2,
-          blink: Math.random() * Math.PI * 2,
-          speed: Math.random() * 0.3 + 0.1
+          size: 8 + Math.random() * 12,
+          speed: 0.3 + Math.random() * 0.6,
+          angle: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.02
         });
       }
     }
 
-    function animate() {
-      ctx.fillStyle = 'rgba(0,0,0,0.08)';
-      ctx.fillRect(0, 0, w, h);
-      time += 0.016;
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
 
-      stars.forEach(s => {
-        const pulse = 0.5 + 0.5 * Math.sin(time * s.speed + s.blink);
+      // Líneas de invernadero
+      lines.forEach(l => {
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r * pulse, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(255,255,255,${pulse * 0.8})`;
-        ctx.fill();
-
-        s.x += (Math.random() - 0.5) * 0.1;
-        s.y += (Math.random() - 0.5) * 0.1;
-        if(s.x < 0 || s.x > w) s.x = Math.random() * w;
-        if(s.y < 0 || s.y > h) s.y = Math.random() * h;
+        ctx.moveTo(l.x1, l.y1);
+        ctx.lineTo(l.x2, l.y2);
+        ctx.strokeStyle = `rgba(122,182,157,${l.opacity})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
       });
 
-      requestAnimationFrame(animate);
+      // Hojas
+      leaves.forEach(leaf => {
+        ctx.save();
+        ctx.translate(leaf.x, leaf.y);
+        ctx.rotate(leaf.angle);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, leaf.size, leaf.size * 0.4, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(127,182,157,0.18)';
+        ctx.fill();
+        ctx.restore();
+
+        leaf.y -= leaf.speed;
+        leaf.angle += leaf.spin;
+        if(leaf.y < -leaf.size) {
+          leaf.y = h + leaf.size;
+          leaf.x = Math.random() * w;
+        }
+      });
+
+      requestAnimationFrame(draw);
     }
 
-    // === REVELACIÓN: 0.8s ===
-    window.addEventListener('load', () => {
-      init();
-      animate();
-
-      setTimeout(() => {
-        document.getElementById('tics').style.opacity = '1';
-      }, 800);
-
-      setTimeout(() => {
-        document.getElementById('access').style.opacity = '1';
-      }, 1400);
-
-      setTimeout(() => {
-        document.getElementById('elite').style.opacity = '1';
-      }, 1800);
-
-      setTimeout(() => {
-        document.getElementById('tagline').style.opacity = '1';
-      }, 2200);
-    });
-
     window.addEventListener('resize', init);
+    init();
+    draw();
   </script>
 </body>
 </html>
