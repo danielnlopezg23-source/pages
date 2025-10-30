@@ -4,104 +4,114 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. El sistema que redefine la comunicación en horticultura." />
+  <meta name="description" content="TICS. El nuevo estándar en comunicaciones TI." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
-      --accent: #C2DFEA;
-      --bg: #0a0a14;
-      --text: #f0f0f5;
-      --subtle: rgba(255,255,255,0.65);
-      --card-bg: rgba(84,83,134,0.08);
-      --border: rgba(84,83,134,0.18);
+      --accent-1: #C2DFEA;
+      --accent-2: #F4C7CE;
+      --accent-3: #d8d2c4;
+      --neutral: #383A35;
+      --bg: #0f0f1a;
+      --text: #f5f5f7;
+      --glow: rgba(84,83,134,0.3);
+      --card-bg: rgba(255,255,255,0.02);
+      --border: rgba(84,83,134,0.1);
     }
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html, body { width:100%; height:100%; overflow:auto; background:var(--bg); font-family:'Inter',sans-serif; color:var(--text); scroll-behavior:smooth; }
     
-    /* === COMPACT CARD: 480px ALTO, CENTRADO === */
+    /* === COMPACT LAYOUT: 600px ALTO, CENTRADO === */
+    .layout {
+      min-height:100vh; display:flex; align-items:center; justify-content:center; padding:2rem;
+    }
     .card {
-      width:100%; max-width:420px; min-height:480px;
-      margin:8vh auto; padding:2.8rem 2.2rem;
-      background:var(--card-bg); backdrop-filter:blur(16px);
-      border:1px solid var(--border); border-radius:28px;
-      display:flex; flex-direction:column; align-items:center;
-      box-shadow:0 25px 70px rgba(0,0,0,0.22);
+      width:100%; max-width:380px; min-height:600px;
+      background:var(--card-bg); backdrop-filter:blur(20px);
+      border:1px solid var(--border); border-radius:32px;
+      display:flex; flex-direction:column; align-items:center; padding:3.2rem 2.4rem;
+      box-shadow:0 32px 80px rgba(0,0,0,0.25);
       position:relative; overflow:hidden;
     }
     .card::before {
-      content:''; position:absolute; top:0; left:0; width:100%; height:100%;
-      background:radial-gradient(circle at 30% 20%, rgba(194,223,234,0.12) 0%, transparent 60%);
-      pointer-events:none;
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg, transparent, var(--accent-1), transparent);
+      opacity:0.6;
     }
 
-    /* === LOGO: 96px, PERFECTO === */
+    /* === LOGO: 120px, ELEGANTE === */
     .logo {
-      width:96px; height:auto; margin-bottom:1.8rem;
-      filter:drop-shadow(0 6px 18px rgba(84,83,134,0.22));
+      width:120px; height:auto; margin-bottom:2.5rem;
+      filter:drop-shadow(0 8px 24px var(--glow));
+      transition:transform 0.4s ease;
     }
+    .logo:hover { transform:scale(1.05); }
 
-    /* === TICS: 4.8rem, Inter 900, ESPACIADO === */
+    /* === TICS: 5.5rem, Inter 900, PRECISIÓN === */
     .title {
-      font-weight:900; font-size:4.8rem; line-height:0.94; letter-spacing:-0.04em;
-      background:linear-gradient(135deg, #ffffff 0%, #e0e0e8 50%, #a8a8c0 100%);
+      font-weight:900; font-size:5.5rem; line-height:0.95; letter-spacing:-0.05em;
+      background:linear-gradient(135deg, #ffffff 0%, #d0d0e0 50%, var(--primary) 100%);
       -webkit-background-clip:text; background-clip:text;
       -webkit-text-fill-color:transparent;
-      margin:0 0 1.2rem;
+      margin:0 0 1.8rem; text-align:center;
     }
 
-    /* === PISTA: INTRIGA, 1rem, 400 === */
+    /* === PISTA: INTRIGA, 1.1rem, 300 === */
     .hint {
-      font-weight:400; font-size:1rem; text-align:center; line-height:1.6;
-      max-width:320px; margin:0 auto 2.2rem; color:var(--subtle);
+      font-weight:300; font-size:1.1rem; text-align:center; line-height:1.65;
+      max-width:340px; margin:0 auto 2.8rem; color:var(--subtle); letter-spacing:0.01em;
     }
 
-    /* === ACCIONES: BOTÓN + QR, COMPACTOS === */
+    /* === ACCIONES: BOTÓN + QR, BALANCEADOS === */
     .actions {
-      display:flex; gap:1.8rem; align-items:center; width:100%; justify-content:center;
-      margin-bottom:2rem;
+      display:flex; gap:2.2rem; align-items:center; width:100%; justify-content:center;
+      margin-bottom:2.5rem;
     }
     .btn {
-      background:var(--primary); color:#fff; padding:0.9rem 2rem;
-      border-radius:12px; font-weight:600; font-size:0.95rem;
-      text-decoration:none; display:inline-flex; align-items:center; gap:0.7rem;
-      box-shadow:0 10px 25px rgba(84,83,134,0.3);
-      transition:all 0.35s ease;
+      background:var(--primary); color:#fff; padding:1rem 2.4rem;
+      border-radius:16px; font-weight:600; font-size:1rem;
+      text-decoration:none; display:inline-flex; align-items:center; gap:0.8rem;
+      box-shadow:0 12px 32px rgba(84,83,134,0.35);
+      transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
     }
-    .btn:hover { transform:translateY(-3px); box-shadow:0 16px 35px rgba(84,83,134,0.4); }
-    .btn-icon { width:22px; height:22px; filter:brightness(0) invert(1); }
+    .btn:hover { transform:translateY(-4px); box-shadow:0 20px 45px rgba(84,83,134,0.45); }
+    .btn-icon { width:24px; height:24px; filter:brightness(0) invert(1); }
 
     .qr {
-      background:#fff; padding:1.2rem; border-radius:14px;
-      box-shadow:0 12px 28px rgba(0,0,0,0.15); border:3px solid var(--primary);
+      background:#fff; padding:1.4rem; border-radius:16px;
+      box-shadow:0 16px 40px rgba(0,0,0,0.2); border:3px solid var(--primary);
+      transition:transform 0.4s ease;
     }
-    .qr img { width:78px; height:78px; border-radius:8px; }
-    .qr p { margin-top:0.7rem; font-weight:600; color:#222; font-size:0.82rem; text-align:center; }
+    .qr:hover { transform:translateY(-4px); }
+    .qr img { width:88px; height:88px; border-radius:10px; }
+    .qr p { margin-top:0.8rem; font-weight:600; color:#222; font-size:0.9rem; text-align:center; }
 
-    /* === FOOTER: ULTRA COMPACTO === */
+    /* === FOOTER: LIMPIO, COMPACTO === */
     .footer {
-      display:flex; flex-direction:column; align-items:center; gap:0.6rem; width:100%;
+      display:flex; flex-direction:column; align-items:center; gap:0.8rem; width:100%;
+      margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border);
     }
     .brand {
-      display:flex; align-items:center; gap:0.7rem; font-weight:500; font-size:0.82rem; color:var(--subtle); letter-spacing:0.04em;
+      display:flex; align-items:center; gap:0.8rem; font-weight:500; font-size:0.9rem; color:var(--subtle); letter-spacing:0.05em;
     }
-    .brand img { height:26px; filter:brightness(0) invert(1) opacity(0.7); }
+    .brand img { height:28px; filter:brightness(0) invert(1) opacity(0.8); }
     .tagline {
-      font-weight:300; font-size:0.72rem; letter-spacing:0.22em; color:var(--subtle);
+      font-weight:300; font-size:0.75rem; letter-spacing:0.25em; color:var(--subtle);
     }
 
-    /* === BG: MINIMAL GROWTH NODES === */
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.08; }
+    /* === BG: NODOS SUBTILES (6-8) === */
+    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.1; }
 
-    /* === RESPONSIVE: IMPECABLE === */
-    @media (max-width:480px) {
-      .card { margin:6vh auto; padding:2.2rem 1.8rem; min-height:440px; }
-      .title { font-size:4.2rem; }
-      .hint { font-size:0.95rem; }
-      .actions { gap:1.4rem; }
-      .btn { padding:0.8rem 1.7rem; font-size:0.9rem; }
-      .qr img { width:68px; height:68px; }
-      .logo { width:82px; }
+    /* === RESPONSIVE: ULTRA PRECISO === */
+    @media (max-width:768px) {
+      .card { max-width:340px; padding:2.8rem 2rem; min-height:520px; }
+      .title { font-size:4.5rem; }
+      .hint { font-size:1rem; }
+      .actions { gap:1.6rem; flex-direction:column; }
+      .btn { padding:0.9rem 2rem; }
+      .qr img { width:76px; height:76px; }
+      .logo { width:100px; }
     }
   </style>
 </head>
@@ -109,39 +119,41 @@
 
   <canvas id="bg"></canvas>
 
-  <div class="card">
-    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" alt="TICS" class="logo">
+  <div class="layout">
+    <div class="card">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" alt="TICS" class="logo">
 
-    <h1 class="title">TICS</h1>
+      <h1 class="title">TICS</h1>
 
-    <p class="hint">
-      Un sistema que no habla. <br>
-      Conecta.
-    </p>
+      <p class="hint">
+        El hilo invisible que une <br>
+        datos, decisiones y crecimiento.
+      </p>
 
-    <div class="actions">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp" class="btn-icon">
-        <span>Entrar</span>
-      </a>
+      <div class="actions">
+        <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
+          <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp" class="btn-icon">
+          <span>Conectar</span>
+        </a>
 
-      <div class="qr">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR TICS">
-        <p>Escanea</p>
+        <div class="qr">
+          <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR TICS">
+          <p>Acceso</p>
+        </div>
       </div>
-    </div>
 
-    <div class="footer">
-      <div class="brand">
-        <span>by</span>
-        <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+      <div class="footer">
+        <div class="brand">
+          <span>by</span>
+          <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+        </div>
+        <p class="tagline">Technology Information Communication System</p>
       </div>
-      <p class="tagline">Technology Information Communication System</p>
     </div>
   </div>
 
   <script>
-    // === BG: MINIMAL NODES (8-12) ===
+    // === BG: 8 NODOS PULSANTES, MINIMAL ===
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
     let w, h, nodes = [], t = 0;
@@ -150,7 +162,7 @@
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
       nodes = [];
-      for(let i = 0; i < 10; i++) {
+      for(let i = 0; i < 8; i++) {
         nodes.push({
           x: Math.random() * w,
           y: Math.random() * h,
@@ -161,13 +173,13 @@
 
     function draw() {
       ctx.clearRect(0, 0, w, h);
-      t += 0.018;
+      t += 0.015;
 
       nodes.forEach(n => {
-        const size = 1.5 + 1.5 * Math.sin(t + n.pulse);
+        const size = 1.2 + 1.2 * Math.sin(t + n.pulse);
         ctx.beginPath();
         ctx.arc(n.x, n.y, size, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(194,223,234,0.35)';
+        ctx.fillStyle = 'rgba(194,223,234,0.3)';
         ctx.fill();
       });
 
