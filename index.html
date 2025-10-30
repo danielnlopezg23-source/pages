@@ -22,7 +22,7 @@
       overflow: hidden;
     }
 
-    /* FONDO CON PARTÍCULAS AZULES (SHAREPOINT SAFE) */
+    /* FONDO CON PARTÍCULAS AZULES */
     .bg-animation {
       position: fixed;
       top: 0; left: 0;
@@ -68,7 +68,7 @@
     }
     @keyframes pulse-glow {
       0%, 100% { filter: drop-shadow(0 0 25px rgba(84, 83, 134, 0.5)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 45px rgba(84, 83, 134, 0.8)); transform: scale(1.05); }
+      50% { filter: drop-shadow(0 0 45px rgba(84, 83, 134, 0.8)); transform:  scale(1.05); }
     }
     .brand-text {
       display: flex;
@@ -193,93 +193,11 @@
     [lang="es"] .en, [lang="fr"] .en,
     [lang="es"] .fr, [lang="en"] .fr { display: none; }
 
-    /* ANIMACIÓN REVELADO */
     @keyframes reveal {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       .title { font-size: 3rem; }
-      .subtitle { font-size: 1.15rem; }
-      .logo-tics { width: 120px; }
-      .logo-elite { width: 180px; }
-      .btn-whatsapp { padding: 1.1rem 2.5rem; font-size: 1.1rem; }
-      .qr-box { max-width: 240px; padding: 1.4rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- FONDO ANIMADO -->
-  <div class="bg-animation" id="bgAnimation"></div>
-
-  <div class="container">
-
-    <!-- MARCA -->
-    <div class="brand">
-      <img src="TICS_LOGO.png" alt="TICS" class="logo-tics">
-      <div class="brand-text">
-        <span class="by-text">by</span>
-        <img src="The_Elite_Group.png" alt="The Elite Group" class="logo-elite">
-      </div>
-    </div>
-
-    <!-- TÍTULOS MULTI-IDIOMA -->
-    <h1 class="title">
-      <span class="es">PRÓXIMAMENTE</span>
-      <span class="en">COMING SOON</span>
-      <span class="fr">BIENTÔT DISPONIBLE</span>
-    </h1>
-    <p class="subtitle">
-      <span class="es">Un nuevo estándar en comunicaciones TI</span>
-      <span class="en">A new standard in IT communications</span>
-      <span class="fr">Un nouveau standard en communication TI</span>
-    </p>
-
-    <!-- ACCIONES -->
-    <div class="action-area">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
-        <img src="whatsapp.png" alt="WhatsApp" class="whatsapp-icon">
-        <span class="es">Seguir en WhatsApp</span>
-        <span class="en">Follow on WhatsApp</span>
-        <span class="fr">Suivre sur WhatsApp</span>
-      </a>
-
-      <div class="qr-box">
-        <img src="QR_TICS.png" alt="QR TICS">
-        <p>
-          <span class="es">Escanea para unirte</span>
-          <span class="en">Scan to join</span>
-          <span class="fr">Scannez pour rejoindre</span>
-        </p>
-      </div>
-    </div>
-
-    <p class="coming-soon">TICS • Technology Information Communication System</p>
-  </div>
-
-  <!-- PARTÍCULAS JS (SHAREPOINT SAFE) -->
-  <script>
-    const bg = document.getElementById('bgAnimation');
-    const particles = 50;
-    for (let i = 0; i < particles; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.width = p.style.height = Math.random() * 4 + 1 + 'px';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDelay = Math.random() * 18 + 's';
-      p.style.animationDuration = (Math.random() * 12 + 12) + 's';
-      bg.appendChild(p);
-    }
-
-    // DETECCIÓN DE IDIOMA
-    const userLang = (navigator.language || navigator.userLanguage).slice(0, 2);
-    const html = document.documentElement;
-    if (userLang === 'en') html.lang = 'en';
-    else if (userLang === 'fr') html.lang = 'fr';
-    else html.lang = 'es';
-  </script>
-</body>
-</html>
+      .subtitle { font-size: 1.
