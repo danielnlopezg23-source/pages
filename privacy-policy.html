@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Política de Privacidad | The Elite Group</title>
-  <meta name="description" content="Política de Privacidad para comunicaciones internas de TI vía WhatsApp Business API." />
+  <title>Política de Privacidad | TICS - The Elite Group</title>
+  <meta name="description" content="Política de privacidad para el canal TICS (Technology Information Communication System) de WhatsApp." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -28,17 +28,27 @@
       margin: 0 auto;
       padding: 0 2rem;
     }
+
+    /* ENCABEZADO CON COLOR CORPORATIVO */
     .header-wrapper {
-      background: white;
+      background: var(--primary);
+      color: white;
       padding: 2.5rem 0;
-      border-top: 4px solid var(--primary);
-      border-bottom: 4px solid var(--primary);
-      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: var(--max-width);
+      height: 6px;
+      background: linear-gradient(90deg, var(--secondary-1), var(--secondary-2), var(--secondary-3));
     }
     .header-content {
       max-width: var(--max-width);
       margin: 0 auto;
-      text-align: center;
     }
     .logo img {
       display: block;
@@ -46,20 +56,22 @@
       width: 100%;
       height: auto;
       margin: 0 auto 1.5rem;
+      filter: brightness(0) invert(1); /* Logo en blanco */
     }
     .header-title {
       font-family: 'Montserrat', sans-serif;
       font-size: 2.5rem;
       font-weight: 800;
-      color: var(--primary);
+      color: white;
       margin: 0.5rem 0;
     }
     .header-subtitle {
       font-size: 1.1rem;
-      color: #4A4A4A;
+      color: #e0e0e0;
       font-weight: 500;
       letter-spacing: 0.02em;
     }
+
     .section {
       background: white;
       padding: 2.5rem;
@@ -130,65 +142,59 @@
 </head>
 <body>
 
-  <div class="header-wrapper">
+  <header class="header-wrapper">
     <div class="header-content">
       <div class="logo">
         <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
       </div>
       <h1 class="header-title">Política de Privacidad</h1>
-      <p class="header-subtitle">Comunicaciones Operativas de TI</p>
+      <p class="header-subtitle">TICS - Canal de Notificaciones de TI</p>
     </div>
-  </div>
+  </header>
 
   <div class="container">
     <div class="section">
-      <p class="badge">Última actualización: 29 de octubre de 2025</p>
-      <p><strong>The Elite Group</strong> utiliza WhatsApp Business API exclusivamente para comunicaciones internas y operativas del departamento de TI:</p>
-      <ul>
-        <li>Notificaciones de incidentes críticos</li>
-        <li>Avisos de ventanas de mantenimiento</li>
-        <li>Actualizaciones de estado de servicios</li>
-        <li>Soporte técnico y helpdesk</li>
-      </ul>
+      <p class="badge">Última actualización: 30 de octubre de 2025</p>
+      <p><strong>TICS (Technology Information Communication System)</strong> es un sistema de notificaciones unidireccionales de The Elite Group que publica información operativa de TI en un <strong>canal de WhatsApp</strong>.</p>
       <div class="highlight">
-        <strong>No se realizan actividades comerciales ni publicitarias.</strong>
+        <strong>Este es un canal de solo lectura. No se envían ni reciben mensajes privados.</strong>
       </div>
     </div>
 
     <div class="section">
       <h2>1. Datos Recopilados</h2>
-      <p>Procesamos únicamente la información esencial:</p>
+      <p><strong>No se recopilan datos personales.</strong></p>
       <ul>
-        <li>Número de teléfono corporativo</li>
-        <li>Nombre y cargo (desde Active Directory)</li>
+        <li>El canal es público y de suscripción voluntaria</li>
+        <li>No se almacena información de suscriptores</li>
+        <li>No se envían mensajes directos</li>
       </ul>
-      <p><strong>No almacenamos mensajes ni conversaciones.</strong></p>
     </div>
 
     <div class="section">
       <h2>2. Finalidad</h2>
-      <p>Los datos se usan para:</p>
+      <p>Publicar notificaciones operativas de TI:</p>
       <ul>
-        <li>Alertas críticas de infraestructura</li>
-        <li>Coordinación de respuestas a incidentes</li>
-        <li>Información de mantenimientos programados</li>
-        <li>Soporte técnico proactivo</li>
+        <li>Alertas de incidentes críticos</li>
+        <li>Avisos de mantenimientos programados</li>
+        <li>Actualizaciones de estado de servicios</li>
+        <li>Comunicados oficiales del departamento de TI</li>
       </ul>
     </div>
 
     <div class="section">
       <h2>3. Contacto</h2>
-      <p>Consultas: <a href="mailto:privacy@theelitegroup.com">privacy@theelitegroup.com</a></p>
+      <p>Para consultas sobre TICS: <a href="mailto:tics@theelitegroup.com">tics@theelitegroup.com</a></p>
     </div>
   </div>
 
   <footer>
     <div class="container">
-      <p>© 2025 The Elite Group | Uso Interno de TI</p>
+      <p>© 2025 The Elite Group | TICS - Sistema de Notificaciones TI</p>
       <p>
         <a href="privacy-policy.html">Privacidad</a> • 
         <a href="terms-of-service.html">Términos</a> • 
-        <a href="data-deletion.html">Eliminación de Datos</a>
+        <a href="data-deletion.html">Salir del Canal</a>
       </p>
     </div>
   </footer>
