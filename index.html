@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS | 00:00:00</title>
-  <meta name="description" content="Algo está naciendo. Algo que cambiará todo. TICS." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <meta name="description" content="TICS. El nuevo estándar. En 7 días." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
@@ -13,291 +13,205 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --dark: #0f0f1a;
-      --light: #fafafa;
+      --bg: #0a0a14;
+      --text: #e8e8ed;
+      --glow: rgba(84,83,134,0.5);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Roboto', sans-serif;
-      background: #000;
-      color: #fff;
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
-      height: 100vh;
+      line-height: 1.7;
     }
 
-    /* === FULLSCREEN VIDEO BACKGROUND === */
-    #bgVideo {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      opacity: 0.38;
-      filter: brightness(0.7) contrast(1.1);
-    }
-
-    /* === OVERLAY GRADIENT + NOISE === */
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 2;
-      background: 
-        radial-gradient(circle at 30% 20%, rgba(84,83,134,0.22) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(194,223,234,0.15) 0%, transparent 60%),
-        linear-gradient(135deg, rgba(15,15,26,0.9) 0%, rgba(10,10,18,0.95) 100%);
-      pointer-events: none;
-    }
-    .noise {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 3;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.12"/></svg>') repeat;
-      pointer-events: none;
-      animation: noise 8s steps(10) infinite;
-    }
-    @keyframes noise { from { background-position: 0 0; } to { background-position: 100px 100px; } }
-
-    /* === CONTAINER PRINCIPAL === */
-    .container {
-      position: relative;
-      z-index: 10;
-      height: 100vh;
+    /* === HERO ULTRA MINIMALISTA === */
+    .hero {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding: 2rem;
+      position: relative;
     }
 
-    /* === LOGO TICS - MISTERIOSO === */
+    /* === LOGO TICS - ESTÁTICO, ELEGANTE, CON GLOW SUTIL === */
     .logo-tics {
-      width: 180px;
-      filter: drop-shadow(0 0 50px rgba(84,83,134,0.9));
-      animation: logoPulse 4s infinite ease-in-out;
-      opacity: 0;
-      transform: scale(0.8);
+      width: 160px;
+      margin-bottom: 2.5rem;
+      filter: drop-shadow(0 0 30px var(--glow));
+      transition: filter 0.6s ease;
     }
-    @keyframes logoPulse {
-      0%, 100% { filter: drop-shadow(0 0 50px rgba(84,83,134,0.9)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 90px rgba(84,83,134,1)); transform: scale(1.06); }
+    .logo-tics:hover {
+      filter: drop-shadow(0 0 50px var(--glow));
     }
 
-    /* === COUNTDOWN ULTRA PREMIUM === */
-    .countdown {
-      margin: 3rem 0 2rem;
-      display: flex;
-      gap: 2.5rem;
-      opacity: 0;
-      animation: fadeIn 2s 1.5s forwards;
-    }
-    .countdown-item {
-      min-width: 100px;
-    }
-    .countdown-num {
+    /* === TÍTULO: SOLO "TICS" === */
+    .title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 4.8rem;
-      line-height: 1;
-      background: linear-gradient(135deg, var(--primary), #3a3a6b);
+      font-size: 6.5rem;
+      letter-spacing: -0.08em;
+      color: transparent;
+      background: linear-gradient(135deg, #ffffff 0%, #c0c0d8 50%, #a0a0c0 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(84,83,134,0.6);
+      margin: 0 0 1.5rem;
+      text-shadow: 0 8px 30px rgba(84,83,134,0.3);
+    }
+
+    /* === COUNTDOWN - CRISTALINO, ELEGANTE === */
+    .countdown {
+      display: flex;
+      gap: 3rem;
+      margin: 3rem 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .countdown-item {
+      text-align: center;
+    }
+    .countdown-num {
+      font-weight: 800;
+      font-size: 3.8rem;
+      color: #ffffff;
+      text-shadow: 0 4px 15px rgba(84,83,134,0.4);
     }
     .countdown-label {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
+      font-size: 0.95rem;
       color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
       margin-top: 0.5rem;
       font-weight: 500;
     }
 
-    /* === MARCA ELITE - EN SOMBRA, SOLO AL HOVER === */
-    .brand-elite {
-      position: absolute;
-      bottom: 3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      z-index: 11;
-    }
-    .brand-elite:hover { opacity: 1; }
-    .logo-elite {
-      width: 220px;
-      filter: brightness(0) invert(1) opacity(0.12);
-      transition: all 0.6s ease;
-    }
-    .brand-elite:hover .logo-elite {
-      filter: brightness(0) invert(1) opacity(0.35);
-      transform: scale(1.05);
-    }
-
-    /* === TÍTULO MÍSTICO === */
-    .mystic-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 2.8rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: transparent;
-      background: linear-gradient(90deg, transparent, #545386, transparent);
-      -webkit-background-clip: text;
-      background-clip: text;
-      background-size: 200% 100%;
-      animation: shimmer 6s infinite linear, fadeIn 2s 0.8s forwards;
-      opacity: 0;
-      position: relative;
-    }
-    .mystic-title::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 300px; height: 1px;
-      background: rgba(84,83,134,0.4);
-      transform: translate(-50%, -50%);
-      animation: lineExpand 3s 2s forwards;
-      opacity: 0;
-    }
-    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    @keyframes lineExpand { to { width: 600px; opacity: 1; } }
-
-    /* === BOTÓN INVISIBLE → VISIBLE AL SCROLL === */
-    .btn-reveal {
+    /* === ACCIONES: DIRECTAS, SIN CLICS EXTRA === */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
       margin-top: 3rem;
-      padding: 1.4rem 3.2rem;
-      background: transparent;
-      border: 2px solid transparent;
-      color: rgba(255,255,255,0);
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.8s ease;
-      opacity: 0;
-      animation: btnReveal 2s 3s forwards;
     }
-    .btn-reveal::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(84,83,134,0.3), transparent);
-      transition: 1.2s;
-    }
-    .btn-reveal:hover::before { left: 100%; }
-    .btn-reveal.visible {
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
       background: var(--primary);
-      border-color: var(--primary);
       color: white;
-      opacity: 1;
-      box-shadow: 0 0 40px rgba(84,83,134,0.6);
+      padding: 1.4rem 3rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: all 0.5s ease;
+      box-shadow: 0 12px 35px rgba(84,83,134,0.35);
     }
-    .btn-reveal.visible:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 60px rgba(84,83,134,0.9);
+    .btn-whatsapp:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 50px rgba(84,83,134,0.5);
+    }
+    .whatsapp-icon {
+      width: 32px;
+      height: 32px;
+      filter: brightness(0) invert(1);
     }
 
-    /* === QR OCULTO - SOLO AL CLICK === */
-    .qr-secret {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0);
+    .qr-box {
       background: white;
-      padding: 2.5rem;
-      border-radius: 28px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      border: 6px solid var(--primary);
-      z-index: 100;
-      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 2rem;
+      border-radius: 24px;
+      max-width: 300px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      border: 4px solid var(--primary);
+      transition: transform 0.4s ease;
+    }
+    .qr-box:hover {
+      transform: translateY(-6px);
+    }
+    .qr-box img {
+      width: 100%;
+      border-radius: 16px;
+    }
+    .qr-box p {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #333;
       text-align: center;
     }
-    .qr-secret.show {
-      transform: translate(-50%, -50%) scale(1);
-    }
-    .qr-secret img {
-      width: 260px;
-      border-radius: 18px;
-    }
-    .qr-secret p {
-      margin-top: 1.2rem;
-      font-weight: 700;
-      color: #222;
-      font-size: 1.1rem;
-    }
-    .close-qr {
-      position: absolute;
-      top: -12px; right: -12px;
-      width: 36px; height: 36px;
-      background: var(--primary);
-      color: white;
-      border-radius: 50%;
-      font-size: 1.4rem;
+
+    /* === MARCA ELITE - VISIBLE, ELEGANTE, SIN FONDOS BLANCOS === */
+    .brand-elite {
+      margin-top: 5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      gap: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.06em;
+    }
+    .logo-elite {
+      width: 210px;
+      filter: brightness(0) invert(1) opacity(0.5);
+      transition: opacity 0.4s ease;
+    }
+    .brand-elite:hover .logo-elite {
+      opacity: 0.8;
     }
 
-    /* === PARTICULAS CANVAS === */
-    #particles { position: fixed; top:0; left:0; width:100%; height:100%; z-index:4; }
+    /* === FONDO: GRADIENTE SUTIL + PARTÍCULAS MINIMALISTAS === */
+    #bgCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      opacity: 0.7;
+    }
 
-    /* === ANIMACIONES === */
-    @keyframes fadeIn { to { opacity:1; transform: none; } }
-
-    /* === SCROLL INDICATOR === */
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.9rem;
+    /* === TAGLINE FINAL === */
+    .tagline {
+      margin-top: 6rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
       color: rgba(255,255,255,0.5);
-      letter-spacing: 0.2em;
-      animation: pulse 2s infinite;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
     }
-    @keyframes pulse { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
 
     /* === RESPONSIVE === */
     @media (max-width: 768px) {
-      .countdown { gap:1.5rem; }
-      .countdown-num { font-size:3.2rem; }
-      .mystic-title { font-size:1.8rem; letter-spacing:0.15em; }
-      .logo-tics { width:140px; }
-      .btn-reveal { padding:1.2rem 2.5rem; font-size:1.1rem; }
+      .title { font-size: 4.2rem; }
+      .countdown { gap: 1.8rem; }
+      .countdown-num { font-size: 2.8rem; }
+      .logo-tics { width: 130px; }
+      .logo-elite { width: 170px; }
+      .btn-whatsapp { padding: 1.2rem 2.5rem; font-size: 1.1rem; }
+      .qr-box { max-width: 260px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- VIDEO BACKGROUND (LOOP, MUTED, SUBTLE) -->
-  <video id="bgVideo" autoplay muted loop playsinline>
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-organic-motion-34302-small.mp4" type="video/mp4">
-  </video>
+  <!-- CANVAS BACKGROUND -->
+  <canvas id="bgCanvas"></canvas>
 
-  <!-- OVERLAY + NOISE -->
-  <div class="overlay"></div>
-  <div class="noise"></div>
-  <canvas id="particles"></canvas>
-
-  <div class="container">
+  <section class="hero">
 
     <!-- LOGO TICS -->
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="logo-tics" style="animation-delay: 0.5s; opacity:0;" onload="this.style.opacity=1; this.style.animation='logoPulse 4s infinite ease-in-out'">
+         alt="TICS" class="logo-tics">
 
-    <!-- TÍTULO MÍSTICO -->
-    <h1 class="mystic-title">TICS</h1>
+    <!-- TÍTULO -->
+    <h1 class="title">TICS</h1>
 
     <!-- COUNTDOWN -->
     <div class="countdown" id="countdown">
@@ -307,37 +221,35 @@
       <div class="countdown-item"><div class="countdown-num" id="seconds">00</div><div class="countdown-label">Segundos</div></div>
     </div>
 
-    <!-- BOTÓN REVELADO -->
-    <button class="btn-reveal" id="revealBtn">
-      <span class="es">DESCUBRE</span>
-      <span class="en">REVEAL</span>
-      <span class="fr">DÉVOILER</span>
-    </button>
+    <!-- ACCIONES DIRECTAS -->
+    <div class="actions">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
+             alt="WhatsApp" class="whatsapp-icon">
+        <span>Únete al Canal</span>
+      </a>
 
-    <!-- SCROLL HINT -->
-    <div class="scroll-hint">SCROLL</div>
-  </div>
+      <div class="qr-box">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
+             alt="QR TICS">
+        <p>Escanea para acceso inmediato</p>
+      </div>
+    </div>
 
-  <!-- MARCA ELITE (OCULTA HASTA HOVER) -->
-  <div class="brand-elite">
-    <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-         alt="The Elite Group" class="logo-elite">
-  </div>
+    <!-- MARCA ELITE -->
+    <div class="brand-elite">
+      <span>by</span>
+      <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
+           alt="The Elite Group" class="logo-elite">
+    </div>
 
-  <!-- QR SECRETO -->
-  <div class="qr-secret" id="qrSecret">
-    <div class="close-qr" id="closeQr">×</div>
-    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR TICS">
-    <p>Escanea para entrar al núcleo</p>
-  </div>
+    <!-- TAGLINE -->
+    <p class="tagline">Technology Information Communication System</p>
+  </section>
 
   <script>
-    // === VIDEO FALLBACK ===
-    const video = document.getElementById('bgVideo');
-    video.playbackRate = 0.6;
-
-    // === PARTICULAS CANVAS (ETHEREAL) ===
-    const canvas = document.getElementById('particles');
+    // === CANVAS: PARTÍCULAS SUTILES, SIN MAREO ===
+    const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
 
@@ -345,14 +257,13 @@
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
       particles = [];
-      for(let i = 0; i < 50; i++) {
+      for(let i = 0; i < 35; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          r: Math.random() * 3 + 1,
-          speed: Math.random() * 0.5 + 0.2,
-          opacity: Math.random() * 0.4 + 0.1,
-          hue: 260 + Math.random() * 20
+          r: Math.random() * 2 + 1,
+          speed: Math.random() * 0.4 + 0.1,
+          opacity: Math.random() * 0.3 + 0.05
         });
       }
     }
@@ -362,13 +273,10 @@
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue}, 70%, 70%, ${p.opacity})`;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = '#545386';
+        ctx.fillStyle = `rgba(84,83,134,${p.opacity})`;
         ctx.fill();
         p.y -= p.speed;
-        if (p.y < -p.r) p.y = h + p.r;
-        p.x += Math.sin(Date.now() * 0.001 + p.r) * 0.3;
+        if(p.y < -p.r) p.y = h + p.r;
       });
       requestAnimationFrame(draw);
     }
@@ -385,13 +293,13 @@
     function update() {
       const diff = launch - new Date();
       if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;font-size:2rem;color:#545386;">ACTIVADO</div>';
+        document.getElementById('countdown').innerHTML = '<div style="font-family:Montserrat;font-weight:900;font-size:2.5rem;color:#fff;">ACTIVADO</div>';
         return;
       }
-      const d = Math.floor(diff / 86400000).toString().padStart(2,'0');
-      const h = Math.floor((diff % 86400000) / 3600000).toString().padStart(2,'0');
-      const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2,'0');
-      const s = Math.floor((diff % 60000) / 1000).toString().padStart(2,'0');
+      const d = String(Math.floor(diff / 86400000)).padStart(2,'0');
+      const h = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
       document.getElementById('days').textContent = d;
       document.getElementById('hours').textContent = h;
       document.getElementById('minutes').textContent = m;
@@ -400,32 +308,8 @@
     setInterval(update, 1000);
     update();
 
-    // === BOTÓN REVELA QR ===
-    const btn = document.getElementById('revealBtn');
-    const qr = document.getElementById('qrSecret');
-    const close = document.getElementById('closeQr');
-
-    btn.addEventListener('click', () => {
-      btn.classList.add('visible');
-      setTimeout(() => qr.classList.add('show'), 300);
-    });
-    close.addEventListener('click', () => {
-      qr.classList.remove('show');
-      setTimeout(() => btn.classList.remove('visible'), 600);
-    });
-
-    // === IDIOMA ===
-    const lang = (navigator.language || navigator.userLanguage).slice(0,2).toLowerCase();
-    document.documentElement.lang = ['en','fr'].includes(lang) ? lang : 'es';
-
-    // === SCROLL REVEAL ELITE LOGO ===
-    let scrolled = false;
-    window.addEventListener('scroll', () => {
-      if (!scrolled && window.scrollY > 100) {
-        document.querySelector('.brand-elite').style.opacity = '1';
-        scrolled = true;
-      }
-    });
+    // === IDIOMA FIJO: ESPAÑOL (SIN SORPRESAS) ===
+    document.documentElement.lang = 'es';
   </script>
 </body>
 </html>
