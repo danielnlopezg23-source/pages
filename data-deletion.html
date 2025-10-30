@@ -17,25 +17,24 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family: 'Roboto', sans-serif; background: white; color: var(--text); line-height: 1.8; font-size: 1rem; }
     .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
-    .header-wrapper { background: var(--primary); color: white; padding: 2.5rem 0; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .header-content { max-width: var(--max-width); margin: 0 auto; }
-    .logo img { display: block; max-width: 420px; width: 100%; height: auto; margin: 0 auto 1.5rem; filter: brightness(0) invert(1); }
-    .header-title { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; margin: 0.5rem 0; }
-    .header-subtitle { font-size: 1.1rem; color: #e0e0e0; font-weight: 500; letter-spacing: 0.02em; }
+    .header-wrapper { background: var(--primary); color: white; padding: 1.8rem 0; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .header-content { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; max-width: var(--max-width); margin: 0 auto; }
+    .logo-group { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .logo-tics img { width: 100px; height: auto; filter: brightness(0) invert(1); }
+    .logo-elite img { width: 260px; height: auto; filter: brightness(0) invert(1); }
+    .header-title { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 800; color: white; margin: 0; }
+    .header-subtitle { font-size: 1.1rem; color: #e0e0e0; font-weight: 500; }
     .section { background: white; padding: 2.5rem; margin: 2rem 0; border-radius: 10px; border-left: 5px solid var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
     h2 { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
     .highlight { background: var(--secondary-2); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; font-weight: 500; color: #900; border-left: 4px solid var(--primary); }
-    .btn { display: inline-block; background: white; color: var(--primary); padding: 0.9rem 1.8rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-family: 'Montserrat', sans-serif; margin: 1.2rem 0; transition: all 0.3s ease; border: 2px solid white; }
-    .btn:hover { background: transparent; color: white; border-color: white; }
     footer { background: var(--primary); color: white; text-align: center; padding: 2.5rem 0; margin-top: 3.5rem; }
     footer a { color: var(--secondary-1); text-decoration: none; margin: 0 0.6rem; font-weight: 500; transition: color 0.3s ease; }
     footer a:hover { color: #ffffff; }
     @media (max-width: 600px) {
       .container { padding: 0 1.2rem; }
-      .header-title { font-size: 2rem; }
-      .header-subtitle { font-size: 1rem; }
-      .logo img { max-width: 300px; }
-      .header-wrapper { padding: 2rem 0; }
+      .logo-tics img { width: 80px; }
+      .logo-elite img { width: 200px; }
+      .header-title { font-size: 1.8rem; }
       .section { padding: 1.8rem; }
       h2 { font-size: 1.4rem; }
     }
@@ -45,8 +44,13 @@
 
   <header class="header-wrapper">
     <div class="header-content">
-      <div class="logo">
-        <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+      <div class="logo-group">
+        <div class="logo-tics">
+          <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" alt="TICS Logo">
+        </div>
+        <div class="logo-elite">
+          <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+        </div>
       </div>
       <h1 class="header-title">Salir del Canal TICS</h1>
       <p class="header-subtitle">Dejar de recibir notificaciones</p>
