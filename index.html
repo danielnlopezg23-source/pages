@@ -3,232 +3,161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TICS | Próximamente</title>
-  <meta name="description" content="TICS - Un nuevo estándar en comunicaciones TI. Próximamente." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <title>TICS | Lanzamiento Exclusivo</title>
+  <meta name="description" content="TICS – Technology Information Communication System. El nuevo estándar global en comunicaciones TI. Lanzamiento inminente." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
-      --accent: #C2DFEA;
-      --text-dark: #1a1a2e;
+      --accent-1: #C2DFEA;
+      --accent-2: #F4C7CE;
+      --accent-3: #d8d2c4;
+      --neutral: #383A35;
       --bg: #ffffff;
+      --text-dark: #1a1a2e;
       --particle: #545386;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body {
-      height: 100%;
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg);
-      color: var(--text-dark);
-      overflow: hidden;
-    }
+    html, body { height: 100%; font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text-dark); overflow: hidden; }
+    
+    /* === CANVAS BACKGROUND PREMIUM === */
+    #bgCanvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; }
 
-    /* FONDO CON PARTÍCULAS VISIBLES */
-    .bg-animation {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .particle {
-      position: absolute;
-      background: var(--particle);
-      border-radius: 50%;
-      opacity: 0.4; /* MÁS VISIBLE */
-      box-shadow: 0 0 8px rgba(84, 83, 134, 0.6);
-      animation: float 16s infinite linear;
-    }
-    @keyframes float {
-      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-      15% { opacity: 0.4; }
-      85% { opacity: 0.4; }
-      100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
-    }
-
+    /* === CONTAINER PRINCIPAL === */
     .container {
-      position: relative;
-      z-index: 10;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      text-align: center;
+      position: relative; z-index:10; height:100%; display:flex; flex-direction:column;
+      justify-content:center; align-items:center; padding:2rem; text-align:center;
     }
 
-    /* MARCA */
+    /* === MARCA PREMIUM === */
     .brand {
-      margin-bottom: 2rem;
+      margin-bottom: 3rem; position:relative;
     }
     .logo-tics {
-      width: 160px;
-      filter: drop-shadow(0 0 30px rgba(84, 83, 134, 0.7));
-      animation: pulse-glow 2.8s infinite ease-in-out;
+      width: 180px; filter: drop-shadow(0 0 40px rgba(84,83,134,.6));
+      animation: logoGlow 3s infinite ease-in-out;
     }
-    @keyframes pulse-glow {
-      0%, 100% { 
-        filter: drop-shadow(0 0 30px rgba(84, 83, 134, 0.7));
-        transform: scale(1);
-      }
-      50% { 
-        filter: drop-shadow(0 0 55px rgba(84, 83, 134, 1));
-        transform: scale(1.08);
-      }
+    @keyframes logoGlow {
+      0%,100% { filter: drop-shadow(0 0 40px rgba(84,83,134,.6)); transform:scale(1); }
+      50% { filter: drop-shadow(0 0 70px rgba(84,83,134,1)); transform:scale(1.05); }
     }
     .brand-text {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.15rem;
-      color: var(--primary);
-      margin-top: 1rem;
-      letter-spacing: 0.05em;
+      display:flex; align-items:center; justify-content:center; gap:1rem;
+      font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.3rem;
+      color:var(--primary); margin-top:1.2rem; letter-spacing:.08em;
     }
-    .by-text { 
-      font-size: 0.95rem; 
-      opacity: 0.85; 
-      font-weight: 600;
+    .by-text { font-weight:700; font-size:1rem; opacity:.9; }
+    .logo-elite { width:260px; }
+
+    /* === TÍTULO HERO ULTRA PREMIUM === */
+    .hero-title {
+      font-family:'Montserrat',sans-serif; font-weight:900; font-size:5.8rem;
+      line-height:1; letter-spacing:-.06em; margin:0 0 1.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, #3a3a6b 50%, var(--accent-1) 100%);
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+      text-shadow: 0 6px 20px rgba(84,83,134,.25);
+      animation: titleReveal 2s cubic-bezier(.2,.8,.2,1) forwards;
+      opacity:0; transform:translateY(60px);
     }
-    .logo-elite {
-      width: 240px;
-      height: auto;
+    @keyframes titleReveal {
+      to { opacity:1; transform:translateY(0); }
+    }
+    .hero-subtitle {
+      font-size:1.55rem; color:#2d2d2d; max-width:780px; line-height:1.75; font-weight:400;
+      margin-bottom:4rem; opacity:0; animation: subtitleReveal 2s .5s cubic-bezier(.2,.8,.2,1) forwards;
+      transform:translateY(40px);
+    }
+    @keyframes subtitleReveal {
+      to { opacity:1; transform:translateY(0); }
     }
 
-    /* TÍTULO IMPACTANTE */
-    .title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 4.5rem;
-      font-weight: 900;
-      color: transparent;
-      background: linear-gradient(135deg, var(--primary), #3a3a6b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 0 0 1.2rem;
-      letter-spacing: -0.07em;
-      animation: reveal 1.8s ease-out;
-      text-shadow: 0 4px 12px rgba(84, 83, 134, 0.3);
+    /* === COUNTDOWN PREMIUM === */
+    .countdown {
+      display:flex; gap:2rem; margin-bottom:4rem; opacity:0;
+      animation: countdownReveal 2s 1s cubic-bezier(.2,.8,.2,1) forwards; transform:translateY(30px);
     }
-    .subtitle {
-      font-size: 1.4rem;
-      color: #2d2d2d;
-      margin-bottom: 3rem;
-      max-width: 720px;
-      line-height: 1.7;
-      font-weight: 400;
-      animation: reveal 2.1s ease-out;
+    @keyframes countdownReveal { to { opacity:1; transform:translateY(0); } }
+    .countdown-item {
+      background:rgba(84,83,134,.08); padding:1.6rem 1.2rem; border-radius:20px;
+      min-width:110px; backdrop-filter:blur(12px); border:1px solid rgba(84,83,134,.15);
+    }
+    .countdown-num {
+      font-family:'Montserrat',sans-serif; font-weight:900; font-size:3.2rem; color:var(--primary);
+      line-height:1;
+    }
+    .countdown-label {
+      font-size:.95rem; color:var(--neutral); text-transform:uppercase; letter-spacing:.12em; font-weight:500;
     }
 
-    /* ACCIONES */
+    /* === ACCIONES PREMIUM === */
     .action-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2.5rem;
-      animation: reveal 2.4s ease-out;
+      display:flex; flex-direction:column; align-items:center; gap:3rem;
+      animation: actionsReveal 2s 1.5s cubic-bezier(.2,.8,.2,1) forwards; opacity:0; transform:translateY(30px);
     }
+    @keyframes actionsReveal { to { opacity:1; transform:translateY(0); } }
+
     .btn-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 1.1rem;
-      background: var(--primary);
-      color: white;
-      padding: 1.4rem 3.2rem;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 700;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.25rem;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 12px 35px rgba(84, 83, 134, 0.35);
-      position: relative;
-      overflow: hidden;
+      display:inline-flex; align-items:center; gap:1.2rem; background:var(--primary);
+      color:#fff; padding:1.5rem 3.5rem; border-radius:60px; text-decoration:none;
+      font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.3rem;
+      transition:all .5s cubic-bezier(.25,.8,.25,1); position:relative; overflow:hidden;
+      box-shadow:0 15px 40px rgba(84,83,134,.4);
     }
     .btn-whatsapp::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: 0.7s;
+      content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+      transition:.8s;
     }
-    .btn-whatsapp:hover::before { left: 100%; }
+    .btn-whatsapp:hover::before { left:100%; }
     .btn-whatsapp:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 18px 45px rgba(84, 83, 134, 0.5);
+      transform:translateY(-6px) scale(1.03); box-shadow:0 22px 55px rgba(84,83,134,.55);
     }
-    .whatsapp-icon {
-      width: 32px;
-      height: 32px;
-      filter: brightness(0) invert(1);
-    }
+    .whatsapp-icon { width:36px; height:36px; filter:brightness(0) invert(1); }
 
-    /* QR PREMIUM */
+    /* === QR PREMIUM FLOAT === */
     .qr-box {
-      background: white;
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.15);
-      border: 4px solid var(--primary);
-      max-width: 300px;
-      animation: float-qr 3.5s infinite ease-in-out;
+      background:#fff; padding:2.2rem; border-radius:24px; max-width:320px;
+      box-shadow:0 20px 60px rgba(0,0,0,.18); border:5px solid var(--primary);
+      animation:floatQR 4s infinite ease-in-out;
     }
-    .qr-box img {
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-    }
-    .qr-box p {
-      margin-top: 1.2rem;
-      font-size: 1rem;
-      color: #444;
-      font-weight: 600;
-    }
-    @keyframes float-qr {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    .qr-box img { width:100%; border-radius:16px; }
+    .qr-box p { margin-top:1.3rem; font-weight:600; color:#444; font-size:1.05rem; }
+    @keyframes floatQR {
+      0%,100% { transform:translateY(0) rotate(0deg); }
+      50% { transform:translateY(-12px) rotate(1deg); }
     }
 
-    .coming-soon {
-      margin-top: 3.5rem;
-      font-size: 1.15rem;
-      color: var(--primary);
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      animation: reveal 2.7s ease-out;
+    /* === FOOTER TAGLINE === */
+    .tagline {
+      margin-top:4.5rem; font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:1.2rem; color:var(--primary); letter-spacing:.2em; text-transform:uppercase;
+      opacity:0; animation:taglineReveal 2s 2s cubic-bezier(.2,.8,.2,1) forwards;
     }
+    @keyframes taglineReveal { to { opacity:1; } }
 
-    /* IDIOMAS */
+    /* === MULTI-IDIOMA === */
     [lang="en"] .es, [lang="fr"] .es,
     [lang="es"] .en, [lang="fr"] .en,
-    [lang="es"] .fr, [lang="en"] .fr { display: none; }
+    [lang="es"] .fr, [lang="en"] .fr { display:none; }
 
-    @keyframes reveal {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* RESPONSIVE */
+    /* === RESPONSIVE PREMIUM === */
     @media (max-width: 768px) {
-      .title { font-size: 3.2rem; }
-      .subtitle { font-size: 1.2rem; }
-      .logo-tics { width: 130px; }
-      .logo-elite { width: 190px; }
-      .btn-whatsapp { padding: 1.2rem 2.6rem; font-size: 1.15rem; }
-      .qr-box { max-width: 260px; padding: 1.6rem; }
+      .hero-title { font-size:3.8rem; }
+      .hero-subtitle { font-size:1.3rem; }
+      .logo-tics { width:140px; }
+      .logo-elite { width:200px; }
+      .countdown { gap:1.2rem; }
+      .countdown-item { padding:1.2rem .8rem; min-width:80px; }
+      .countdown-num { font-size:2.4rem; }
+      .btn-whatsapp { padding:1.3rem 2.8rem; font-size:1.2rem; }
+      .qr-box { max-width:270px; padding:1.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- FONDO ANIMADO -->
-  <div class="bg-animation" id="bgAnimation"></div>
+  <!-- CANVAS BACKGROUND PREMIUM -->
+  <canvas id="bgCanvas"></canvas>
 
   <div class="container">
 
@@ -243,65 +172,126 @@
       </div>
     </div>
 
-    <!-- TÍTULOS -->
-    <h1 class="title">
-      <span class="es">PRÓXIMAMENTE</span>
-      <span class="en">COMING SOON</span>
-      <span class="fr">BIENTÔT DISPONIBLE</span>
+    <!-- HERO -->
+    <h1 class="hero-title">
+      <span class="es">LANZAMIENTO EXCLUSIVO</span>
+      <span class="en">EXCLUSIVE LAUNCH</span>
+      <span class="fr">LANCEMENT EXCLUSIF</span>
     </h1>
-    <p class="subtitle">
-      <span class="es">Un nuevo estándar en comunicaciones TI</span>
-      <span class="en">A new standard in IT communications</span>
-      <span class="fr">Un nouveau standard en communication TI</span>
+    <p class="hero-subtitle">
+      <span class="es">El nuevo estándar global en comunicaciones TI. Tecnología, innovación y excelencia.</span>
+      <span class="en">The new global standard in IT communications. Technology, innovation, excellence.</span>
+      <span class="fr">Le nouveau standard mondial en communication TI. Technologie, innovation, excellence.</span>
     </p>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown" id="countdown">
+      <div class="countdown-item"><div class="countdown-num" id="days">00</div><div class="countdown-label">Días</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="hours">00</div><div class="countdown-label">Horas</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="minutes">00</div><div class="countdown-label">Minutos</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="seconds">00</div><div class="countdown-label">Segundos</div></div>
+    </div>
 
     <!-- ACCIONES -->
     <div class="action-area">
       <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
              alt="WhatsApp" class="whatsapp-icon">
-        <span class="es">Seguir en WhatsApp</span>
-        <span class="en">Follow on WhatsApp</span>
-        <span class="fr">Suivre sur WhatsApp</span>
+        <span class="es">Únete al Canal Exclusivo</span>
+        <span class="en">Join Exclusive Channel</span>
+        <span class="fr">Rejoignez le Canal Exclusif</span>
       </a>
 
       <div class="qr-box">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS">
         <p>
-          <span class="es">Escanea para unirte</span>
-          <span class="en">Scan to join</span>
-          <span class="fr">Scannez pour rejoindre</span>
+          <span class="es">Escanea para acceso prioritario</span>
+          <span class="en">Scan for priority access</span>
+          <span class="fr">Scannez pour accès prioritaire</span>
         </p>
       </div>
     </div>
 
-    <p class="coming-soon">TICS • Technology Information Communication System</p>
+    <p class="tagline">TICS • Technology Information Communication System</p>
   </div>
 
-  <!-- PARTÍCULAS JS -->
+  <!-- JS PREMIUM: CANVAS + COUNTDOWN + LANG -->
   <script>
-    const bg = document.getElementById('bgAnimation');
-    const particles = 45;
-    for (let i = 0; i < particles; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      const size = Math.random() * 5 + 2;
-      p.style.width = p.style.height = size + 'px';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDelay = Math.random() * 16 + 's';
-      p.style.animationDuration = (Math.random() * 10 + 12) + 's';
-      bg.appendChild(p);
+    // === CANVAS BACKGROUND (PARTÍCULAS + GRADIENT FLOW) ===
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [], gradient;
+
+    function initCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = [];
+      for(let i=0; i<60; i++){
+        particles.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: Math.random()*4+2,
+          d: Math.random()*60,
+          color: `rgba(84,83,134,${Math.random()*0.3+0.1})`,
+          speed: Math.random()*0.8+0.3
+        });
+      }
+      gradient = ctx.createLinearGradient(0,0,w,h);
+      gradient.addColorStop(0, 'rgba(194,223,234,0.03)');
+      gradient.addColorStop(1, 'rgba(244,199,206,0.03)');
     }
 
-    // DETECCIÓN DE IDIOMA
-    const userLang = (navigator.language || navigator.userLanguage).slice(0, 2).toLowerCase();
-    const html = document.documentElement;
-    if (['en', 'fr'].includes(userLang)) {
-      html.lang = userLang;
-    } else {
-      html.lang = 'es';
+    function draw() {
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0,0,w,h);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = p.color;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#545386';
+        ctx.fill();
+        p.y -= p.speed;
+        if(p.y < -p.r) p.y = h + p.r;
+        p.x += Math.sin(p.d)*0.5;
+      });
+      requestAnimationFrame(draw);
     }
+
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+    draw();
+
+    // === COUNTDOWN (7 DÍAS DESDE HOY) ===
+    const launchDate = new Date();
+    launchDate.setDate(launchDate.getDate() + 7); // 7 días de expectativa
+    launchDate.setHours(9,0,0,0);
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = launchDate - now;
+      if(diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;font-family:Montserrat;font-weight:900;font-size:2rem;color:var(--primary);">¡LANZADO!</div>';
+        return;
+      }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const s = Math.floor((diff % (1000*60)) / 1000);
+      document.getElementById('days').textContent = d.toString().padStart(2,'0');
+      document.getElementById('hours').textContent = h.toString().padStart(2,'0');
+      document.getElementById('minutes').textContent = m.toString().padStart(2,'0');
+      document.getElementById('seconds').textContent = s.toString().padStart(2,'0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // === DETECCIÓN DE IDIOMA ===
+    const userLang = (navigator.language || navigator.userLanguage).slice(0,2).toLowerCase();
+    const html = document.documentElement;
+    html.lang = ['en','fr'].includes(userLang) ? userLang : 'es';
   </script>
 </body>
 </html>
