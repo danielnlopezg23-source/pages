@@ -172,7 +172,7 @@
     }
     .btn-icon { width: clamp(30px, 6vw, 36px); height: auto; filter: brightness(0) invert(1); }
 
-    /* === QR CON URGENCIA === */
+    /* === QR CON AURA HIPNÓTICA === */
     .qr-magnet {
       position: relative; max-width: 360px; margin: 0 auto;
       padding: clamp(2rem, 6vw, 2.8rem); border-radius: 32px;
@@ -180,8 +180,15 @@
       backdrop-filter: blur(20px); box-shadow: 0 30px 80px rgba(0,0,0,0.4);
       transition: all 0.8s ease; overflow: hidden;
       opacity: 0;
-      animation: fadeIn 1.6s 1s ease-out forwards;
+      animation: fadeIn 1.6s 1s ease-out forwards, auraPulse 2.5s infinite ease-in-out;
       cursor: pointer;
+    }
+
+    .qr-magnet::before {
+      content: ''; position: absolute; inset: -10px;
+      border: 2px solid var(--accent); border-radius: 40px;
+      opacity: 0.6; transform: scale(0.95);
+      animation: borderPulse 2.5s infinite ease-in-out;
     }
 
     .qr-img {
@@ -205,14 +212,24 @@
       animation: fadeIn 1s 1.5s ease-out forwards;
     }
 
+    @keyframes auraPulse {
+      0%, 100% { box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+      50% { box-shadow: 0 50px 120px rgba(168,223,252,0.3); }
+    }
+
+    @keyframes borderPulse {
+      0%, 100% { opacity: 0.6; transform: scale(0.95); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+
     /* === ESTADOS === */
     .qr-danger {
       border-color: var(--danger) !important;
-      box-shadow: 0 0 60px var(--danger-glow) !important;
       animation: dangerPulse 1.2s infinite ease-in-out;
     }
     .qr-danger .qr-call { color: var(--danger); text-shadow: 0 0 30px var(--danger-glow); }
     .qr-danger .qr-timer { color: var(--danger); }
+    .qr-danger::before { border-color: var(--danger); }
 
     .qr-success {
       border-color: var(--success) !important;
@@ -221,6 +238,7 @@
     }
     .qr-success .qr-call { color: var(--success); }
     .qr-success .qr-timer { display: none; }
+    .qr-success::before { border-color: var(--success); }
 
     @keyframes dangerPulse {
       0%, 100% { box-shadow: 0 0 60px var(--danger-glow); }
@@ -229,6 +247,41 @@
     @keyframes successGlow {
       0% { box-shadow: 0 0 60px var(--success-glow); }
       100% { box-shadow: 0 0 30px var(--success-glow); }
+    }
+
+    /* === SCROLLDOWN PREMIUM === */
+    .scrolldown {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      font-size: clamp(0.85rem, 2vw, 1rem); color: var(--accent);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      opacity: 0; visibility: hidden;
+      animation: fadeIn 1.6s 2s ease-out forwards, bounce 2s infinite ease-in-out;
+      text-shadow: 0 0 15px var(--accent-glow);
+    }
+    .scrolldown::after {
+      content: ''; position: absolute; bottom: -1.5rem; left: 50%;
+      width: 2px; height: 30px; background: var(--accent);
+      transform: translateX(-50%);
+      animation: scrollLine 2s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+    @keyframes scrollLine {
+      0%, 100% { transform: translateX(-50%) scaleY(0); }
+      50% { transform: translateX(-50%) scaleY(1); }
+    }
+
+    /* === VERSIÓN === */
+    .version {
+      position: fixed; bottom: 1rem; right: 1rem;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      font-size: 0.8rem; color: rgba(168,223,252,0.5);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      z-index: 999;
     }
 
     /* === FOOTER === */
@@ -256,7 +309,7 @@
     }
 
     /* === ANIMACIONES === */
-    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes fadeIn { to { opacity: 1; visibility: visible; } }
     @keyframes lineGrow { to { transform: scaleX(1); } }
 
     /* === IDIOMAS === */
@@ -296,7 +349,7 @@
         <span class="fr">Entrer dans le Cercle</span>
       </a>
 
-      <!-- QR CON URGENCIA -->
+      <!-- QR CON AURA HIPNÓTICA -->
       <div class="qr-magnet" id="qrMagnet">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS" class="qr-img">
@@ -313,6 +366,13 @@
       </div>
     </div>
 
+    <!-- SCROLLDOWN -->
+    <div class="scrolldown">
+      <span class="es">SCROLL DOWN</span>
+      <span class="en">SCROLL DOWN</span>
+      <span class="fr">DÉFILEZ</span>
+    </div>
+
     <div class="footer">
       <div class="elite">
         <span>by</span>
@@ -322,6 +382,9 @@
       <p class="tagline">Technology Information Communication System</p>
     </div>
   </div>
+
+  <!-- VERSIÓN -->
+  <div class="version">v4.6</div>
 
   <!-- FONDO -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
@@ -353,53 +416,38 @@
       }, 1200);
     });
 
-    // === CONTADOR QR: 20 SEGUNDOS (CORREGIDO) ===
+    // === CONTADOR QR: 20 SEGUNDOS (100% ESTABLE) ===
     let timer;
     const qrMagnet = document.getElementById('qrMagnet');
-    const qrCall = qrMagnet.querySelector('.qr-call');
-    const qrTimer = document.getElementById('qrTimer');
+    const qrCallSpans = qrMagnet.querySelectorAll('.qr-call span');
+    const qrTimerSpans = document.querySelectorAll('#qrTimer span');
     const currentLang = document.documentElement.lang;
 
-    function getText(key) {
-      const texts = {
-        es: {
-          scan: "ESCANEA AHORA",
-          urgent: "¡ESCANEA YA!",
-          denied: "ACCESO DENEGADO",
-          granted: "¡ACCESO CONCEDIDO!",
-          time: "Tiempo: "
-        },
-        en: {
-          scan: "SCAN NOW",
-          urgent: "SCAN NOW!",
-          denied: "ACCESS DENIED",
-          granted: "ACCESS GRANTED!",
-          time: "Time: "
-        },
-        fr: {
-          scan: "SCANNEZ MAINTENANT",
-          urgent: "SCANNEZ VITE!",
-          denied: "ACCÈS REFUSÉ",
-          granted: "ACCÈS ACCORDÉ!",
-          time: "Temps: "
-        }
-      };
-      return texts[currentLang][key];
+    function getSpan(className) {
+      return document.querySelector(`.${className}`);
     }
 
     function updateCallText(text) {
-      const span = qrCall.querySelector(`.${currentLang}`);
-      if (span) span.textContent = text;
+      const span = getSpan(currentLang);
+      if (span && span.parentElement.classList.contains('qr-call')) {
+        span.textContent = text;
+      }
     }
 
     function updateTimerText(seconds) {
-      const span = qrTimer.querySelector(`.${currentLang}`);
-      if (span) span.textContent = getText('time') + seconds + 's';
+      const span = getSpan(currentLang);
+      if (span && span.parentElement.id === 'qrTimer') {
+        span.textContent = `${
+          currentLang === 'es' ? 'Tiempo: ' :
+          currentLang === 'en' ? 'Time: ' : 'Temps: '
+        }${seconds}s`;
+      }
     }
 
     function startQRTimer() {
       let timeLeft = 20;
-      qrTimer.style.opacity = '1';
+      const timerEl = document.getElementById('qrTimer');
+      timerEl.style.opacity = '1';
       updateTimerText(timeLeft);
 
       timer = setInterval(() => {
@@ -408,23 +456,31 @@
 
         if (timeLeft <= 10) {
           qrMagnet.classList.add('qr-danger');
-          updateCallText(getText('urgent'));
+          updateCallText(
+            currentLang === 'es' ? '¡ESCANEA YA!' :
+            currentLang === 'en' ? 'SCAN NOW!' : 'SCANNEZ VITE!'
+          );
         }
 
         if (timeLeft <= 0) {
           clearInterval(timer);
-          updateCallText(getText('denied'));
-          qrTimer.style.opacity = '0';
+          updateCallText(
+            currentLang === 'es' ? 'ACCESO DENEGADO' :
+            currentLang === 'en' ? 'ACCESS DENIED' : 'ACCÈS REFUSÉ'
+          );
+          timerEl.style.opacity = '0';
         }
       }, 1000);
 
-      // Detectar escaneo
       const handleScan = () => {
         clearInterval(timer);
         qrMagnet.classList.remove('qr-danger');
         qrMagnet.classList.add('qr-success');
-        updateCallText(getText('granted'));
-        qrTimer.style.display = 'none';
+        updateCallText(
+          currentLang === 'es' ? '¡ACCESO CONCEDIDO!' :
+          currentLang === 'en' ? 'ACCESS GRANTED!' : 'ACCÈS ACCORDÉ!'
+        );
+        timerEl.style.display = 'none';
         qrMagnet.style.cursor = 'default';
         qrMagnet.removeEventListener('click', handleScan);
         qrMagnet.removeEventListener('touchstart', handleScan);
@@ -434,7 +490,7 @@
       qrMagnet.addEventListener('touchstart', handleScan);
     }
 
-    // === PARTÍCULAS + IDIOMA ===
+    // === PARTÍCULAS ===
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [], time = 0;
