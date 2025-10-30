@@ -25,10 +25,7 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { 
-      height: 100%; 
-      overflow: hidden; 
-    }
+    html, body { height: 100%; overflow: hidden; }
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
@@ -94,25 +91,22 @@
       100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
     }
 
-    /* === CONTENIDO: FADE SUAVE + SCROLL LIMITADO === */
+    /* === CONTENIDO: FADE SUAVE === */
     .content {
-      position: absolute; top: 0; left: 0; width: 100vw;
+      position: absolute; top: 0; left: 0; width: 100vw; height: auto;
       min-height: 100vh;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       padding: clamp(2rem, 8vw, 4rem) 0;
       text-align: center; margin: 0 auto;
       opacity: 0; visibility: hidden; pointer-events: none;
       transition: opacity 1.8s ease;
-      z-index: 900;
-      overflow-y: hidden;
-      scroll-behavior: smooth;
-    }
-    .content.revealed {
-      opacity: 1; visibility: visible; pointer-events: auto;
-      overflow-y: auto;
+      z-index: 900; overflow-y: auto;
     }
     .content > * {
       max-width: 90vw; margin-left: auto; margin-right: auto; text-align: center;
+    }
+    .content.revealed {
+      opacity: 1; visibility: visible; pointer-events: auto;
     }
 
     /* === LOGO INTEGRADO === */
@@ -223,31 +217,6 @@
       width: 60px; height: 3px; background: var(--accent);
       transform: translateX(-50%) scaleX(0);
       animation: underlineGrow 2s infinite ease-in-out;
-    }
-
-    @keyframes qrPulse {
-      0%, 100% { box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
-      50% { box-shadow: 0 50px 120px rgba(168,223,252,0.3); }
-    }
-
-    @keyframes qrBorderPulse {
-      0%, 100% { opacity: 0; transform: scale(0.9); }
-      50% { opacity: 0.6; transform: scale(1.1); }
-    }
-
-    @keyframes qrFloat {
-      0%, 100% { transform: translateY(0) rotate(0); }
-      50% { transform: translateY(-8px) rotate(1deg); }
-    }
-
-    @keyframes textPulse {
-      0%, 100% { opacity: 0.8; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.05); }
-    }
-
-    @keyframes underlineGrow {
-      0%, 100% { transform: translateX(-50%) scaleX(0); }
-      50% { transform: translateX(-50%) scaleX(1); }
     }
 
     /* === SCROLLDOWN INTELIGENTE === */
@@ -399,7 +368,6 @@
     const content = document.getElementById('content');
     const portalLogo = document.getElementById('portalLogo');
     const contentLogo = document.getElementById('contentLogo');
-    const scrolldown = document.getElementById('scrolldown');
 
     portal.addEventListener('click', () => {
       explosion.classList.add('active');
@@ -422,40 +390,20 @@
 
     // === SCROLLDOWN INTELIGENTE + SCROLL LIMITADO ===
     function checkScroll() {
-      const contentEl = document.getElementById('content');
-      const footer = document.querySelector('.footer');
       const viewportHeight = window.innerHeight;
-      const contentHeight = contentEl.scrollHeight;
-      const footerTop = footer.getBoundingClientRect().top;
+      const contentHeight = content.scrollHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-      // Mostrar solo si hay contenido por debajo del viewport
-      if (contentHeight > viewportHeight && footerTop > viewportHeight + 100) {
-        scrolldown.style.opacity = '1';
+      // Mostrar scroll down solo si hay contenido por debajo
+      if (contentHeight > viewportHeight && scrollTop < contentHeight - viewportHeight - 100) {
         scrolldown.classList.remove('hidden');
       } else {
         scrolldown.classList.add('hidden');
       }
-
-      // Limitar scroll al contenido real
-      const maxScroll = contentHeight - viewportHeight;
-      contentEl.style.maxHeight = `${viewportHeight}px`;
-      contentEl.style.overflowY = 'auto';
-
-      // Actualizar en scroll
-      contentEl.addEventListener('scroll', () => {
-        const scrollTop = contentEl.scrollTop;
-        const nearBottom = scrollTop >= maxScroll - 100;
-
-        if (nearBottom || scrollTop === 0) {
-          scrolldown.classList.add('hidden');
-        } else {
-          scrolldown.classList.remove('hidden');
-        }
-      });
-
-      // Actualizar en resize
-      window.addEventListener('resize', checkScroll);
     }
+
+    window.addEventListener('scroll', checkScroll);
+    window.addEventListener('resize', checkScroll);
 
     // === PARTÍCULAS ===
     const canvas = document.getElementById('bg-canvas');
