@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. El sistema que redefine la comunicación en horticultura." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <meta name="description" content="TICS. El sistema que redefine la comunicación TI en horticultura." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
@@ -13,117 +13,247 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --bg: #000;
-      --text: #fff;
+      --bg: #0a0a14;
+      --text: #f5f5f7;
       --glow: rgba(84,83,134,0.6);
     }
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); font-family:'Roboto',sans-serif; color:var(--text); }
-    
-    /* === PRELOADER: BOOM ORIGINAL, MEJORADO === */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-y: auto;
+      line-height: 1.8;
+    }
+
+    /* === PRELOADER: EXPLOSIÓN DE LUZ === */
     #preloader {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background:var(--bg); display:flex; justify-content:center; align-items:center;
-      z-index:9999; opacity:1; transition:opacity 1.6s ease;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 1.8s ease;
     }
-    .boom-logo {
-      width:280px; filter:brightness(0) invert(1);
-      animation:boomPulse 2.2s ease-out forwards;
+    .preloader-logo {
+      width: 260px;
+      filter: brightness(0) invert(1);
+      animation: explodeLight 2s ease-out forwards;
     }
-    @keyframes boomPulse {
-      0% { transform:scale(0.2); filter:brightness(0) invert(1) drop-shadow(0 0 0 var(--glow)); opacity:0; }
-      40% { transform:scale(1.7); filter:brightness(0) invert(1) drop-shadow(0 0 280px var(--glow)); opacity:1; }
-      100% { transform:scale(1); filter:brightness(0) invert(1) drop-shadow(0 0 60px var(--glow)); }
-    }
-
-    /* === MAIN: 1 PANTALLA, SCROLL OPCIONAL === */
-    #main {
-      min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
-      padding:3rem 2rem; text-align:center; opacity:0; transition:opacity 2s ease;
-    }
-
-    /* === LOGO: 200px, FLOTANTE === */
-    .logo-tics {
-      width:200px; margin-bottom:2.2rem;
-      filter:drop-shadow(0 0 50px var(--glow));
-      animation:float3D 6s infinite ease-in-out;
-    }
-    @keyframes float3D {
-      0%,100% { transform:translateZ(0) rotateX(0) rotateY(0); }
-      50% { transform:translateZ(30px) rotateX(4deg) rotateY(6deg); }
+    @keyframes explodeLight {
+      0% { transform: scale(0.3); filter: brightness(0) invert(1) drop-shadow(0 0 0 #545386); opacity: 0; }
+      40% { transform: scale(1.5); filter: brightness(0) invert(1) drop-shadow(0 0 180px #545386); opacity: 1; }
+      100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 40px #545386); opacity: 1; }
     }
 
-    /* === TÍTULO: 9rem, ESPACIADO PERFECTO === */
-    .title {
-      font-family:'Montserrat',sans-serif; font-weight:900;
-      font-size:9rem; letter-spacing:0.18em; margin:0 0 2rem;
-      background:linear-gradient(135deg, #fff 0%, #C2DFEA 45%, #545386 100%);
-      -webkit-background-clip:text; background-clip:text;
-      -webkit-text-fill-color:transparent;
-      text-shadow:0 12px 40px rgba(84,83,134,0.4);
-      animation:titleEnter 2s cubic-bezier(0.23,1,0.32,1) forwards;
-      transform:scale(0); opacity:0;
+    /* === HERO SECTION === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(84,83,134,0.15) 0%, transparent 70%);
     }
-    @keyframes titleEnter { to { transform:scale(1); opacity:1; } }
-
-    /* === PISTA: SUTIL, 1.4rem === */
-    .hint {
-      font-size:1.4rem; max-width:680px; margin:0 auto 3.5rem;
-      font-weight:300; letter-spacing:0.06em; opacity:0.9;
-      animation:fadeUp 1.8s 0.6s ease-out forwards; opacity:0; transform:translateY(40px);
+    .logo-tics-hero {
+      width: 180px;
+      margin-bottom: 2.5rem;
+      filter: drop-shadow(0 0 50px var(--glow));
+      animation: floatSubtle 5s infinite ease-in-out;
     }
-    @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
-
-    /* === ACCIONES: BOTÓN + QR, CENTRADOS === */
-    .actions {
-      display:flex; gap:3rem; margin-bottom:4rem;
-      animation:fadeUp 1.8s 0.9s ease-out forwards; opacity:0; transform:translateY(40px);
-    }
-    .btn {
-      background:var(--primary); color:#fff; padding:1.5rem 3.8rem;
-      border-radius:60px; font-family:'Montserrat',sans-serif; font-weight:800;
-      font-size:1.3rem; text-decoration:none; display:inline-flex; align-items:center; gap:1rem;
-      box-shadow:0 20px 50px rgba(84,83,134,0.5);
-      transition:all 0.6s cubic-bezier(0.23,1,0.32,1);
-    }
-    .btn:hover { transform:translateY(-8px) scale(1.05); box-shadow:0 30px 70px rgba(84,83,134,0.7); }
-    .btn-icon { width:36px; height:36px; filter:brightness(0) invert(1); }
-
-    .qr {
-      background:#fff; padding:2.5rem; border-radius:32px;
-      max-width:360px; box-shadow:0 30px 80px rgba(0,0,0,0.3);
-      border:6px solid var(--primary); animation:qrFloat 4s infinite ease-in-out;
-    }
-    .qr img { width:100%; border-radius:20px; }
-    .qr p { margin-top:1.2rem; font-weight:700; color:#222; font-size:1.1rem; }
-    @keyframes qrFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
-
-    /* === ELITE: LIMPIO, ABAJO === */
-    .elite {
-      display:flex; align-items:center; gap:1rem;
-      font-family:'Montserrat',sans-serif; font-weight:800;
-      font-size:1.2rem; color:rgba(255,255,255,0.7); letter-spacing:0.08em;
-      animation:fadeUp 1.8s 1.2s ease-out forwards; opacity:0; transform:translateY(30px);
-    }
-    .logo-elite { width:260px; filter:brightness(0) invert(1) opacity(0.8); transition:opacity 0.5s; }
-    .elite:hover .logo-elite { opacity:1; }
-
-    /* === TAGLINE: MICRO, FINAL === */
-    .tagline {
-      margin-top:3rem; font-family:'Montserrat',sans-serif; font-weight:700;
-      font-size:1rem; color:rgba(255,255,255,0.5); letter-spacing:0.3em;
-      text-transform:uppercase; animation:fadeUp 1.8s 1.4s ease-out forwards; opacity:0;
+    @keyframes floatSubtle {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    /* === RESPONSIVE: PERFECTO === */
-    @media (max-width:768px) {
-      .title { font-size:5rem; letter-spacing:0.12em; }
-      .hint { font-size:1.2rem; }
-      .actions { gap:2rem; flex-direction:column; }
-      .btn { padding:1.3rem 3rem; font-size:1.1rem; }
-      .qr { max-width:300px; padding:2rem; }
-      .logo-tics { width:160px; }
-      .logo-elite { width:200px; }
+    .title-hero {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 8rem;
+      letter-spacing: 0.16em;
+      margin: 0 0 1.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #C2DFEA 40%, #545386 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 35px rgba(84,83,134,0.4);
+      animation: titleReveal 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    @keyframes titleReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .subtitle-hero {
+      font-size: 1.5rem;
+      max-width: 780px;
+      margin: 0 auto 3.5rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+      animation: fadeIn 1.8s 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* === CTA SECTION === */
+    .cta-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+      color: var(--neutral);
+    }
+    .cta-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    .cta-text {
+      font-size: 1.3rem;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+      color: #333;
+    }
+
+    .actions-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+    .btn-cta {
+      background: var(--primary);
+      color: white;
+      padding: 1.5rem 3.8rem;
+      border-radius: 60px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 18px 48px rgba(84,83,134,0.45);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .btn-cta:hover {
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: 0 28px 65px rgba(84,83,134,0.6);
+    }
+    .whatsapp-icon { width: 38px; height: 38px; filter: brightness(0) invert(1); }
+
+    .qr-cta {
+      background: white;
+      padding: 2.4rem;
+      border-radius: 32px;
+      max-width: 360px;
+      box-shadow: 0 28px 75px rgba(0,0,0,0.25);
+      border: 6px solid var(--primary);
+      transition: all 0.5s ease;
+    }
+    .qr-cta:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 38px 95px rgba(0,0,0,0.32);
+    }
+    .qr-cta img { width: 100%; border-radius: 20px; }
+    .qr-cta p { margin-top: 1.2rem; font-weight: 700; color: #222; font-size: 1.1rem; }
+
+    /* === FOOTER SECTION === */
+    .footer-section {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      background: var(--bg);
+    }
+    .elite-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.08em;
+    }
+    .logo-elite-footer {
+      width: 260px;
+      filter: brightness(0) invert(1) opacity(0.8);
+      transition: opacity 0.5s;
+    }
+    .elite-footer:hover .logo-elite-footer { opacity: 1; }
+
+    .tagline-footer {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    /* === SCROLL INDICATOR === */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 50px;
+      border: 3px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      animation: pulseScroll 2s infinite;
+    }
+    .scroll-indicator::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 12px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 3px;
+      animation: scrollDown 2s infinite;
+    }
+    @keyframes pulseScroll {
+      0%,100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    @keyframes scrollDown {
+      0% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+      100% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 768px) {
+      .title-hero { font-size: 5rem; letter-spacing: 0.1em; }
+      .subtitle-hero { font-size: 1.2rem; }
+      .logo-tics-hero { width: 140px; }
+      .btn-cta { padding: 1.3rem 3rem; font-size: 1.1rem; }
+      .qr-cta { max-width: 300px; padding: 2rem; }
+      .logo-elite-footer { width: 200px; }
     }
   </style>
 </head>
@@ -132,54 +262,63 @@
   <!-- PRELOADER -->
   <div id="preloader">
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="boom-logo">
+         alt="TICS" class="preloader-logo">
   </div>
 
-  <!-- MAIN -->
-  <div id="main">
+  <!-- HERO -->
+  <section class="hero" id="hero">
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="logo-tics">
+         alt="TICS" class="logo-tics-hero">
 
-    <h1 class="title">TICS</h1>
-
-    <p class="hint">
-      Un sistema que no se explica. <br>
-      Se vive.
+    <h1 class="title-hero">TICS</h1>
+    <p class="subtitle-hero">
+      El sistema que conecta tu operación con precisión absoluta.
     </p>
 
-    <div class="actions">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
+    <div class="scroll-indicator"></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-title">Acceso Exclusivo</h2>
+    <p class="cta-text">
+      Únete al canal oficial y recibe alertas críticas, mantenimientos y comunicados en tiempo real.
+    </p>
+
+    <div class="actions-grid">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-cta" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
-             alt="WhatsApp" class="btn-icon">
-        <span>Entrar</span>
+             alt="WhatsApp" class="whatsapp-icon">
+        <span>Entrar al Canal</span>
       </a>
 
-      <div class="qr">
+      <div class="qr-cta">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS">
-        <p>Escanea</p>
+        <p>Escanea con tu cámara</p>
       </div>
     </div>
+  </section>
 
-    <div class="elite">
+  <!-- FOOTER -->
+  <section class="footer-section">
+    <div class="elite-footer">
       <span>by</span>
       <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-           alt="The Elite Group" class="logo-elite">
+           alt="The Elite Group" class="logo-elite-footer">
     </div>
-
-    <p class="tagline">Technology Information Communication System</p>
-  </div>
+    <p class="tagline-footer">Technology Information Communication System</p>
+  </section>
 
   <script>
-    // === PRELOADER → REVEAL ORIGINAL, MEJORADO ===
+    // === PRELOADER → REVEAL ===
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('preloader').style.opacity = '0';
         setTimeout(() => {
           document.getElementById('preloader').style.display = 'none';
-          document.getElementById('main').style.opacity = '1';
-        }, 1700);
-      }, 2200);
+        }, 1900);
+      }, 2000);
     });
   </script>
 </body>
