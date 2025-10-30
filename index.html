@@ -3,237 +3,266 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TICS | The Elite Group</title>
-  <meta name="description" content="TICS - Notificaciones TI oficiales en WhatsApp. The Elite Group." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <title>TICS | Próximamente</title>
+  <meta name="description" content="TICS - Un nuevo estándar en comunicaciones TI. Próximamente." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
-      --secondary-1: #C2DFEA;
-      --secondary-2: #F4C7CE;
-      --secondary-3: #d8d2c4;
-      --text: #2A2C29;
-      --max-width: 900px;
+      --accent: #C2DFEA;
+      --text-light: #e0e0e0;
+      --bg-dark: #0f0f1a;
+      --max-width: 1000px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Roboto', sans-serif; background: white; color: var(--text); line-height: 1.9; font-size: 1rem; }
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
-
-    /* ENCABEZADO UNIFICADO */
-    .header-wrapper {
-      background: var(--primary);
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg-dark);
       color: white;
-      padding: 2rem 0;
-      text-align: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
     }
-    .header-content {
+
+    /* FONDO CON PARTÍCULAS */
+    #particles {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .container {
+      max-width: var(--max-width);
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* MARCA UNIFICADA */
+    .brand {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.8rem;
-    }
-    .brand-block {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      flex-wrap: nowrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
     }
     .logo-tics {
-      width: 100px;
+      width: 140px;
       height: auto;
-      filter: brightness(0) invert(1);
+      filter: drop-shadow(0 0 20px rgba(84, 83, 134, 0.6));
+      animation: pulse-glow 3s infinite ease-in-out;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(84, 83, 134, 0.6)); }
+      50% { filter: drop-shadow(0 0 40px rgba(84, 83, 134, 0.9)); }
     }
     .brand-text {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.8rem;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1rem;
-      color: white;
-      letter-spacing: 0.05em;
-    }
-    .by-text {
-      font-size: 0.85rem;
+      font-size: 1.1rem;
+      color: var(--text-light);
       opacity: 0.9;
-      font-weight: 500;
     }
-    .logo-elite-inline {
-      width: 180px;
+    .by-text { font-size: 0.9rem; opacity: 0.8; }
+    .logo-elite {
+      width: 220px;
       height: auto;
       filter: brightness(0) invert(1);
     }
-    .page-title {
+
+    /* TÍTULO PREMIUM */
+    .title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 2.4rem;
-      font-weight: 800;
+      font-size: 3.8rem;
+      font-weight: 900;
       color: white;
-      margin: 0;
-      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      letter-spacing: -0.05em;
+      background: linear-gradient(90deg, white, var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1.5s ease-out;
     }
-    .page-subtitle {
-      font-size: 1.15rem;
-      color: #e0e0e0;
-      font-weight: 500;
-      margin: 0;
-    }
-
-    /* HERO LIMPIO */
-    .hero {
-      background: linear-gradient(135deg, #f9f9fb 0%, #ffffff 100%);
-      padding: 4.5rem 0;
-      text-align: center;
-    }
-    .hero h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 2.6rem;
-      color: var(--primary);
-      margin-bottom: 1.2rem;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: #444;
-      max-width: 680px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.8;
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--text-light);
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      animation: fadeIn 1.8s ease-out;
     }
 
-    /* BOTÓN CORPORATIVO CON WHATSAPP BLANCO (CSS FILTER) */
+    /* BOTÓN WHATSAPP BLANCO (CSS FILTER) */
     .btn-whatsapp {
       display: inline-flex;
       align-items: center;
-      gap: 0.9rem;
-      background: var(--primary);
+      gap: 1rem;
+      background: transparent;
       color: white;
-      padding: 1.1rem 2.2rem;
+      padding: 1.2rem 2.8rem;
+      border: 2px solid white;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(84, 83, 134, 0.25);
+      font-size: 1.15rem;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 2s ease-out;
+    }
+    .btn-whatsapp::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.6s;
+    }
+    .btn-whatsapp:hover::before {
+      left: 100%;
     }
     .btn-whatsapp:hover {
-      background: #3e3d6b;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(84, 83, 134, 0.35);
+      background: rgba(255,255,255,0.1);
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(84, 83, 134, 0.4);
     }
     .whatsapp-icon {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       filter: brightness(0) invert(1); /* MORADO → BLANCO */
     }
 
-    /* QR */
-    .qr-container {
-      background: white;
-      padding: 1.8rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.1);
-      max-width: 300px;
-      width: 100%;
-      text-align: center;
-      margin: 2.5rem auto 0;
-    }
-    .qr-container img {
-      width: 100%;
-      height: auto;
-      border: 6px solid var(--primary);
-      border-radius: 12px;
-    }
-    .qr-container p {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      color: #555;
+    /* TEXTO FINAL */
+    .coming-soon {
+      margin-top: 3rem;
+      font-size: 1.1rem;
+      color: var(--accent);
       font-weight: 500;
+      letter-spacing: 0.1em;
+      animation: fadeIn 2.3s ease-out;
     }
 
-    /* FOOTER */
-    footer {
-      background: var(--primary);
-      color: white;
-      text-align: center;
-      padding: 2.8rem 0;
-      margin-top: 4rem;
-    }
-    footer a {
-      color: var(--secondary-1);
-      text-decoration: none;
-      margin: 0 0.7rem;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-    footer a:hover {
-      color: #ffffff;
+    /* ANIMACIONES */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 600px) {
-      .container { padding: 0 1.2rem; }
-      .brand-block { gap: 0.9rem; flex-wrap: wrap; justify-content: center; }
-      .logo-tics { width: 80px; }
-      .logo-elite-inline { width: 140px; }
-      .by-text { font-size: 0.75rem; }
-      .page-title { font-size: 2rem; }
-      .hero h1 { font-size: 2.1rem; }
-      .hero p { font-size: 1rem; }
-      .btn-whatsapp { padding: 1rem 1.8rem; font-size: 1rem; gap: 0.7rem; }
-      .whatsapp-icon { width: 22px; height: 22px; }
-      .qr-container { max-width: 260px; padding: 1.4rem; }
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .title { font-size: 2.8rem; }
+      .subtitle { font-size: 1.1rem; }
+      .logo-tics { width: 110px; }
+      .logo-elite { width: 180px; }
+      .btn-whatsapp { padding: 1rem 2.2rem; font-size: 1.05rem; gap: 0.8rem; }
+      .whatsapp-icon { width: 24px; height: 24px; }
+    }
+    @media (max-width: 480px) {
+      .title { font-size: 2.3rem; }
+      .brand-text { font-size: 0.95rem; flex-wrap: wrap; justify-content: center; }
+      .by-text { font-size: 0.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ENCABEZADO UNIFICADO -->
-  <header class="header-wrapper">
-    <div class="container header-content">
-      <div class="brand-block">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-             alt="TICS" class="logo-tics">
-        <div class="brand-text">
-          <span class="by-text">by</span>
-          <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-               alt="The Elite Group" class="logo-elite-inline">
-        </div>
-      </div>
-      <h1 class="page-title">TICS</h1>
-      <p class="page-subtitle">Technology Information Communication System</p>
-    </div>
-  </header>
+  <!-- PARTÍCULAS DE FONDO -->
+  <canvas id="particles"></canvas>
 
-  <!-- HERO LIMPIO -->
-  <section class="hero">
-    <div class="container">
-      <h1>Notificaciones TI en Tiempo Real</h1>
-      <p>Recibe alertas críticas, mantenimientos y actualizaciones oficiales directamente en tu móvil.</p>
-
-      <!-- BOTÓN CON WHATSAPP BLANCO (CSS) -->
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
-             alt="WhatsApp" class="whatsapp-icon">
-        Unirse al Canal
-      </a>
-
-      <!-- QR -->
-      <div class="qr-container">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR del Canal TICS">
-        <p>Escanea para seguir</p>
+  <div class="container">
+    <!-- MARCA -->
+    <div class="brand">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
+           alt="TICS" class="logo-tics">
+      <div class="brand-text">
+        <span class="by-text">by</span>
+        <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
+             alt="The Elite Group" class="logo-elite">
       </div>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <p>© 2025 The Elite Group | TICS</p>
-      <p>
-        <a href="privacy-policy.html">Privacidad</a> • 
-        <a href="terms-of-service.html">Términos</a> • 
-        <a href="data-deletion.html">Salir del Canal</a>
-      </p>
-    </div>
-  </footer>
+    <!-- TÍTULO INTRIGANTE -->
+    <h1 class="title">PRÓXIMAMENTE</h1>
+    <p class="subtitle">Un nuevo estándar en comunicaciones TI</p>
+
+    <!-- BOTÓN WHATSAPP BLANCO -->
+    <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
+           alt="WhatsApp" class="whatsapp-icon">
+      Seguir en WhatsApp
+    </a>
+
+    <p class="coming-soon">TICS • Technology Information Communication System</p>
+  </div>
+
+  <!-- PARTÍCULAS JS -->
+  <script>
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particlesArray = [];
+    const numberOfParticles = 80;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(194, 223, 234, 0.3)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      particlesArray.length = 0;
+      init();
+    });
+  </script>
 </body>
 </html>
