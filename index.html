@@ -39,6 +39,7 @@
       --glass-border: rgba(168, 223, 252, 0.18);
       --shadow: rgba(90, 90, 180, 0.3);
       --particle: #a8dffc;
+      --cursor-size: 32px;
     }
 
     [data-theme="light"] {
@@ -54,7 +55,11 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; }
+    html, body { 
+      height: 100%; 
+      overflow: hidden; 
+      cursor: none !important; /* OCULTAR CURSOR NATIVO */
+    }
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
@@ -64,7 +69,41 @@
       transition: background 0.6s ease, color 0.6s ease;
     }
 
-    /* === PORTAL CERRADO - LOGO ORIGINAL CON BRILLO PREMIUM === */
+    /* === CURSOR PERSONALIZADO PREMIUM === */
+    #custom-cursor {
+      position: fixed;
+      width: var(--cursor-size);
+      height: var(--cursor-size);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(2px);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+    #custom-cursor::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0.3;
+      transform: scale(0);
+      transition: transform 0.3s ease;
+    }
+    #custom-cursor.hover::before {
+      transform: scale(1);
+    }
+    #custom-cursor.hover {
+      width: calc(var(--cursor-size) * 1.4);
+      height: calc(var(--cursor-size) * 1.4);
+      border-color: var(--accent);
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+
+    /* === PORTAL CERRADO - LOGO ORIGINAL CON BRILLO === */
     .portal {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       display: flex; justify-content: center; align-items: center;
@@ -94,14 +133,36 @@
       transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
       z-index: 10;
       transform-style: preserve-3d;
-      cursor: pointer;
+      cursor: none;
     }
     .portal-logo:hover {
       transform: scale(1.08) translateZ(40px);
       filter: drop-shadow(0 0 80px var(--accent-glow));
     }
 
-    /* === EXPLOSIÓN ÉPICA === */
+    /* === TOGGLE TEMA - FUNCIONA SIEMPRE === */
+    .theme-toggle {
+      position: fixed; top: 1.5rem; right: 1.5rem;
+      width: 50px; height: 50px; background: var(--glass);
+      border: 2px solid var(--glass-border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: none;
+      z-index: 999;
+      backdrop-filter: blur(10px);
+      transition: all 0.4s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.1); }
+
+    .theme-toggle .icon {
+      position: absolute; width: 22px; height: 22px;
+      fill: var(--accent); transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .icon-moon { opacity: 1; transform: rotate(0deg); }
+    .icon-sun { opacity: 0; transform: rotate(90deg); }
+    [data-theme="light"] .icon-moon { opacity: 0; transform: rotate(-90deg); }
+    [data-theme="light"] .icon-sun { opacity: 1; transform: rotate(0deg); }
+
+    /* === EXPLOSIÓN === */
     .explosion {
       position: fixed; top: 50%; left: 50%; width: 0; height: 0;
       background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
@@ -138,7 +199,7 @@
       overflow-y: auto;
     }
 
-    /* === LOGO EN CONTENIDO - LIMPIO Y SIN BRILLO === */
+    /* === LOGO EN CONTENIDO - SIN BRILLO === */
     .content-logo {
       display: none;
       width: clamp(140px, 22vw, 180px); 
@@ -171,7 +232,7 @@
       animation: lineGrow 1.6s 2s ease-out forwards;
     }
 
-    /* === ACCIONES - QR PRIMERO, BOTÓN DESPUÉS === */
+    /* === ACCIONES === */
     .actions {
       display: flex; flex-direction: column; gap: clamp(2.5rem, 7vw, 3.5rem); width: 100%;
       opacity: 0;
@@ -179,7 +240,7 @@
       align-items: center;
     }
 
-    /* === QR MAGNÉTICO === */
+    /* === QR === */
     .qr-magnet {
       position: relative; max-width: 360px; margin: 0 auto;
       padding: clamp(2rem, 6vw, 2.8rem); border-radius: 32px;
@@ -188,35 +249,31 @@
       transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
       opacity: 0;
       animation: fadeIn 1.6s 1s ease-out forwards;
-      cursor: pointer;
+      cursor: none;
     }
     [data-theme="light"] .qr-magnet { box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
-
     .qr-magnet:hover {
       transform: translateY(-15px) scale(1.05);
       box-shadow: 0 50px 120px rgba(0,0,0,0.5);
       border-color: var(--accent);
     }
-
     .qr-img {
       width: 100%; border-radius: 20px;
       filter: drop-shadow(0 0 8px rgba(168, 223, 252, 0.3));
       animation: qrFloat 5s infinite ease-in-out;
     }
-
     .qr-call {
       margin-top: 1.6rem; font-weight: 800; color: var(--accent);
       font-size: clamp(1.1rem, 3vw, 1.3rem); letter-spacing: 0.1em;
       text-transform: uppercase; text-align: center;
       text-shadow: 0 0 20px var(--accent-glow);
     }
-
     @keyframes qrFloat {
       0%, 100% { transform: translateY(0) rotate(0); }
       50% { transform: translateY(-8px) rotate(1deg); }
     }
 
-    /* === BOTÓN PREMIUM - "ACCEDER AL CANAL" === */
+    /* === BOTÓN === */
     .btn {
       background: var(--primary);
       color: #fff;
@@ -241,9 +298,9 @@
       max-width: 420px;
       margin: 0 auto;
       border: 2px solid transparent;
+      cursor: none;
     }
     [data-theme="light"] .btn { color: #0a0a0f; }
-
     .btn::before {
       content: '';
       position: absolute;
@@ -253,39 +310,17 @@
       transition: 0.8s;
     }
     .btn:hover::before { transform: translateX(100%); }
-
     .btn:hover {
       transform: translateY(-6px);
       box-shadow: 0 25px 60px var(--shadow);
       border-color: var(--accent);
     }
-
     .btn-icon {
       width: clamp(36px, 7vw, 42px);
       height: auto;
       filter: brightness(0) invert(1);
     }
     [data-theme="light"] .btn-icon { filter: brightness(0) invert(0); }
-
-    /* === TOGGLE MODO CLARO/OSCURO === */
-    .theme-toggle {
-      position: fixed; top: 1.5rem; right: 1.5rem;
-      width: 50px; height: 50px; background: var(--glass);
-      border: 2px solid var(--glass-border); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; z-index: 999; backdrop-filter: blur(10px);
-      transition: all 0.4s ease;
-    }
-    .theme-toggle:hover { transform: scale(1.1); }
-
-    .theme-toggle .icon {
-      position: absolute; width: 22px; height: 22px;
-      fill: var(--accent); transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .icon-moon { opacity: 1; transform: rotate(0deg); }
-    .icon-sun { opacity: 0; transform: rotate(90deg); }
-    [data-theme="light"] .icon-moon { opacity: 0; transform: rotate(-90deg); }
-    [data-theme="light"] .icon-sun { opacity: 1; transform: rotate(0deg); }
 
     /* === FOOTER === */
     .footer {
@@ -306,7 +341,6 @@
     }
     [data-theme="light"] .elite-logo { filter: brightness(0) invert(0) opacity(0.9); }
     .elite:hover .elite-logo { opacity: 1; }
-
     .tagline {
       margin-top: clamp(2rem, 5vw, 3rem); font-size: clamp(0.75rem, 2vw, 0.88rem); 
       color: var(--text); font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase;
@@ -323,7 +357,10 @@
 </head>
 <body data-theme="dark">
 
-  <!-- TOGGLE -->
+  <!-- CURSOR PERSONALIZADO -->
+  <div id="custom-cursor"></div>
+
+  <!-- TOGGLE TEMA -->
   <div class="theme-toggle" id="themeToggle">
     <svg class="icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -336,7 +373,7 @@
   <!-- EXPLOSIÓN -->
   <div class="explosion" id="explosion"></div>
 
-  <!-- PORTAL - LOGO ORIGINAL -->
+  <!-- PORTAL -->
   <div class="portal" id="portal">
     <div class="portal-ring"></div>
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
@@ -389,7 +426,33 @@
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
 
   <script>
-    // === TEMA ===
+    // === CURSOR PERSONALIZADO ===
+    const cursor = document.getElementById('custom-cursor');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function updateCursor() {
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
+      cursor.style.left = `${cursorX}px`;
+      cursor.style.top = `${cursorY}px`;
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    // Hover en elementos interactivos
+    const hoverables = document.querySelectorAll('.portal-logo, .theme-toggle, .btn, .qr-magnet');
+    hoverables.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // === TEMA (SIEMPRE FUNCIONA) ===
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
     const currentTheme = localStorage.getItem('theme') || 'dark';
