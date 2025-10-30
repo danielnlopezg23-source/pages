@@ -219,37 +219,70 @@
       animation: underlineGrow 2s infinite ease-in-out;
     }
 
-    /* === SCROLLDOWN INTELIGENTE === */
-    .scrolldown {
-      position: fixed; bottom: clamp(1.5rem, 4vh, 2.5rem); left: 50%;
+    @keyframes qrPulse {
+      0%, 100% { box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+      50% { box-shadow: 0 50px 120px rgba(168,223,252,0.3); }
+    }
+
+    @keyframes qrBorderPulse {
+      0%, 100% { opacity: 0; transform: scale(0.9); }
+      50% { opacity: 0.6; transform: scale(1.1); }
+    }
+
+    @keyframes qrFloat {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    @keyframes textPulse {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    @keyframes underlineGrow {
+      0%, 100% { transform: translateX(-50%) scaleX(0); }
+      50% { transform: translateX(-50%) scaleX(1); }
+    }
+
+    /* === SCROLLDOWN MOUSE PREMIUM === */
+    .mouse-scroll {
+      position: fixed;
+      bottom: clamp(2rem, 5vh, 3rem);
+      left: 50%;
       transform: translateX(-50%);
-      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
-      font-size: clamp(0.85rem, 2vw, 1rem); color: var(--accent);
-      letter-spacing: 0.1em; text-transform: uppercase;
+      width: 28px;
+      height: 48px;
+      border: 2px solid var(--accent);
+      border-radius: 25px;
       opacity: 0;
-      animation: fadeIn 1.6s 2s ease-out forwards, bounce 2s infinite ease-in-out;
-      text-shadow: 0 0 15px var(--accent-glow);
+      animation: fadeIn 1.6s 2s ease-out forwards;
       z-index: 950;
       pointer-events: none;
       transition: opacity 0.4s ease;
     }
-    .scrolldown::after {
-      content: ''; position: absolute; bottom: -1.5rem; left: 50%;
-      width: 2px; height: 30px; background: var(--accent);
+
+    .mouse-scroll::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      width: 4px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 2px;
       transform: translateX(-50%);
-      animation: scrollLine 2s infinite ease-in-out;
+      animation: scrollWheel 2s infinite ease-in-out;
     }
-    .scrolldown.hidden {
+
+    .mouse-scroll.hidden {
       opacity: 0;
       pointer-events: none;
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-8px); }
-    }
-    @keyframes scrollLine {
-      0%, 100% { transform: translateX(-50%) scaleY(0); }
-      50% { transform: translateX(-50%) scaleY(1); }
+
+    @keyframes scrollWheel {
+      0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      50% { transform: translateX(-50%) translateY(12px); opacity: 0.6; }
+      100% { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
 
     /* === VERSIÓN === */
@@ -348,15 +381,11 @@
     </div>
   </div>
 
-  <!-- SCROLLDOWN INTELIGENTE -->
-  <div class="scrolldown" id="scrolldown">
-    <span class="es">SCROLL DOWN</span>
-    <span class="en">SCROLL DOWN</span>
-    <span class="fr">DÉFILEZ</span>
-  </div>
+  <!-- SCROLLDOWN MOUSE PREMIUM -->
+  <div class="mouse-scroll" id="mouseScroll"></div>
 
   <!-- VERSIÓN -->
-  <div class="version">v1.4.7</div>
+  <div class="version">v1.4.8</div>
 
   <!-- FONDO -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
@@ -368,6 +397,7 @@
     const content = document.getElementById('content');
     const portalLogo = document.getElementById('portalLogo');
     const contentLogo = document.getElementById('contentLogo');
+    const mouseScroll = document.getElementById('mouseScroll');
 
     portal.addEventListener('click', () => {
       explosion.classList.add('active');
@@ -388,17 +418,16 @@
       }, 1200);
     });
 
-    // === SCROLLDOWN INTELIGENTE + SCROLL LIMITADO ===
+    // === SCROLLDOWN MOUSE INTELIGENTE ===
     function checkScroll() {
-      const viewportHeight = window.innerHeight;
-      const contentHeight = content.scrollHeight;
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.body.scrollHeight;
 
-      // Mostrar scroll down solo si hay contenido por debajo
-      if (contentHeight > viewportHeight && scrollTop < contentHeight - viewportHeight - 100) {
-        scrolldown.classList.remove('hidden');
+      if (scrollTop + windowHeight < documentHeight - 100) {
+        mouseScroll.classList.remove('hidden');
       } else {
-        scrolldown.classList.add('hidden');
+        mouseScroll.classList.add('hidden');
       }
     }
 
