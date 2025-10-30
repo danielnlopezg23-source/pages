@@ -117,7 +117,7 @@
     }
     .content.revealed {
       opacity: 1; visibility: visible; pointer-events: auto;
-      overflow-y: visible;
+      overflow-y: auto;
     }
     .content > * {
       max-width: 90vw; margin-left: auto; margin-right: auto; text-align: center;
@@ -267,7 +267,7 @@
       50% { transform: translateX(-50%) scaleX(1); }
     }
 
-    /* === SCROLLDOWN MOUSE PREMIUM === */
+    /* === SCROLLDOWN MOUSE PREMIUM (EN 2ª PANTALLA) === */
     .mouse-scroll {
       position: fixed;
       bottom: clamp(2rem, 5vh, 3rem);
@@ -278,7 +278,6 @@
       border: 2px solid var(--accent);
       border-radius: 25px;
       opacity: 0;
-      animation: fadeIn 1.6s 2s ease-out forwards;
       z-index: 950;
       pointer-events: none;
       transition: opacity 0.6s ease;
@@ -307,7 +306,7 @@
       100% { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
 
-    /* === MODO CLARO/OSCURO TOGGLE === */
+    /* === TOGGLE MODO CLARO/OSCURO CON LUNA Y SOL === */
     .theme-toggle {
       position: fixed;
       top: 1.5rem;
@@ -326,12 +325,16 @@
       transition: all 0.4s ease;
     }
     .theme-toggle:hover { transform: scale(1.1); }
-    .theme-toggle svg {
+    .theme-toggle .icon {
       width: 22px;
       height: 22px;
       fill: var(--accent);
-      transition: fill 0.4s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
+    .theme-toggle .icon-moon { opacity: 1; transform: rotate(0); }
+    .theme-toggle .icon-sun { opacity: 0; transform: rotate(90deg); }
+    [data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(-90deg); }
+    [data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0); }
 
     /* === VERSIÓN === */
     .version {
@@ -381,9 +384,14 @@
 </head>
 <body data-theme="dark">
 
-  <!-- TOGGLE MODO CLARO/OSCURO -->
+  <!-- TOGGLE MODO CLARO/OSCURO CON LUNA Y SOL -->
   <div class="theme-toggle" id="themeToggle">
-    <svg viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+    <svg class="icon icon-moon" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <svg class="icon icon-sun" viewBox="0 0 24 24">
+      <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+    </svg>
   </div>
 
   <!-- EXPLOSIÓN -->
@@ -437,11 +445,11 @@
     </div>
   </div>
 
-  <!-- SCROLLDOWN MOUSE PREMIUM -->
+  <!-- SCROLLDOWN MOUSE PREMIUM (EN 2ª PANTALLA) -->
   <div class="mouse-scroll" id="mouseScroll"></div>
 
   <!-- VERSIÓN -->
-  <div class="version">v1.4.9</div>
+  <div class="version">v1.5.0</div>
 
   <!-- FONDO -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
@@ -486,17 +494,22 @@
       }, 1200);
     });
 
-    // === SCROLL CONTROL: DESAPARECE GRADUAL + SIN SCROLL EXTRA ===
+    // === SCROLL CONTROL: EN 2ª PANTALLA + DESAPARECE GRADUAL + SIN SCROLL EXTRA ===
     function initScrollControl() {
+      const actions = document.querySelector('.actions');
       const footer = document.querySelector('.footer');
       const footerBottom = footer.offsetTop + footer.offsetHeight;
       const viewportHeight = window.innerHeight;
 
+      // Mostrar solo si el usuario está en la 2ª pantalla (acciones visibles)
       function checkScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const actionsTop = actions.offsetTop;
         const distanceToBottom = footerBottom - (scrollTop + viewportHeight);
 
-        if (distanceToBottom > 100) {
+        // Aparece solo si estamos en la sección de acciones y hay footer abajo
+        if (scrollTop >= actionsTop - viewportHeight * 0.5 && distanceToBottom > 100) {
+          mouseScroll.style.opacity = '1';
           mouseScroll.classList.remove('fade-out');
         } else {
           mouseScroll.classList.add('fade-out');
@@ -510,7 +523,7 @@
 
       window.addEventListener('scroll', checkScroll);
       window.addEventListener('resize', checkScroll);
-      checkScroll();
+      setTimeout(checkScroll, 100); // Asegurar detección inicial
     }
 
     // === PARTÍCULAS ===
