@@ -6,13 +6,23 @@
   <title>TICS</title>
   <meta name="description" content="TICS." />
   
-  <!-- Seguridad mejorada -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://github.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none';">
+  <!-- === SEGURIDAD MEJORADA (SIN ROMPER IMÁGENES) === -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    img-src 'self' data: https://github.com https://raw.githubusercontent.com;
+    font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self';
+    media-src 'self';
+    object-src 'none';
+    frame-src 'none';
+  ">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
   <meta name="referrer" content="no-referrer">
-  
+
   <!-- Preload crítico -->
   <link rel="preload" href="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" as="image">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@700;900&display=swap" as="style">
@@ -144,16 +154,19 @@
       animation: fadeIn 1.6s 0.8s ease-out forwards;
     }
 
-    /* === TÍTULO === */
+    /* === TÍTULO - MEJORADO: MÁS SEPARACIÓN ENTRE LETRAS === */
     .title {
       font-family: 'Space Grotesk', sans-serif; font-weight: 900;
-      font-size: clamp(3.8rem, 12vw, 6.8rem); letter-spacing: 0.05em; line-height: 0.9;
+      font-size: clamp(3.8rem, 12vw, 6.8rem);
+      letter-spacing: 0.18em; /* Aumentado de -0.1em a 0.18em */
+      line-height: 0.9;
       color: var(--text);
-      margin: 0 0 1.4rem 0;
+      margin: 0 0 1.8rem 0; /* Más espacio abajo */
       position: relative;
       text-shadow: 0 0 30px var(--accent-glow);
       opacity: 0;
       animation: fadeIn 1.8s 0.6s ease-out forwards;
+      text-transform: uppercase;
     }
     .title::after {
       content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
@@ -163,7 +176,7 @@
 
     /* === ACCIONES === */
     .actions {
-      display: flex; flex-direction: column; gap: clamp(2rem, 6vw, 3.2rem); width: 100%;
+      display: flex; flex-direction: column; gap: clamp(2.5rem, 7vw, 3.5rem); width: 100%;
       opacity: 0;
       animation: fadeIn 1.6s 1.2s ease-out forwards;
       align-items: center;
@@ -193,7 +206,7 @@
     .btn-icon { width: clamp(30px, 6vw, 36px); height: auto; filter: brightness(0) invert(1); }
     [data-theme="light"] .btn-icon { filter: brightness(0) invert(0); }
 
-    /* === QR MAGNÉTICO === */
+    /* === QR MAGNÉTICO - BRILLO REDUCIDO === */
     .qr-magnet {
       position: relative; max-width: 360px; margin: 0 auto;
       padding: clamp(2rem, 6vw, 2.8rem); border-radius: 32px;
@@ -225,7 +238,7 @@
 
     .qr-img {
       width: 100%; border-radius: 20px; position: relative; z-index: 2;
-      filter: drop-shadow(0 0 10px var(--accent-glow)); /* Reducido el brillo para mejorar visibilidad */
+      filter: drop-shadow(0 0 8px rgba(168, 223, 252, 0.3)); /* Brillo muy sutil */
       animation: qrFloat 5s infinite ease-in-out;
     }
 
@@ -233,7 +246,7 @@
       margin-top: 1.6rem; font-weight: 800; color: var(--accent);
       font-size: clamp(1.1rem, 3vw, 1.3rem); letter-spacing: 0.1em;
       text-transform: uppercase; text-align: center;
-      text-shadow: 0 0 25px var(--accent-glow);
+      text-shadow: 0 0 20px var(--accent-glow);
       animation: textPulse 2s infinite ease-in-out;
       position: relative; z-index: 2;
     }
@@ -274,7 +287,7 @@
       50% { transform: translateX(-50%) scaleX(1); }
     }
 
-    /* === TOGGLE MODO CLARO/OSCURO – SOL Y LUNA PERFECTOS === */
+    /* === TOGGLE MODO CLARO/OSCURO === */
     .theme-toggle {
       position: fixed;
       top: 1.5rem;
@@ -349,11 +362,9 @@
 
   <!-- TOGGLE MODO CLARO/OSCURO -->
   <div class="theme-toggle" id="themeToggle">
-    <!-- Luna (modo oscuro) -->
     <svg class="icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
-    <!-- Sol (modo claro) -->
     <svg class="icon icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 2.25a.75.75 0 01.75-.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM12 20.25a.75.75 0 01.75-.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM21.75 12a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM3.75 12a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM18.364 5.636a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM5.636 18.364a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM18.364 18.364a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM5.636 5.636a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM12 8a4 4 0 100 8 4 4 0 000-8z"/>
     </svg>
@@ -421,20 +432,20 @@
     body.setAttribute('data-theme', currentTheme);
 
     themeToggle.addEventListener('click', (e) => {
-      e.stopPropagation(); // Evita que el clic llegue al portal
+      e.stopPropagation();
       const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       body.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
     });
 
-    // === EXPLOSIÓN + FADE SUAVE – SOLO AL TOCAR EL LOGO ===
+    // === EXPLOSIÓN + FADE SUAVE ===
     const portalLogo = document.getElementById('portalLogo');
     const explosion = document.getElementById('explosion');
     const content = document.getElementById('content');
     const contentLogo = document.getElementById('contentLogo');
 
     portalLogo.addEventListener('click', (e) => {
-      e.stopPropagation(); // Asegura que solo el logo active
+      e.stopPropagation();
 
       explosion.classList.add('active');
       portalLogo.style.transform = 'scale(3) rotate(360deg)';
