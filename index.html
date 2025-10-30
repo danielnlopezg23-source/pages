@@ -141,7 +141,8 @@
       font-family: 'Space Grotesk', sans-serif; font-weight: 900;
       font-size: clamp(3.8rem, 12vw, 6.8rem); letter-spacing: -0.1em; line-height: 0.9;
       color: var(--text);
-      margin: 0 0 1.4rem; position: relative;
+      margin: 0 0 1.4rem 0;
+      position: relative;
       text-shadow: 0 0 30px var(--accent-glow);
       opacity: 0;
       animation: fadeIn 1.8s 0.6s ease-out forwards;
@@ -265,46 +266,7 @@
       50% { transform: translateX(-50%) scaleX(1); }
     }
 
-    /* === SCROLLDOWN MOUSE PREMIUM (EN 2ª PANTALLA) === */
-    .mouse-scroll {
-      position: fixed;
-      bottom: clamp(2rem, 5vh, 3rem);
-      left: 50%;
-      transform: translateX(-50%);
-      width: 28px;
-      height: 48px;
-      border: 2px solid var(--accent);
-      border-radius: 25px;
-      opacity: 0;
-      z-index: 950;
-      pointer-events: none;
-      transition: opacity 0.6s ease;
-    }
-
-    .mouse-scroll::before {
-      content: '';
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      width: 4px;
-      height: 8px;
-      background: var(--accent);
-      border-radius: 2px;
-      transform: translateX(-50%);
-      animation: scrollWheel 2s infinite ease-in-out;
-    }
-
-    .mouse-scroll.visible {
-      opacity: 1;
-    }
-
-    @keyframes scrollWheel {
-      0% { transform: translateX(-50%) translateY(0); opacity: 1; }
-      50% { transform: translateX(-50%) translateY(12px); opacity: 0.6; }
-      100% { transform: translateX(-50%) translateY(0); opacity: 1; }
-    }
-
-    /* === TOGGLE MODO CLARO/OSCURO CON LUNA Y SOL COMPLETOS === */
+    /* === TOGGLE MODO CLARO/OSCURO – SOL Y LUNA PERFECTOS === */
     .theme-toggle {
       position: fixed;
       top: 1.5rem;
@@ -338,21 +300,6 @@
 
     [data-theme="light"] .icon-moon { opacity: 0; transform: rotate(-90deg); }
     [data-theme="light"] .icon-sun { opacity: 1; transform: rotate(0deg); }
-
-    /* === VERSIÓN FIJA EN INFERIOR DERECHA === */
-    .version {
-      position: fixed;
-      bottom: clamp(1rem, 2vh, 1.5rem);
-      right: clamp(1rem, 3vw, 1.5rem);
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.8rem;
-      color: rgba(168,223,252,0.5);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      z-index: 999;
-    }
-    [data-theme="light"] .version { color: rgba(74,144,226,0.5); }
 
     /* === FOOTER === */
     .footer {
@@ -392,15 +339,15 @@
 </head>
 <body data-theme="dark">
 
-  <!-- TOGGLE MODO CLARO/OSCURO CON LUNA Y SOL COMPLETOS -->
+  <!-- TOGGLE MODO CLARO/OSCURO – SOL Y LUNA 100% VISIBLES -->
   <div class="theme-toggle" id="themeToggle">
     <!-- Luna (modo oscuro) -->
     <svg class="icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
-    <!-- Sol (modo claro) -->
+    <!-- Sol (modo claro) – CORREGIDO -->
     <svg class="icon icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+      <path d="M12 2.25a.75.75 0 01.75-.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM12 20.25a.75.75 0 01.75-.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM21.75 12a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM3.75 12a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM18.364 5.636a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM5.636 18.364a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM18.364 18.364a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM5.636 5.636a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM12 8a4 4 0 100 8 4 4 0 000-8z"/>
     </svg>
   </div>
 
@@ -455,12 +402,6 @@
     </div>
   </div>
 
-  <!-- SCROLLDOWN MOUSE PREMIUM -->
-  <div class="mouse-scroll" id="mouseScroll"></div>
-
-  <!-- VERSIÓN FIJA -->
-  <div class="version">v1.5.2</div>
-
   <!-- FONDO -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
 
@@ -483,7 +424,6 @@
     const content = document.getElementById('content');
     const portalLogo = document.getElementById('portalLogo');
     const contentLogo = document.getElementById('contentLogo');
-    const mouseScroll = document.getElementById('mouseScroll');
 
     portal.addEventListener('click', () => {
       explosion.classList.add('active');
@@ -500,37 +440,27 @@
         content.classList.add('revealed');
         document.body.style.overflowY = 'auto';
         contentLogo.src = portalLogo.src;
-        initScrollControl();
+        lockScrollToFooter();
       }, 1200);
     });
 
-    // === SCROLL CONTROL: EN 2ª PANTALLA + DESAPARECE GRADUAL + SIN SCROLL EXTRA ===
-    function initScrollControl() {
-      const actions = document.querySelector('.actions');
+    // === BLOQUEAR SCROLL MÁS ALLÁ DEL FOOTER ===
+    function lockScrollToFooter() {
       const footer = document.querySelector('.footer');
       const footerBottom = footer.offsetTop + footer.offsetHeight;
       const viewportHeight = window.innerHeight;
 
       function checkScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const actionsTop = actions.offsetTop;
-        const distanceToBottom = footerBottom - (scrollTop + viewportHeight);
-
-        if (scrollTop >= actionsTop - viewportHeight * 0.7 && distanceToBottom > 100) {
-          mouseScroll.classList.add('visible');
-        } else {
-          mouseScroll.classList.remove('visible');
-        }
-
-        // Bloquear scroll más allá del footer
         if (scrollTop + viewportHeight > footerBottom) {
           window.scrollTo(0, footerBottom - viewportHeight);
         }
       }
 
       window.addEventListener('scroll', checkScroll);
-      window.addEventListener('resize', checkScroll);
-      setTimeout(checkScroll, 200);
+      window.addEventListener('resize', () => {
+        setTimeout(checkScroll, 100);
+      });
     }
 
     // === PARTÍCULAS ===
