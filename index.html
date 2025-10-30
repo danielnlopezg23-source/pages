@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TICS | 00:00:00</title>
-  <meta name="description" content="TICS. El nuevo estándar. En 7 días." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>TICS</title>
+  <meta name="description" content="TICS. El sistema que redefine la comunicación TI en horticultura. Acceso exclusivo." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
@@ -13,279 +13,407 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --bg: #0a0a14;
-      --text: #e8e8ed;
-      --glow: rgba(84,83,134,0.5);
+      --bg: #0d0d18;
+      --text: #f0f0f5;
+      --glow-primary: rgba(84,83,134,0.45);
+      --glow-accent: rgba(194,223,234,0.3);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior: smooth; }
+    html, body { height:100%; overflow:hidden; }
     body {
       font-family: 'Roboto', sans-serif;
       background: var(--bg);
       color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.7;
+      perspective: 1200px;
     }
 
-    /* === HERO ULTRA MINIMALISTA === */
-    .hero {
-      min-height: 100vh;
+    /* === WEBGL BACKGROUND - 3D HORTICULTURA ABSTRACTA === */
+    #webgl-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+    }
+
+    /* === OVERLAY GRADIENT + GRAIN TEXTURE === */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(84,83,134,0.18) 0%, transparent 45%),
+        radial-gradient(circle at 75% 70%, rgba(194,223,234,0.12) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(13,13,24,0.92) 0%, rgba(10,10,20,0.96) 100%);
+      pointer-events: none;
+    }
+    .grain {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 3;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="5" stitchTiles="stitch"/></filter><rect width="300" height="300" filter="url(%23grain)" opacity="0.08"/></svg>') repeat;
+      pointer-events: none;
+      animation: grain-move 20s linear infinite;
+    }
+    @keyframes grain-move { from { background-position: 0 0; } to { background-position: 300px 300px; } }
+
+    /* === CONTAINER 3D === */
+    .scene {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding: 2rem;
-      position: relative;
+      transform-style: preserve-3d;
     }
 
-    /* === LOGO TICS - ESTÁTICO, ELEGANTE, CON GLOW SUTIL === */
+    /* === LOGO TICS - 3D FLOAT, ESTÁTICO, GLOW CONTROLADO === */
+    .logo-container {
+      position: relative;
+      margin-bottom: 3rem;
+      transform-style: preserve-3d;
+    }
     .logo-tics {
-      width: 160px;
-      margin-bottom: 2.5rem;
-      filter: drop-shadow(0 0 30px var(--glow));
-      transition: filter 0.6s ease;
+      width: 180px;
+      filter: drop-shadow(0 0 40px var(--glow-primary));
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      transform: translateZ(60px);
     }
     .logo-tics:hover {
-      filter: drop-shadow(0 0 50px var(--glow));
+      filter: drop-shadow(0 0 70px var(--glow-primary));
+      transform: translateZ(80px) scale(1.05);
     }
 
-    /* === TÍTULO: SOLO "TICS" === */
-    .title {
+    /* === TÍTULO: TICS EN 3D, GRADIENTE DINÁMICO === */
+    .title-3d {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 6.5rem;
-      letter-spacing: -0.08em;
-      color: transparent;
-      background: linear-gradient(135deg, #ffffff 0%, #c0c0d8 50%, #a0a0c0 100%);
+      font-size: 7.2rem;
+      letter-spacing: -0.09em;
+      margin: 0;
+      background: linear-gradient(135deg, #ffffff 0%, #d0d0e0 45%, #a8a8c0 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: 0 0 1.5rem;
-      text-shadow: 0 8px 30px rgba(84,83,134,0.3);
+      text-shadow: 
+        0 8px 25px rgba(84,83,134,0.35),
+        0 0 60px rgba(84,83,134,0.25);
+      transform: translateZ(40px);
+      position: relative;
+    }
+    .title-3d::after {
+      content: 'TICS';
+      position: absolute;
+      top: 0; left: 0;
+      font-weight: 900;
+      font-size: 7.2rem;
+      letter-spacing: -0.09em;
+      background: linear-gradient(135deg, transparent 0%, var(--primary) 50%, transparent 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.3;
+      transform: translateZ(-20px);
+      filter: blur(2px);
     }
 
-    /* === COUNTDOWN - CRISTALINO, ELEGANTE === */
-    .countdown {
+    /* === COUNTDOWN - CRISTAL 3D === */
+    .countdown-3d {
       display: flex;
-      gap: 3rem;
-      margin: 3rem 0;
-      font-family: 'Montserrat', sans-serif;
+      gap: 3.5rem;
+      margin: 4rem 0;
+      transform: translateZ(30px);
     }
     .countdown-item {
-      text-align: center;
+      background: rgba(84,83,134,0.12);
+      padding: 1.8rem 1.4rem;
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(84,83,134,0.2);
+      min-width: 120px;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+    .countdown-item:hover {
+      transform: translateZ(20px) translateY(-8px);
     }
     .countdown-num {
-      font-weight: 800;
-      font-size: 3.8rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 4.2rem;
       color: #ffffff;
-      text-shadow: 0 4px 15px rgba(84,83,134,0.4);
+      text-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      transform: translateZ(15px);
     }
     .countdown-label {
       font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.75);
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-top: 0.5rem;
+      letter-spacing: 0.2em;
+      margin-top: 0.6rem;
       font-weight: 500;
+      transform: translateZ(10px);
     }
 
-    /* === ACCIONES: DIRECTAS, SIN CLICS EXTRA === */
-    .actions {
+    /* === ACCIONES: BOTÓN + QR EN 3D === */
+    .actions-3d {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2.5rem;
-      margin-top: 3rem;
+      gap: 3rem;
+      margin-top: 2rem;
+      transform: translateZ(20px);
     }
-    .btn-whatsapp {
+    .btn-whatsapp-3d {
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
       background: var(--primary);
       color: white;
-      padding: 1.4rem 3rem;
+      padding: 1.6rem 3.6rem;
       border-radius: 60px;
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      transition: all 0.5s ease;
-      box-shadow: 0 12px 35px rgba(84,83,134,0.35);
+      font-weight: 800;
+      font-size: 1.3rem;
+      box-shadow: 
+        0 15px 40px rgba(84,83,134,0.4),
+        inset 0 2px 8px rgba(255,255,255,0.2);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform: translateZ(25px);
+      position: relative;
+      overflow: hidden;
     }
-    .btn-whatsapp:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 50px rgba(84,83,134,0.5);
+    .btn-whatsapp-3d::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: 0.9s;
+    }
+    .btn-whatsapp-3d:hover::before { left: 100%; }
+    .btn-whatsapp-3d:hover {
+      transform: translateZ(40px) translateY(-6px) scale(1.03);
+      box-shadow: 
+        0 25px 60px rgba(84,83,134,0.55),
+        inset 0 3px 12px rgba(255,255,255,0.3);
     }
     .whatsapp-icon {
-      width: 32px;
-      height: 32px;
+      width: 36px; height: 36px;
       filter: brightness(0) invert(1);
+      transform: translateZ(10px);
     }
 
-    .qr-box {
+    .qr-box-3d {
       background: white;
-      padding: 2rem;
-      border-radius: 24px;
-      max-width: 300px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-      border: 4px solid var(--primary);
-      transition: transform 0.4s ease;
+      padding: 2.4rem;
+      border-radius: 28px;
+      max-width: 340px;
+      box-shadow: 
+        0 25px 70px rgba(0,0,0,0.22),
+        inset 0 1px 4px rgba(255,255,255,0.6);
+      border: 5px solid var(--primary);
+      transform: translateZ(30px);
+      transition: all 0.6s ease;
     }
-    .qr-box:hover {
-      transform: translateY(-6px);
+    .qr-box-3d:hover {
+      transform: translateZ(45px) translateY(-8px);
+      box-shadow: 
+        0 35px 90px rgba(0,0,0,0.28),
+        inset 0 2px 6px rgba(255,255,255,0.7);
     }
-    .qr-box img {
+    .qr-box-3d img {
       width: 100%;
-      border-radius: 16px;
+      border-radius: 18px;
+      transform: translateZ(10px);
     }
-    .qr-box p {
-      margin-top: 1rem;
-      font-weight: 600;
-      color: #333;
-      text-align: center;
+    .qr-box-3d p {
+      margin-top: 1.3rem;
+      font-weight: 700;
+      color: #222;
+      font-size: 1.1rem;
+      transform: translateZ(8px);
     }
 
-    /* === MARCA ELITE - VISIBLE, ELEGANTE, SIN FONDOS BLANCOS === */
-    .brand-elite {
-      margin-top: 5rem;
+    /* === MARCA ELITE - 3D, SIEMPRE VISIBLE === */
+    .brand-elite-3d {
+      margin-top: 6rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.6);
-      letter-spacing: 0.06em;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.08em;
+      transform: translateZ(15px);
     }
     .logo-elite {
-      width: 210px;
-      filter: brightness(0) invert(1) opacity(0.5);
-      transition: opacity 0.4s ease;
+      width: 240px;
+      filter: brightness(0) invert(1) opacity(0.7);
+      transition: all 0.6s ease;
+      transform: translateZ(20px);
     }
-    .brand-elite:hover .logo-elite {
-      opacity: 0.8;
-    }
-
-    /* === FONDO: GRADIENTE SUTIL + PARTÍCULAS MINIMALISTAS === */
-    #bgCanvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-      opacity: 0.7;
+    .brand-elite-3d:hover .logo-elite {
+      opacity: 1;
+      transform: translateZ(30px) scale(1.03);
     }
 
     /* === TAGLINE FINAL === */
-    .tagline {
-      margin-top: 6rem;
+    .tagline-3d {
+      margin-top: 5rem;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: rgba(255,255,255,0.5);
-      letter-spacing: 0.22em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
+      transform: translateZ(10px);
     }
 
-    /* === RESPONSIVE === */
+    /* === RESPONSIVE 3D === */
     @media (max-width: 768px) {
-      .title { font-size: 4.2rem; }
-      .countdown { gap: 1.8rem; }
-      .countdown-num { font-size: 2.8rem; }
-      .logo-tics { width: 130px; }
-      .logo-elite { width: 170px; }
-      .btn-whatsapp { padding: 1.2rem 2.5rem; font-size: 1.1rem; }
-      .qr-box { max-width: 260px; }
+      .title-3d { font-size: 4.5rem; }
+      .title-3d::after { font-size: 4.5rem; }
+      .countdown-3d { gap: 2rem; }
+      .countdown-num { font-size: 3rem; }
+      .logo-tics { width: 140px; }
+      .logo-elite { width: 190px; }
+      .btn-whatsapp-3d { padding: 1.3rem 2.8rem; font-size: 1.2rem; }
+      .qr-box-3d { max-width: 280px; padding: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CANVAS BACKGROUND -->
-  <canvas id="bgCanvas"></canvas>
+  <!-- WEBGL 3D BACKGROUND -->
+  <canvas id="webgl-canvas"></canvas>
 
-  <section class="hero">
+  <!-- OVERLAY + GRAIN -->
+  <div class="overlay"></div>
+  <div class="grain"></div>
+
+  <div class="scene">
 
     <!-- LOGO TICS -->
-    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="logo-tics">
+    <div class="logo-container">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
+           alt="TICS" class="logo-tics">
+    </div>
 
-    <!-- TÍTULO -->
-    <h1 class="title">TICS</h1>
+    <!-- TÍTULO 3D -->
+    <h1 class="title-3d">TICS</h1>
 
-    <!-- COUNTDOWN -->
-    <div class="countdown" id="countdown">
+    <!-- COUNTDOWN 3D -->
+    <div class="countdown-3d" id="countdown">
       <div class="countdown-item"><div class="countdown-num" id="days">00</div><div class="countdown-label">Días</div></div>
       <div class="countdown-item"><div class="countdown-num" id="hours">00</div><div class="countdown-label">Horas</div></div>
       <div class="countdown-item"><div class="countdown-num" id="minutes">00</div><div class="countdown-label">Minutos</div></div>
       <div class="countdown-item"><div class="countdown-num" id="seconds">00</div><div class="countdown-label">Segundos</div></div>
     </div>
 
-    <!-- ACCIONES DIRECTAS -->
-    <div class="actions">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
+    <!-- ACCIONES 3D -->
+    <div class="actions-3d">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp-3d" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
              alt="WhatsApp" class="whatsapp-icon">
-        <span>Únete al Canal</span>
+        <span>Acceso Exclusivo</span>
       </a>
 
-      <div class="qr-box">
+      <div class="qr-box-3d">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS">
-        <p>Escanea para acceso inmediato</p>
+        <p>Escanea para entrar</p>
       </div>
     </div>
 
-    <!-- MARCA ELITE -->
-    <div class="brand-elite">
+    <!-- MARCA ELITE 3D -->
+    <div class="brand-elite-3d">
       <span>by</span>
       <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
            alt="The Elite Group" class="logo-elite">
     </div>
 
     <!-- TAGLINE -->
-    <p class="tagline">Technology Information Communication System</p>
-  </section>
+    <p class="tagline-3d">Technology Information Communication System</p>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/three@0.167.1/build/three.min.js"></script>
   <script>
-    // === CANVAS: PARTÍCULAS SUTILES, SIN MAREO ===
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let w, h, particles = [];
+    // === THREE.JS 3D HORTICULTURA ABSTRACTA ===
+    const canvas = document.getElementById('webgl-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.position.z = 5;
 
-    function init() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-      particles = [];
-      for(let i = 0; i < 35; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: Math.random() * 2 + 1,
-          speed: Math.random() * 0.4 + 0.1,
-          opacity: Math.random() * 0.3 + 0.05
-        });
-      }
-    }
+    // Luces
+    const ambient = new THREE.AmbientLight(0x404040, 0.6);
+    scene.add(ambient);
+    const point1 = new THREE.PointLight(0x545386, 1.2, 100);
+    point1.position.set(3, 2, 5);
+    scene.add(point1);
+    const point2 = new THREE.PointLight(0xC2DFEA, 0.8, 100);
+    point2.position.set(-4, -1, 4);
+    scene.add(point2);
 
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(84,83,134,${p.opacity})`;
-        ctx.fill();
-        p.y -= p.speed;
-        if(p.y < -p.r) p.y = h + p.r;
+    // Geometría orgánica (hojas abstractas)
+    const leaves = [];
+    for(let i = 0; i < 40; i++) {
+      const geometry = new THREE.TorusKnotGeometry(
+        Math.random() * 0.3 + 0.2,
+        Math.random() * 0.1 + 0.05,
+        64, 16
+      );
+      const material = new THREE.MeshPhongMaterial({
+        color: new THREE.Color().setHSL(0.55 + Math.random() * 0.1, 0.6, 0.5 + Math.random() * 0.2),
+        emissive: new THREE.Color().setHSL(0.6, 0.7, 0.3),
+        emissiveIntensity: 0.3,
+        shininess: 80,
+        transparent: true,
+        opacity: 0.7
       });
-      requestAnimationFrame(draw);
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 8
+      );
+      mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+      mesh.scale.setScalar(Math.random() * 0.8 + 0.4);
+      scene.add(mesh);
+      leaves.push(mesh);
     }
 
-    window.addEventListener('resize', init);
-    init();
-    draw();
+    // Animación sutil
+    function animate() {
+      requestAnimationFrame(animate);
+      const time = performance.now() * 0.0005;
+      leaves.forEach((leaf, i) => {
+        leaf.rotation.x = time + i * 0.1;
+        leaf.rotation.y = time * 0.8 + i * 0.15;
+        leaf.position.y += Math.sin(time + i) * 0.002;
+        if(leaf.position.y > 8) leaf.position.y = -8;
+      });
+      renderer.render(scene, camera);
+    }
+    animate();
 
-    // === COUNTDOWN (7 DÍAS) ===
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // === COUNTDOWN ===
     const launch = new Date();
     launch.setDate(launch.getDate() + 7);
     launch.setHours(0,0,0,0);
@@ -293,7 +421,7 @@
     function update() {
       const diff = launch - new Date();
       if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = '<div style="font-family:Montserrat;font-weight:900;font-size:2.5rem;color:#fff;">ACTIVADO</div>';
+        document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;font-size:2.8rem;color:#fff;transform:translateZ(20px);">ACTIVADO</div>';
         return;
       }
       const d = String(Math.floor(diff / 86400000)).padStart(2,'0');
@@ -308,7 +436,7 @@
     setInterval(update, 1000);
     update();
 
-    // === IDIOMA FIJO: ESPAÑOL (SIN SORPRESAS) ===
+    // === IDIOMA FIJO ===
     document.documentElement.lang = 'es';
   </script>
 </body>
