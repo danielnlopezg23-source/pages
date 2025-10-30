@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS | The Elite Group</title>
-  <meta name="description" content="TICS - Sistema de comunicaciones TI de The Elite Group. Próximamente en WhatsApp." />
+  <meta name="description" content="TICS - Sistema de notificaciones TI en WhatsApp. The Elite Group." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,14 +16,14 @@
       --max-width: 900px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Roboto', sans-serif; background: white; color: var(--text); line-height: 1.8; font-size: 1rem; }
+    body { font-family: 'Roboto', sans-serif; background: white; color: var(--text); line-height: 1.9; font-size: 1rem; }
     .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
 
     /* ENCABEZADO UNIFICADO */
     .header-wrapper {
       background: var(--primary);
       color: white;
-      padding: 1.8rem 0;
+      padding: 2rem 0;
       text-align: center;
       box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     }
@@ -31,12 +31,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.8rem;
     }
     .brand-block {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
       flex-wrap: nowrap;
     }
     .logo-tics {
@@ -66,24 +66,23 @@
     }
     .page-title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 2.3rem;
+      font-size: 2.4rem;
       font-weight: 800;
       color: white;
       margin: 0;
       letter-spacing: -0.02em;
     }
     .page-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: #e0e0e0;
       font-weight: 500;
       margin: 0;
-      letter-spacing: 0.02em;
     }
 
-    /* HERO */
+    /* HERO LIMPIO */
     .hero {
       background: linear-gradient(135deg, #f9f9fb 0%, #ffffff 100%);
-      padding: 4rem 0;
+      padding: 4.5rem 0;
       text-align: center;
     }
     .hero h1 {
@@ -93,42 +92,49 @@
       margin-bottom: 1.2rem;
     }
     .hero p {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: #444;
-      max-width: 720px;
-      margin: 0 auto 1.8rem;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
     }
-    .coming-soon {
-      display: inline-block;
-      background: #ff6b6b;
-      color: white;
-      padding: 0.5rem 1.2rem;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    .access {
-      display: flex;
-      flex-direction: column;
+
+    /* BOTÓN CORPORATIVO CON ÍCONO WHATSAPP */
+    .btn-whatsapp {
+      display: inline-flex;
       align-items: center;
-      gap: 1.5rem;
-      margin: 2.5rem 0;
+      gap: 0.9rem;
+      background: var(--primary);
+      color: white;
+      padding: 1.1rem 2.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(84, 83, 134, 0.25);
     }
+    .btn-whatsapp:hover {
+      background: #3e3d6b;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(84, 83, 134, 0.35);
+    }
+    .btn-whatsapp img {
+      width: 26px;
+      height: 26px;
+    }
+
+    /* QR */
     .qr-container {
       background: white;
-      padding: 1.5rem;
+      padding: 1.8rem;
       border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      max-width: 280px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.1);
+      max-width: 300px;
       width: 100%;
       text-align: center;
+      margin: 2.5rem auto 0;
     }
     .qr-container img {
       width: 100%;
@@ -138,69 +144,9 @@
     }
     .qr-container p {
       margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #555;
-      font-weight: 500;
-    }
-    .btn-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      background: #25D366;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-    }
-    .btn-whatsapp:hover {
-      background: #128C7E;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 18px rgba(37, 211, 102, 0.4);
-    }
-    .btn-whatsapp svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    /* TEASER */
-    .teaser {
-      padding: 3rem 0;
-      background: white;
-    }
-    .teaser-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.8rem;
-      margin-top: 2rem;
-    }
-    .teaser-card {
-      background: #f8f9fa;
-      padding: 2rem;
-      border-radius: 12px;
-      border-left: 5px solid var(--primary);
-      text-align: left;
-      transition: all 0.3s ease;
-    }
-    .teaser-card:hover {
-      background: white;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      transform: translateY(-4px);
-    }
-    .teaser-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.35rem;
-      color: var(--primary);
-      margin-bottom: 0.7rem;
-    }
-    .teaser-card p {
       font-size: 0.95rem;
       color: #555;
-      line-height: 1.6;
+      font-weight: 500;
     }
 
     /* FOOTER */
@@ -208,13 +154,13 @@
       background: var(--primary);
       color: white;
       text-align: center;
-      padding: 2.5rem 0;
-      margin-top: 3rem;
+      padding: 2.8rem 0;
+      margin-top: 4rem;
     }
     footer a {
       color: var(--secondary-1);
       text-decoration: none;
-      margin: 0 0.6rem;
+      margin: 0 0.7rem;
       font-weight: 500;
       transition: color 0.3s ease;
     }
@@ -224,14 +170,16 @@
 
     @media (max-width: 600px) {
       .container { padding: 0 1.2rem; }
-      .brand-block { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+      .brand-block { gap: 0.9rem; flex-wrap: wrap; justify-content: center; }
       .logo-tics { width: 80px; }
       .logo-elite-inline { width: 140px; }
       .by-text { font-size: 0.75rem; }
-      .page-title { font-size: 1.9rem; }
-      .hero h1 { font-size: 2rem; }
-      .coming-soon { font-size: 0.85rem; }
-      .btn-whatsapp { padding: 0.9rem 1.6rem; font-size: 1rem; }
+      .page-title { font-size: 2rem; }
+      .hero h1 { font-size: 2.1rem; }
+      .hero p { font-size: 1rem; }
+      .btn-whatsapp { padding: 1rem 1.8rem; font-size: 1rem; gap: 0.7rem; }
+      .btn-whatsapp img { width: 22px; height: 22px; }
+      .qr-container { max-width: 260px; padding: 1.4rem; }
     }
   </style>
 </head>
@@ -254,47 +202,22 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO LIMPIO -->
   <section class="hero">
     <div class="container">
-      <div class="coming-soon">PRÓXIMAMENTE</div>
-      <h1>Un nuevo sistema de comunicaciones TI</h1>
-      <p>Recibe notificaciones críticas, mantenimientos programados y actualizaciones de estado <strong>en tiempo real</strong>. <br>Sin mensajes privados. Sin recopilación de datos. Solo información oficial.</p>
+      <h1>Notificaciones TI en Tiempo Real</h1>
+      <p>Recibe alertas críticas, mantenimientos y actualizaciones oficiales directamente en tu móvil.</p>
 
-      <!-- QR + LINK -->
-      <div class="access">
-        <div class="qr-container">
-          <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR del Canal TICS">
-          <p>Escanea para seguir el canal</p>
-        </div>
-        <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 5.44h-.004c-1.575-.039-3.022-.74-4.137-1.956l-.293-.175-2.702.705.72-2.617-.168-.287c-1.257-1.156-1.96-2.706-1.96-4.346 0-3.186 2.596-5.774 5.783-5.774 1.543 0 2.995.601 4.083 1.688 1.088 1.087 1.689 2.538 1.689 4.08 0 3.186-2.597 5.774-5.783 5.774m7.636-10.586c-1.305-1.305-3.037-2.023-4.88-2.023-3.802 0-6.903 3.092-6.903 6.903 0 1.217.317 2.398.92 3.441l-1.02 3.715 3.81-1c1.001.543 2.128.832 3.29.832 3.802 0 6.903-3.092 6.903-6.903 0-1.843-.718-3.575-2.023-4.88"/></svg>
-          Unirse al Canal TICS
-        </a>
-      </div>
-    </div>
-  </section>
+      <!-- BOTÓN CON ÍCONO WHATSAPP CORPORATIVO -->
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp">
+        Unirse al Canal
+      </a>
 
-  <!-- TEASER -->
-  <section class="teaser">
-    <div class="container">
-      <div class="teaser-grid">
-        <div class="teaser-card">
-          <h3>Alertas en Tiempo Real</h3>
-          <p>Notificaciones instantáneas sobre incidentes críticos y caídas de servicio.</p>
-        </div>
-        <div class="teaser-card">
-          <h3>Mantenimientos Programados</h3>
-          <p>Avisos claros con fecha, hora y alcance de cada ventana de servicio.</p>
-        </div>
-        <div class="teaser-card">
-          <h3>Canal Unidireccional</h3>
-          <p>Solo publicación oficial. Sin respuestas. Máxima seguridad y claridad.</p>
-        </div>
-        <div class="teaser-card">
-          <h3>Integración con WhatsApp</h3>
-          <p>Recibe todo directamente en tu móvil. Ya disponible para seguir.</p>
-        </div>
+      <!-- QR -->
+      <div class="qr-container">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR del Canal TICS">
+        <p>Escanea para seguir</p>
       </div>
     </div>
   </section>
@@ -302,10 +225,10 @@
   <!-- FOOTER -->
   <footer>
     <div class="container">
-      <p>© 2025 The Elite Group | TICS - Sistema de Comunicaciones TI</p>
+      <p>© 2025 The Elite Group | TICS</p>
       <p>
-        <a href="privacy-policy.html">Política de Privacidad</a> • 
-        <a href="terms-of-service.html">Términos del Servicio</a> • 
+        <a href="privacy-policy.html">Privacidad</a> • 
+        <a href="terms-of-service.html">Términos</a> • 
         <a href="data-deletion.html">Salir del Canal</a>
       </p>
     </div>
