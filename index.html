@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TICS | The Elite Group</title>
+  <meta name="description" content="TICS (Technology Information Communication System) - Canal oficial de notificaciones de TI de The Elite Group." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #545386;
+      --secondary-1: #C2DFEA;
+      --secondary-2: #F4C7CE;
+      --secondary-3: #d8d2c4;
+      --text: #2A2C29;
+      --max-width: 900px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: white;
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ENCABEZADO CORPORATIVO */
+    .header-wrapper {
+      background: var(--primary);
+      color: white;
+      padding: 2.5rem 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .logo img {
+      display: block;
+      max-width: 420px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 1.5rem;
+      filter: brightness(0) invert(1);
+    }
+    .header-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: white;
+      margin: 0.5rem 0;
+    }
+    .header-subtitle {
+      font-size: 1.3rem;
+      color: #e0e0e0;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      padding: 3.5rem 0;
+      text-align: center;
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #444;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(84, 83, 134, 0.3);
+    }
+    .btn-primary:hover {
+      background: #3f406a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(84, 83, 134, 0.4);
+    }
+
+    /* FEATURES */
+    .features {
+      padding: 3rem 0;
+      background: white;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 5px solid var(--primary);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      text-align: left;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    .feature-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: var(--secondary-1);
+      text-decoration: none;
+      margin: 0 0.6rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 1.2rem; }
+      .header-title { font-size: 2.2rem; }
+      .header-subtitle { font-size: 1.1rem; }
+      .logo img { max-width: 300px; }
+      .header-wrapper { padding: 2rem 0; }
+      .hero h1 { font-size: 2rem; }
+      .btn-primary { padding: 0.9rem 1.6rem; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO -->
+  <header class="header-wrapper">
+    <div class="header-content">
+      <div class="logo">
+        <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
+      </div>
+      <h1 class="header-title">TICS</h1>
+      <p class="header-subtitle">Technology Information Communication System</p>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Canal Oficial de Notificaciones TI</h1>
+      <p>Recibe alertas en tiempo real sobre incidentes, mantenimientos y actualizaciones del sistema. <strong>Solo publicación. Sin mensajes privados. Sin datos recopilados.</strong></p>
+      <a href="https://whatsapp.com/channel/0029Va5y..." class="btn-primary" target="_blank">
+        Suscribirse al Canal TICS
+      </a>
+    </div>
+  </section>
+
+  <!-- CARACTERÍSTICAS -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Alertas Críticas</h3>
+          <p>Notificaciones inmediatas sobre caídas de servicio, incidentes de seguridad o fallos críticos.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Mantenimientos</h3>
+          <p>Avisos programados con fecha, hora y alcance de ventanas de mantenimiento.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Estado de Servicios</h3>
+          <p>Reportes en vivo del estado de aplicaciones, servidores y conectividad.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Comunicados Oficiales</h3>
+          <p>Anuncios del departamento de TI sobre políticas, actualizaciones y mejores prácticas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>© 2025 The Elite Group | TICS - Sistema de Notificaciones TI</p>
+      <p>
+        <a href="privacy-policy.html">Política de Privacidad</a> • 
+        <a href="terms-of-service.html">Términos del Servicio</a> • 
+        <a href="data-deletion.html">Salir del Canal</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
