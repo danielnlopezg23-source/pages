@@ -49,9 +49,10 @@
 
     /* === PORTAL CERRADO === */
     .portal {
-      position: relative; width: 100vw; height: 100vh;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       display: flex; justify-content: center; align-items: center;
       cursor: pointer; z-index: 1000;
+      transition: opacity 1.2s ease;
     }
     .portal-ring {
       position: absolute; width: 260px; height: 260px;
@@ -73,62 +74,79 @@
     .portal-logo {
       width: clamp(160px, 28vw, 220px);
       filter: drop-shadow(0 0 50px var(--accent-glow));
-      transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
+      transition: all 1.2s cubic-bezier(0.23,1,0.32,1);
       z-index: 10;
+      transform-style: preserve-3d;
     }
     .portal:hover .portal-logo {
       transform: scale(1.08) translateZ(40px);
       filter: drop-shadow(0 0 80px var(--accent-glow));
     }
 
-    /* === CONTENIDO OCULTO === */
+    /* === EFECTO DE BURST (LUZ EXPLOSIVA) === */
+    .burst {
+      position: fixed; top: 50%; left: 50%; width: 0; height: 0;
+      background: radial-gradient(circle, rgba(168,223,252,0.8) 0%, transparent 60%);
+      opacity: 0; pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: all 0.8s ease;
+    }
+    .burst.active {
+      width: 200vw; height: 200vh;
+      opacity: 1;
+    }
+
+    /* === CONTENIDO === */
     .content {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       padding: clamp(2rem, 8vw, 4rem) clamp(1rem, 5vw, 2rem);
       text-align: center; max-width: 560px; margin: 0 auto;
       opacity: 0; visibility: hidden; pointer-events: none;
-      transform: translateZ(-600px) scale(0.8);
-      transition: all 1.2s cubic-bezier(0.23,1,0.32,1);
-      z-index: 900;
+      transform: translateZ(-600px) rotateY(180deg) scale(0.5);
+      transition: all 1.6s cubic-bezier(0.23,1,0.32,1);
+      z-index: 900; overflow-y: auto;
     }
     .content.revealed {
       opacity: 1; visibility: visible; pointer-events: auto;
-      transform: translateZ(0) scale(1);
+      transform: translateZ(0) rotateY(0) scale(1);
     }
 
-    /* === FONDO PARTÍCULAS === */
-    .bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+    /* === LOGO INTEGRADO EN CONTENT === */
+    .content-logo {
+      display: none; /* Oculto al inicio */
+      width: clamp(140px, 22vw, 180px); 
+      filter: drop-shadow(0 0 40px var(--accent-glow));
+      transform-style: preserve-3d; transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
+      animation: logoFloat 6s infinite ease-in-out;
+      margin-bottom: 3rem;
+    }
+    .content.revealed .content-logo {
+      display: block;
+      opacity: 0; transform: translateY(40px);
+      animation: fadeUp 1.6s 0.6s ease-out forwards, logoFloat 6s infinite ease-in-out;
+    }
 
-    /* === TÍTULO === */
+    /* === TÍTULO, ACCIONES, FOOTER (como antes) === */
     .title {
       font-family: 'Space Grotesk', sans-serif; font-weight: 900;
       font-size: clamp(3.8rem, 12vw, 6.8rem); letter-spacing: -0.1em; line-height: 0.9;
       color: var(--text);
-      margin: 2rem 0 1.4rem; position: relative;
+      margin: 0 0 1.4rem; position: relative;
       text-shadow: 0 0 30px var(--accent-glow);
       opacity: 0; transform: translateY(40px);
-    }
-    .content.revealed .title {
-      opacity: 1; transform: translateY(0);
       animation: titleReveal 1.8s 0.4s cubic-bezier(0.23,1,0.32,1) forwards;
     }
     .title::after {
       content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
       background: var(--accent); transform: scaleX(0);
-    }
-    .content.revealed .title::after {
       animation: lineGrow 1.6s 2s ease-out forwards;
     }
 
-    /* === ACCIONES === */
     .actions {
       display: flex; flex-direction: column; gap: clamp(2rem, 6vw, 3.2rem); width: 100%;
       opacity: 0; transform: translateY(30px);
-    }
-    .content.revealed .actions {
-      opacity: 1; transform: translateY(0);
-      animation: fadeUp 1.6s 0.8s ease-out forwards;
+      animation: fadeUp 1.6s 1.2s ease-out forwards;
     }
 
     .btn {
@@ -157,13 +175,14 @@
       background: var(--glass); padding: clamp(1.8rem, 5vw, 2.4rem); border-radius: 28px;
       max-width: 340px; margin: 0 auto; position: relative;
       border: 3px solid var(--glass-border); backdrop-filter: blur(16px);
-      box-shadow: 0 25px 70px rgba(0,0,0,0.3); transition: all 0.6s ease;
-      opacity: 0; transform: translateY(20px);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.3); transition: all 0.6s ease; overflow: hidden;
     }
-    .content.revealed .qr {
-      opacity: 1; transform: translateY(0);
-      animation: fadeUp 1.6s 1s ease-out forwards;
+    .qr::before {
+      content: ''; position: absolute; inset: 0; 
+      background: linear-gradient(135deg, rgba(168,223,252,0.1), transparent);
+      opacity: 0; transition: 0.6s;
     }
+    .qr:hover::before { opacity: 1; }
     .qr:hover {
       transform: translateY(-10px) scale(1.03);
       box-shadow: 0 40px 90px rgba(0,0,0,0.4);
@@ -172,14 +191,10 @@
     .qr img { width: 100%; border-radius: 18px; }
     .qr p { margin-top: 1.3rem; font-weight: 600; color: var(--text); font-size: clamp(0.95rem, 2.5vw, 1.05rem); }
 
-    /* === FOOTER === */
     .footer {
       margin-top: clamp(3rem, 8vw, 5rem); width: 100%;
       opacity: 0; transform: translateY(20px);
-    }
-    .content.revealed .footer {
-      opacity: 1; transform: translateY(0);
-      animation: fadeUp 1.6s 1.3s ease-out forwards;
+      animation: fadeUp 1.6s 1.5s ease-out forwards;
     }
     .elite {
       display: flex; align-items: center; justify-content: center; gap: 1rem;
@@ -203,6 +218,10 @@
     @keyframes titleReveal { to { opacity: 1; transform: translateY(0); } }
     @keyframes lineGrow { to { transform: scaleX(1); } }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
 
     /* === IDIOMAS === */
     [lang="en"] .es, [lang="fr"] .es,
@@ -212,15 +231,21 @@
 </head>
 <body>
 
+  <!-- BURST DE LUZ -->
+  <div class="burst" id="burst"></div>
+
   <!-- PORTAL CERRADO -->
   <div class="portal" id="portal">
     <div class="portal-ring"></div>
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="portal-logo">
+         alt="TICS" class="portal-logo" id="portalLogo">
   </div>
 
-  <!-- CONTENIDO OCULTO -->
+  <!-- CONTENIDO -->
   <div class="content" id="content">
+    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
+         alt="TICS" class="content-logo">
+
     <h1 class="title">
       <span class="es">PRÓXIMAMENTE</span>
       <span class="en">COMING SOON</span>
@@ -257,23 +282,39 @@
     </div>
   </div>
 
-  <!-- FONDO PARTÍCULAS -->
+  <!-- FONDO -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
 
   <script>
-    // === ABRIR PORTAL ===
+    // === ABRIR PORTAL ÉPICO ===
     const portal = document.getElementById('portal');
+    const burst = document.getElementById('burst');
     const content = document.getElementById('content');
+    const portalLogo = document.getElementById('portalLogo');
+    const contentLogo = document.querySelector('.content-logo');
 
     portal.addEventListener('click', () => {
-      portal.style.pointerEvents = 'none';
-      portal.style.opacity = '0';
-      portal.style.transform = 'scale(0.8)';
+      // Giro 3D del logo
+      portalLogo.style.transform = 'rotateY(360deg) translateZ(200px) scale(1.2)';
+      portalLogo.style.filter = 'drop-shadow(0 0 120px var(--accent-glow)) brightness(1.5)';
+
+      // Burst de luz
+      burst.classList.add('active');
+      setTimeout(() => burst.style.opacity = '0', 600);
+
+      // Ocultar portal
       setTimeout(() => {
-        portal.style.display = 'none';
+        portal.style.opacity = '0';
+        portal.style.pointerEvents = 'none';
+      }, 800);
+
+      // Revelar contenido
+      setTimeout(() => {
         content.classList.add('revealed');
         document.body.style.overflowY = 'auto';
-      }, 600);
+        // Copiar logo a content
+        contentLogo.src = portalLogo.src;
+      }, 1200);
     });
 
     // === PARTÍCULAS ===
