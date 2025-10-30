@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. El sistema que redefine la comunicación TI en horticultura." />
+  <meta name="description" content="TICS. El sistema que redefine la comunicación en horticultura. Acceso exclusivo." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -13,247 +13,180 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --bg: #0a0a14;
+      --bg: #000;
       --text: #f5f5f7;
-      --glow: rgba(84,83,134,0.6);
+      --glow-primary: rgba(84,83,134,0.6);
+      --glow-accent: rgba(194,223,234,0.3);
+      --glass-bg: rgba(84,83,134,0.12);
+      --glass-border: rgba(84,83,134,0.22);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-y: auto;
-      line-height: 1.8;
-    }
-
-    /* === PRELOADER: EXPLOSIÓN DE LUZ === */
+    html, body { height:100%; overflow:hidden; background:var(--bg); font-family:'Roboto',sans-serif; color:var(--text); }
+    
+    /* === PRELOADER: BOOM CONTROLADO + GLOW === */
     #preloader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 1.8s ease;
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:var(--bg); display:flex; justify-content:center; align-items:center;
+      z-index:9999; opacity:1; transition:opacity 1.8s ease;
     }
-    .preloader-logo {
-      width: 260px;
-      filter: brightness(0) invert(1);
-      animation: explodeLight 2s ease-out forwards;
+    .boom-logo {
+      width:280px; filter:brightness(0) invert(1);
+      animation:boomEnter 2.2s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
     }
-    @keyframes explodeLight {
-      0% { transform: scale(0.3); filter: brightness(0) invert(1) drop-shadow(0 0 0 #545386); opacity: 0; }
-      40% { transform: scale(1.5); filter: brightness(0) invert(1) drop-shadow(0 0 180px #545386); opacity: 1; }
-      100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 40px #545386); opacity: 1; }
+    @keyframes boomEnter {
+      0% { transform:scale(0.15); filter:brightness(0) invert(1) drop-shadow(0 0 0 var(--glow-primary)); opacity:0; }
+      45% { transform:scale(1.6); filter:brightness(0) invert(1) drop-shadow(0 0 200px var(--glow-primary)); opacity:1; }
+      100% { transform:scale(1); filter:brightness(0) invert(1) drop-shadow(0 0 50px var(--glow-primary)); }
     }
 
-    /* === HERO SECTION === */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 4rem 2rem;
-      text-align: center;
-      background: radial-gradient(circle at center, rgba(84,83,134,0.15) 0%, transparent 70%);
-    }
-    .logo-tics-hero {
-      width: 180px;
-      margin-bottom: 2.5rem;
-      filter: drop-shadow(0 0 50px var(--glow));
-      animation: floatSubtle 5s infinite ease-in-out;
-    }
-    @keyframes floatSubtle {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    /* === MAIN: 1 PANTALLA, TODO EN 3D === */
+    #main {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      opacity:0; transition:opacity 2s ease;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      text-align:center; padding:2.5rem; perspective:1400px;
     }
 
-    .title-hero {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 8rem;
-      letter-spacing: 0.16em;
-      margin: 0 0 1.5rem;
-      background: linear-gradient(135deg, #ffffff 0%, #C2DFEA 40%, #545386 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 10px 35px rgba(84,83,134,0.4);
-      animation: titleReveal 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-      opacity: 0;
-      transform: translateY(50px);
+    /* === LOGO TICS: 3D FLOTANTE, GLOW SUTIL === */
+    .logo-tics {
+      width:200px; margin-bottom:2.8rem;
+      filter:drop-shadow(0 0 55px var(--glow-primary));
+      transform:translateZ(50px);
+      animation:float3D 7s infinite ease-in-out;
     }
-    @keyframes titleReveal {
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes float3D {
+      0%,100% { transform:translateZ(50px) rotateX(0) rotateY(0); }
+      50% { transform:translateZ(70px) rotateX(3deg) rotateY(5deg); }
     }
 
-    .subtitle-hero {
-      font-size: 1.5rem;
-      max-width: 780px;
-      margin: 0 auto 3.5rem;
-      color: rgba(255,255,255,0.85);
-      font-weight: 400;
-      animation: fadeIn 1.8s 0.6s ease-out forwards;
-      opacity: 0;
+    /* === TÍTULO: TICS 3D, GRADIENTE + REFLEJO === */
+    .title-3d {
+      font-family:'Montserrat',sans-serif; font-weight:900;
+      font-size:8.5rem; letter-spacing:-0.08em;
+      background:linear-gradient(135deg, #ffffff 0%, #e0e0e8 45%, #a0a0c8 100%);
+      -webkit-background-clip:text; background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 12px 40px rgba(84,83,134,0.45);
+      transform:translateZ(45px); position:relative;
+      animation:titleReveal 2s 0.4s cubic-bezier(0.23,1,0.32,1) forwards;
+      opacity:0; transform-origin:center;
     }
-    @keyframes fadeIn { to { opacity: 1; } }
+    .title-3d::after {
+      content:'TICS';
+      position:absolute; top:0; left:0;
+      font-size:8.5rem; letter-spacing:-0.08em;
+      background:linear-gradient(135deg, transparent 0%, var(--primary) 50%, transparent 100%);
+      -webkit-background-clip:text; background-clip:text;
+      -webkit-text-fill-color:transparent;
+      opacity:0.25; filter:blur(1.5px);
+      transform:translateZ(-25px);
+    }
+    @keyframes titleReveal { to { opacity:1; transform:translateZ(45px) scale(1); } }
 
-    /* === CTA SECTION === */
-    .cta-section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 4rem 2rem;
-      text-align: center;
-      background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
-      color: var(--neutral);
+    /* === COUNTDOWN: CRISTAL 3D, SIN RUIDO === */
+    .countdown {
+      display:flex; gap:3rem; margin:4rem 0;
+      transform:translateZ(30px);
+      animation:fadeUp 1.8s 0.7s ease-out forwards; opacity:0; transform:translateY(40px);
     }
-    .cta-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
+    .count-item {
+      background:var(--glass-bg); backdrop-filter:blur(18px);
+      border:1px solid var(--glass-border); border-radius:26px;
+      padding:2rem 1.6rem; min-width:128px;
+      transform-style:preserve-3d;
     }
-    .cta-text {
-      font-size: 1.3rem;
-      max-width: 680px;
-      margin: 0 auto 3rem;
-      color: #333;
+    .count-num {
+      font-family:'Montserrat',sans-serif; font-weight:900;
+      font-size:4.6rem; color:#fff;
+      text-shadow:0 6px 22px rgba(0,0,0,0.4);
+      transform:translateZ(18px);
     }
+    .count-label {
+      font-size:0.98rem; text-transform:uppercase;
+      letter-spacing:0.22em; color:rgba(255,255,255,0.72);
+      margin-top:0.6rem; font-weight:500;
+      transform:translateZ(12px);
+    }
+    @keyframes fadeUp { to { opacity:1; transform:translateY(0) translateZ(30px); } }
 
-    .actions-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2.5rem;
-      max-width: 380px;
-      margin: 0 auto;
+    /* === ACCIONES: BOTÓN + QR EN 3D, ELEGANTE === */
+    .actions {
+      display:flex; flex-direction:column; gap:2.8rem;
+      animation:fadeUp 1.8s 1s ease-out forwards; opacity:0; transform:translateY(40px);
     }
-    .btn-cta {
-      background: var(--primary);
-      color: white;
-      padding: 1.5rem 3.8rem;
-      border-radius: 60px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      box-shadow: 0 18px 48px rgba(84,83,134,0.45);
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    .btn-3d {
+      background:var(--primary); color:#fff;
+      padding:1.6rem 4.2rem; border-radius:60px;
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:1.35rem; text-decoration:none;
+      display:inline-flex; align-items:center; gap:1.1rem;
+      box-shadow:0 18px 48px rgba(84,83,134,0.48),
+                 inset 0 2px 10px rgba(255,255,255,0.22);
+      transform:translateZ(28px); position:relative; overflow:hidden;
+      transition:all 0.6s cubic-bezier(0.23,1,0.32,1);
     }
-    .btn-cta:hover {
-      transform: translateY(-8px) scale(1.04);
-      box-shadow: 0 28px 65px rgba(84,83,134,0.6);
+    .btn-3d::before {
+      content:''; position:absolute; top:0; left:-100%;
+      width:100%; height:100%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      transition:0.9s;
     }
-    .whatsapp-icon { width: 38px; height: 38px; filter: brightness(0) invert(1); }
+    .btn-3d:hover::before { left:100%; }
+    .btn-3d:hover {
+      transform:translateZ(42px) translateY(-7px) scale(1.04);
+      box-shadow:0 28px 70px rgba(84,83,134,0.62),
+                 inset 0 3px 14px rgba(255,255,255,0.3);
+    }
+    .whatsapp-icon { width:38px; height:38px; filter:brightness(0) invert(1); transform:translateZ(10px); }
 
-    .qr-cta {
-      background: white;
-      padding: 2.4rem;
-      border-radius: 32px;
-      max-width: 360px;
-      box-shadow: 0 28px 75px rgba(0,0,0,0.25);
-      border: 6px solid var(--primary);
-      transition: all 0.5s ease;
+    .qr-3d {
+      background:#fff; padding:2.5rem; border-radius:32px;
+      max-width:360px; box-shadow:0 30px 80px rgba(0,0,0,0.28),
+                               inset 0 1px 5px rgba(255,255,255,0.65);
+      border:6px solid var(--primary);
+      transform:translateZ(32px); transition:all 0.6s ease;
     }
-    .qr-cta:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 38px 95px rgba(0,0,0,0.32);
+    .qr-3d:hover {
+      transform:translateZ(48px) translateY(-9px);
+      box-shadow:0 40px 100px rgba(0,0,0,0.35),
+                 inset 0 2px 7px rgba(255,255,255,0.75);
     }
-    .qr-cta img { width: 100%; border-radius: 20px; }
-    .qr-cta p { margin-top: 1.2rem; font-weight: 700; color: #222; font-size: 1.1rem; }
+    .qr-3d img { width:100%; border-radius:20px; transform:translateZ(10px); }
+    .qr-3d p { margin-top:1.3rem; font-weight:700; color:#222; font-size:1.12rem; transform:translateZ(8px); }
 
-    /* === FOOTER SECTION === */
-    .footer-section {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 4rem 2rem;
-      text-align: center;
-      background: var(--bg);
+    /* === ELITE: 3D, SUTIL === */
+    .elite {
+      margin-top:5.5rem; display:flex; align-items:center; gap:1.1rem;
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:1.18rem; color:rgba(255,255,255,0.68);
+      letter-spacing:0.08em; transform:translateZ(20px);
+      animation:fadeUp 1.8s 1.3s ease-out forwards; opacity:0;
     }
-    .elite-footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.8rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 0.08em;
+    .logo-elite {
+      width:250px; filter:brightness(0) invert(1) opacity(0.75);
+      transform:translateZ(22px); transition:all 0.6s ease;
     }
-    .logo-elite-footer {
-      width: 260px;
-      filter: brightness(0) invert(1) opacity(0.8);
-      transition: opacity 0.5s;
-    }
-    .elite-footer:hover .logo-elite-footer { opacity: 1; }
+    .elite:hover .logo-elite { opacity:1; transform:translateZ(32px) scale(1.04); }
 
-    .tagline-footer {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
+    /* === TAGLINE: MICRO, FINAL === */
+    .tagline {
+      margin-top:4.5rem; font-family:'Montserrat',sans-serif; font-weight:700;
+      font-size:1.05rem; color:rgba(255,255,255,0.52);
+      letter-spacing:0.28em; text-transform:uppercase;
+      transform:translateZ(15px);
+      animation:fadeUp 1.8s 1.5s ease-out forwards; opacity:0;
     }
 
-    /* === SCROLL INDICATOR === */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 30px;
-      height: 50px;
-      border: 3px solid rgba(255,255,255,0.4);
-      border-radius: 20px;
-      animation: pulseScroll 2s infinite;
-    }
-    .scroll-indicator::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 12px;
-      background: rgba(255,255,255,0.6);
-      border-radius: 3px;
-      animation: scrollDown 2s infinite;
-    }
-    @keyframes pulseScroll {
-      0%,100% { opacity: 0.4; }
-      50% { opacity: 1; }
-    }
-    @keyframes scrollDown {
-      0% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
-      100% { transform: translateX(-50%) translateY(20px); opacity: 0; }
-    }
-
-    /* === RESPONSIVE === */
-    @media (max-width: 768px) {
-      .title-hero { font-size: 5rem; letter-spacing: 0.1em; }
-      .subtitle-hero { font-size: 1.2rem; }
-      .logo-tics-hero { width: 140px; }
-      .btn-cta { padding: 1.3rem 3rem; font-size: 1.1rem; }
-      .qr-cta { max-width: 300px; padding: 2rem; }
-      .logo-elite-footer { width: 200px; }
+    /* === RESPONSIVE: PERFECTO === */
+    @media (max-width:768px) {
+      .title-3d, .title-3d::after { font-size:5rem; }
+      .countdown { gap:1.8rem; }
+      .count-num { font-size:3.2rem; }
+      .count-item { padding:1.6rem 1.2rem; min-width:100px; }
+      .logo-tics { width:150px; }
+      .btn-3d { padding:1.4rem 3.2rem; font-size:1.2rem; }
+      .qr-3d { max-width:300px; padding:2rem; }
+      .logo-elite { width:200px; }
     }
   </style>
 </head>
@@ -262,53 +195,45 @@
   <!-- PRELOADER -->
   <div id="preloader">
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="preloader-logo">
+         alt="TICS" class="boom-logo">
   </div>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
+  <!-- MAIN -->
+  <div id="main">
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="logo-tics-hero">
+         alt="TICS" class="logo-tics">
 
-    <h1 class="title-hero">TICS</h1>
-    <p class="subtitle-hero">
-      El sistema que conecta tu operación con precisión absoluta.
-    </p>
+    <h1 class="title-3d">TICS</h1>
 
-    <div class="scroll-indicator"></div>
-  </section>
+    <div class="countdown" id="countdown">
+      <div class="count-item"><div class="count-num" id="days">00</div><div class="count-label">Días</div></div>
+      <div class="count-item"><div class="count-num" id="hours">00</div><div class="count-label">Horas</div></div>
+      <div class="count-item"><div class="count-num" id="minutes">00</div><div class="count-label">Minutos</div></div>
+      <div class="count-item"><div class="count-num" id="seconds">00</div><div class="count-label">Segundos</div></div>
+    </div>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <h2 class="cta-title">Acceso Exclusivo</h2>
-    <p class="cta-text">
-      Únete al canal oficial y recibe alertas críticas, mantenimientos y comunicados en tiempo real.
-    </p>
-
-    <div class="actions-grid">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-cta" target="_blank">
+    <div class="actions">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-3d" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
              alt="WhatsApp" class="whatsapp-icon">
-        <span>Entrar al Canal</span>
+        <span>Acceso Exclusivo</span>
       </a>
 
-      <div class="qr-cta">
+      <div class="qr-3d">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS">
-        <p>Escanea con tu cámara</p>
+        <p>Escanea para entrar</p>
       </div>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <section class="footer-section">
-    <div class="elite-footer">
+    <div class="elite">
       <span>by</span>
       <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-           alt="The Elite Group" class="logo-elite-footer">
+           alt="The Elite Group" class="logo-elite">
     </div>
-    <p class="tagline-footer">Technology Information Communication System</p>
-  </section>
+
+    <p class="tagline">Technology Information Communication System</p>
+  </div>
 
   <script>
     // === PRELOADER → REVEAL ===
@@ -317,9 +242,33 @@
         document.getElementById('preloader').style.opacity = '0';
         setTimeout(() => {
           document.getElementById('preloader').style.display = 'none';
+          document.getElementById('main').style.opacity = '1';
         }, 1900);
-      }, 2000);
+      }, 2200);
     });
+
+    // === COUNTDOWN: 7 DÍAS DESDE HOY ===
+    const launch = new Date();
+    launch.setDate(launch.getDate() + 7);
+    launch.setHours(0,0,0,0);
+
+    function update() {
+      const diff = launch - new Date();
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;font-size:3.2rem;color:#fff;transform:translateZ(20px);">¡ACTIVADO!</div>';
+        return;
+      }
+      const d = String(Math.floor(diff / 86400000)).padStart(2,'0');
+      const h = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+      document.getElementById('days').textContent = d;
+      document.getElementById('hours').textContent = h;
+      document.getElementById('minutes').textContent = m;
+      document.getElementById('seconds').textContent = s;
+    }
+    setInterval(update, 1000);
+    update();
   </script>
 </body>
 </html>
