@@ -25,6 +25,7 @@
 
   <!-- Preload -->
   <link rel="preload" href="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" as="image">
+  <link rel="preload" href="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/d88b9dd1c7864ed6ed8d9d481b95983abe87aaa0/rose.png" as="image">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@700;900&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
   
@@ -38,8 +39,7 @@
       --glass: rgba(20, 20, 40, 0.72);
       --glass-border: rgba(168, 223, 252, 0.18);
       --shadow: rgba(90, 90, 180, 0.3);
-      --particle: #a8dffc;
-      --cursor-size: 28px;
+      --rose-color: #545386;
     }
 
     [data-theme="light"] {
@@ -51,13 +51,14 @@
       --glass: rgba(255, 255, 255, 0.85);
       --glass-border: rgba(74, 144, 226, 0.25);
       --shadow: rgba(74, 144, 226, 0.2);
-      --particle: #4a90e2;
+      --rose-color: #6a5acd;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { 
       height: 100%; 
       overflow: hidden;
+      touch-action: pan-y;
     }
     body {
       font-family: 'Inter', sans-serif;
@@ -66,43 +67,6 @@
       display: flex; justify-content: center; align-items: center;
       perspective: 2000px;
       transition: background 0.6s ease, color 0.6s ease;
-    }
-
-    /* === DETECCIÓN MÓVIL === */
-    @media (max-width: 768px) {
-      html, body { cursor: default !important; }
-      #custom-cursor { display: none !important; }
-    }
-
-    /* === CURSOR PERSONALIZADO - SOLO PC, SIN LAG === */
-    #custom-cursor {
-      position: fixed;
-      width: var(--cursor-size);
-      height: var(--cursor-size);
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 999999;
-      transform: translate(-50%, -50%);
-      backdrop-filter: blur(2px);
-      box-shadow: 0 0 15px var(--accent-glow);
-      will-change: transform;
-    }
-    #custom-cursor::before {
-      content: '';
-      position: absolute;
-      inset: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      opacity: 0.3;
-      transform: scale(0);
-      transition: transform 0.3s ease;
-    }
-    #custom-cursor.hover::before { transform: scale(1); }
-    #custom-cursor.hover {
-      width: calc(var(--cursor-size) * 1.4);
-      height: calc(var(--cursor-size) * 1.4);
-      box-shadow: 0 0 25px var(--accent-glow);
     }
 
     /* === TOGGLE TEMA === */
@@ -231,7 +195,7 @@
       flex-direction: column; 
       justify-content: flex-start; 
       align-items: center;
-      padding: clamp(2.5rem, 10vw, 4.5rem) 1.5rem 3rem;
+      padding: clamp(1.5rem, 8vw, 3rem) 1.5rem 2rem;
       text-align: center; 
       opacity: 0; 
       visibility: hidden; 
@@ -248,8 +212,8 @@
 
     .content-logo {
       display: none;
-      width: clamp(120px, 30vw, 160px); 
-      margin-bottom: 2.5rem;
+      width: clamp(110px, 28vw, 150px); 
+      margin: 1rem 0 1.5rem;
       filter: none;
     }
     .content.revealed .content-logo {
@@ -261,23 +225,24 @@
     .title {
       font-family: 'Space Grotesk', sans-serif; 
       font-weight: 900;
-      font-size: clamp(2.8rem, 11vw, 5.5rem);
-      letter-spacing: 0.18em;
-      line-height: 1;
+      font-size: clamp(2.5rem, 10vw, 5rem);
+      letter-spacing: 0.15em;
+      line-height: 1.1;
       color: var(--text);
-      margin: 0 0 1.5rem 0;
+      margin: 0 0 1.2rem 0;
       position: relative;
       text-shadow: 0 0 30px var(--accent-glow);
       opacity: 0;
       animation: fadeIn 1.8s 0.6s ease-out forwards;
       text-transform: uppercase;
+      padding: 0 1rem;
     }
     .title::after {
       content: ''; 
       position: absolute; 
-      bottom: -0.5rem; 
+      bottom: -0.4rem; 
       left: 50%; 
-      width: 60%; 
+      width: 50%; 
       height: 2px;
       background: var(--accent); 
       transform: translateX(-50%) scaleX(0);
@@ -287,9 +252,9 @@
     .actions {
       display: flex; 
       flex-direction: column; 
-      gap: clamp(2rem, 8vw, 3rem); 
+      gap: clamp(1.8rem, 7vw, 2.8rem); 
       width: 100%;
-      max-width: 400px;
+      max-width: 380px;
       opacity: 0;
       animation: fadeIn 1.6s 1.2s ease-out forwards;
       align-items: center;
@@ -298,10 +263,10 @@
     .qr-magnet {
       position: relative; 
       width: 100%;
-      max-width: 340px; 
+      max-width: 320px; 
       margin: 0 auto;
-      padding: clamp(1.8rem, 5vw, 2.5rem); 
-      border-radius: 28px;
+      padding: clamp(1.6rem, 5vw, 2.3rem); 
+      border-radius: 26px;
       background: var(--glass); 
       border: 3px solid var(--glass-border);
       backdrop-filter: blur(18px); 
@@ -313,19 +278,19 @@
     }
     [data-theme="light"] .qr-magnet { box-shadow: 0 25px 70px rgba(0,0,0,0.12); }
     .qr-magnet:hover {
-      transform: translateY(-10px) scale(1.03);
+      transform: translateY(-8px) scale(1.03);
       border-color: var(--accent);
     }
     .qr-img {
       width: 100%; 
-      border-radius: 18px;
+      border-radius: 16px;
       filter: drop-shadow(0 0 6px rgba(168, 223, 252, 0.3));
     }
     .qr-call {
-      margin-top: 1.2rem; 
+      margin-top: 1rem; 
       font-weight: 800; 
       color: var(--accent);
-      font-size: clamp(1rem, 2.8vw, 1.2rem); 
+      font-size: clamp(0.95rem, 2.7vw, 1.15rem); 
       letter-spacing: 0.1em;
       text-transform: uppercase; 
       text-shadow: 0 0 18px var(--accent-glow);
@@ -334,25 +299,25 @@
     .btn {
       background: var(--primary);
       color: #fff;
-      padding: clamp(1.2rem, 3.5vw, 1.5rem) clamp(2.5rem, 6vw, 4rem);
-      border-radius: 50px;
+      padding: clamp(1.1rem, 3.2vw, 1.4rem) clamp(2.2rem, 5.5vw, 3.8rem);
+      border-radius: 48px;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      font-size: clamp(1rem, 2.8vw, 1.2rem);
       text-decoration: none;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.9rem;
       position: relative;
       overflow: hidden;
       box-shadow: 0 12px 35px var(--shadow);
       transition: all 0.5s ease;
       backdrop-filter: blur(10px);
       width: 100%;
-      max-width: 360px;
+      max-width: 340px;
       border: 2px solid transparent;
       cursor: pointer;
     }
@@ -367,47 +332,47 @@
     }
     .btn:hover::before { transform: translateX(100%); }
     .btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px var(--shadow);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 48px var(--shadow);
       border-color: var(--accent);
     }
     .btn-icon {
-      width: clamp(32px, 7vw, 38px);
+      width: clamp(30px, 6.5vw, 36px);
       height: auto;
       filter: brightness(0) invert(1);
     }
     [data-theme="light"] .btn-icon { filter: brightness(0) invert(0); }
 
     .footer {
-      margin-top: clamp(2.5rem, 7vw, 4rem); 
+      margin-top: clamp(2rem, 6vw, 3.5rem); 
       width: 100%;
       opacity: 0;
       animation: fadeIn 1.6s 1.5s ease-out forwards;
       text-align: center; 
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
     }
     .elite {
       display: flex; 
       align-items: center; 
       justify-content: center; 
-      gap: 0.8rem;
+      gap: 0.7rem;
       font-family: 'Space Grotesk', sans-serif; 
       font-weight: 700;
-      font-size: clamp(0.9rem, 2.3vw, 1.1rem); 
+      font-size: clamp(0.85rem, 2.2vw, 1.05rem); 
       color: var(--accent); 
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
     .elite-logo { 
-      width: clamp(180px, 45vw, 240px); 
+      width: clamp(170px, 42vw, 230px); 
       filter: brightness(0) invert(1) opacity(0.9); 
       transition: 0.5s; 
     }
     [data-theme="light"] .elite-logo { filter: brightness(0) invert(0) opacity(0.9); }
     .elite:hover .elite-logo { opacity: 1; }
     .tagline {
-      margin-top: clamp(1.5rem, 4vw, 2.5rem); 
-      font-size: clamp(0.7rem, 1.8vw, 0.85rem); 
+      margin-top: clamp(1.2rem, 3.5vw, 2rem); 
+      font-size: clamp(0.65rem, 1.7vw, 0.82rem); 
       color: var(--text); 
       font-weight: 600; 
       letter-spacing: 0.25em; 
@@ -423,9 +388,6 @@
   </style>
 </head>
 <body>
-
-  <!-- CURSOR (solo PC) -->
-  <div id="custom-cursor"></div>
 
   <!-- TOGGLE TEMA -->
   <div class="theme-toggle" id="themeToggle">
@@ -487,33 +449,17 @@
     </div>
   </div>
 
-  <!-- FONDO -->
-  <canvas id="bg-canvas" class="bg-canvas"></canvas>
+  <!-- FONDO CON ROSAS -->
+  <canvas id="rose-canvas"></canvas>
 
   <script>
-    // === DETECCIÓN DE TEMA AUTOMÁTICO ===
+    // === TEMA AUTOMÁTICO ===
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const savedTheme = localStorage.getItem('theme');
     const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
     document.body.setAttribute('data-theme', initialTheme);
 
-    // === CURSOR SIN LAG (solo PC) ===
-    const cursor = document.getElementById('custom-cursor');
-    let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-
-    if (!isMobile && cursor) {
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      });
-
-      const hoverables = document.querySelectorAll('.portal-logo, .theme-toggle, .btn, .qr-magnet');
-      hoverables.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-      });
-    }
-
-    // === TEMA ===
+    // === TOGGLE TEMA ===
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -547,50 +493,70 @@
       }, 1200);
     });
 
-    // === PARTÍCULAS ===
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let w, h, particles = [], time = 0;
+    // === ROSAS FLOTANTES ===
+    const roseCanvas = document.getElementById('rose-canvas');
+    const ctx = roseCanvas.getContext('2d');
+    let w, h, roses = [], time = 0;
+    const roseImg = new Image();
+    roseImg.src = 'https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/d88b9dd1c7864ed6ed8d9d481b95983abe87aaa0/rose.png';
 
-    function init() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-      particles = [];
-      const count = Math.min(50, Math.floor(w * h / 16000));
+    function initRoses() {
+      w = roseCanvas.width = window.innerWidth;
+      h = roseCanvas.height = window.innerHeight;
+      roses = [];
+      const count = Math.min(18, Math.floor(w * h / 30000));
       for(let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w, y: Math.random() * h,
-          size: Math.random() * 2 + 1, speed: Math.random() * 0.6 + 0.3,
-          angle: Math.random() * Math.PI * 2, depth: Math.random(),
-          pulse: Math.random() * Math.PI
+        roses.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          size: Math.random() * 30 + 25,
+          speed: Math.random() * 0.6 + 0.3,
+          angle: Math.random() * Math.PI * 2,
+          rot: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.03,
+          pulse: Math.random() * Math.PI,
+          depth: Math.random()
         });
       }
     }
 
-    function draw() {
+    function drawRoses() {
       ctx.clearRect(0, 0, w, h);
       time += 0.01;
-      particles.forEach(p => {
-        const pulse = Math.sin(time + p.pulse) * 0.3 + 1;
-        p.x += Math.cos(p.angle) * p.speed * (1 + p.depth * 0.4);
-        p.y += Math.sin(p.angle + time * 0.4) * p.speed * 0.5 * (1 + p.depth * 0.4);
-        if(p.x < -100 || p.x > w + 100 || p.y < -100 || p.y > h + 100) {
-          p.x = Math.random() * w; p.y = h + 50;
+
+      roses.forEach(r => {
+        const pulse = Math.sin(time * 2 + r.pulse) * 0.15 + 1;
+        const size = r.size * pulse;
+
+        r.x += Math.cos(r.angle) * r.speed * (1 + r.depth * 0.3);
+        r.y += Math.sin(r.angle + time * 0.3) * r.speed * 0.5 * (1 + r.depth * 0.3);
+        r.rot += r.rotSpeed;
+
+        if(r.x < -100 || r.x > w + 100 || r.y < -100 || r.y > h + 100) {
+          r.x = Math.random() * w;
+          r.y = h + 50;
         }
-        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3.5 * pulse);
-        gradient.addColorStop(0, `rgba(168,223,252,${0.6 * (1 - p.depth)})`);
-        gradient.addColorStop(1, 'rgba(168,223,252,0)');
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * 3.5 * pulse, 0, Math.PI * 2);
-        ctx.fill();
+
+        ctx.save();
+        ctx.translate(r.x, r.y);
+        ctx.rotate(r.rot);
+        ctx.globalAlpha = 0.4 + 0.3 * (1 - r.depth);
+        ctx.filter = 'blur(1.5px)';
+        ctx.drawImage(roseImg, -size/2, -size/2, size, size);
+        ctx.restore();
       });
-      requestAnimationFrame(draw);
+
+      requestAnimationFrame(drawRoses);
     }
 
-    window.addEventListener('resize', init);
-    init();
-    draw();
+    roseImg.onload = () => {
+      initRoses();
+      drawRoses();
+    };
+
+    window.addEventListener('resize', () => {
+      initRoses();
+    });
 
     // === IDIOMA ===
     const userLang = (navigator.language || navigator.userLanguage || 'es').slice(0, 2).toLowerCase();
