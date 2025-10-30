@@ -32,21 +32,25 @@
     :root {
       --primary: #5d5d8f;
       --accent: #a8dffc;
+      --accent-glow: rgba(168, 223, 252, 0.5);
       --text: #ffffff;
       --bg: #0a0a0f;
-      --glass: rgba(20, 20, 40, 0.75);
-      --glass-border: rgba(168, 223, 252, 0.22);
-      --shadow: rgba(90, 90, 180, 0.25);
+      --glass: rgba(20, 20, 40, 0.72);
+      --glass-border: rgba(168, 223, 252, 0.18);
+      --shadow: rgba(90, 90, 180, 0.3);
+      --particle: #a8dffc;
     }
 
     [data-theme="light"] {
       --primary: #6a6ab8;
       --accent: #4a90e2;
+      --accent-glow: rgba(74, 144, 226, 0.4);
       --text: #0a0a0f;
       --bg: #f5f7ff;
-      --glass: rgba(255, 255, 255, 0.88);
-      --glass-border: rgba(74, 144, 226, 0.28);
-      --shadow: rgba(74, 144, 226, 0.18);
+      --glass: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(74, 144, 226, 0.25);
+      --shadow: rgba(74, 144, 226, 0.2);
+      --particle: #4a90e2;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -60,7 +64,7 @@
       transition: background 0.6s ease, color 0.6s ease;
     }
 
-    /* === PORTAL CERRADO - LOGO PREMIUM SIN BRILLO === */
+    /* === PORTAL CERRADO - LOGO ORIGINAL CON BRILLO PREMIUM === */
     .portal {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       display: flex; justify-content: center; align-items: center;
@@ -68,32 +72,39 @@
       transition: opacity 0.8s ease;
     }
     .portal-ring {
-      position: absolute; width: 280px; height: 280px;
+      position: absolute; width: 260px; height: 260px;
       border: 2px solid var(--accent);
-      border-radius: 50%; opacity: 0.25;
+      border-radius: 50%; opacity: 0.3;
       animation: pulseRing 3s infinite ease-in-out;
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+    .portal-ring::before {
+      content: ''; position: absolute; inset: -20px;
+      border: 1px solid var(--accent); border-radius: 50%;
+      opacity: 0.15; animation: pulseRing 3s infinite 0.5s ease-in-out;
     }
     @keyframes pulseRing {
-      0%, 100% { transform: scale(1); opacity: 0.25; }
-      50% { transform: scale(1.12); opacity: 0.45; }
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.15); opacity: 0.6; }
     }
 
     .portal-logo {
-      width: clamp(180px, 30vw, 240px);
-      transition: all 0.6s cubic-bezier(0.23,1,0.32,1);
+      width: clamp(160px, 28vw, 220px);
+      filter: drop-shadow(0 0 50px var(--accent-glow));
+      transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
       z-index: 10;
       transform-style: preserve-3d;
       cursor: pointer;
-      filter: none; /* SIN BRILLO */
     }
     .portal-logo:hover {
-      transform: scale(1.06) translateZ(30px);
+      transform: scale(1.08) translateZ(40px);
+      filter: drop-shadow(0 0 80px var(--accent-glow));
     }
 
-    /* === EXPLOSIÓN === */
+    /* === EXPLOSIÓN ÉPICA === */
     .explosion {
       position: fixed; top: 50%; left: 50%; width: 0; height: 0;
-      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+      background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
       opacity: 0; pointer-events: none;
       transform: translate(-50%, -50%);
       border-radius: 50%;
@@ -127,21 +138,17 @@
       overflow-y: auto;
     }
 
-    /* === LOGO EN CONTENIDO - LIMPIO Y PREMIUM === */
+    /* === LOGO EN CONTENIDO - LIMPIO Y SIN BRILLO === */
     .content-logo {
       display: none;
-      width: clamp(160px, 25vw, 200px); 
-      margin-bottom: 2.5rem;
-      filter: none; /* SIN BRILLO */
+      width: clamp(140px, 22vw, 180px); 
+      margin-bottom: 3rem;
+      filter: none;
     }
     .content.revealed .content-logo {
       display: block;
       opacity: 0;
-      animation: fadeInUp 1.6s 0.7s ease-out forwards;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+      animation: fadeIn 1.6s 0.8s ease-out forwards;
     }
 
     /* === TÍTULO === */
@@ -151,52 +158,62 @@
       letter-spacing: 0.18em;
       line-height: 0.9;
       color: var(--text);
-      margin: 0 0 2rem 0;
+      margin: 0 0 1.8rem 0;
       position: relative;
+      text-shadow: 0 0 30px var(--accent-glow);
       opacity: 0;
       animation: fadeIn 1.8s 0.6s ease-out forwards;
       text-transform: uppercase;
     }
     .title::after {
-      content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+      content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
       background: var(--accent); transform: scaleX(0);
       animation: lineGrow 1.6s 2s ease-out forwards;
     }
 
     /* === ACCIONES - QR PRIMERO, BOTÓN DESPUÉS === */
     .actions {
-      display: flex; flex-direction: column; gap: clamp(3rem, 8vw, 4rem); width: 100%;
+      display: flex; flex-direction: column; gap: clamp(2.5rem, 7vw, 3.5rem); width: 100%;
       opacity: 0;
       animation: fadeIn 1.6s 1.2s ease-out forwards;
       align-items: center;
     }
 
-    /* === QR MAGNÉTICO - ELEGANTE Y LIMPIO === */
+    /* === QR MAGNÉTICO === */
     .qr-magnet {
       position: relative; max-width: 360px; margin: 0 auto;
-      padding: clamp(2.2rem, 6.5vw, 3rem); border-radius: 36px;
-      background: var(--glass); border: 3px solid var(--glass-border);
-      backdrop-filter: blur(20px); box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      transition: all 0.6s ease;
+      padding: clamp(2rem, 6vw, 2.8rem); border-radius: 32px;
+      background: var(--glass); border: 4px solid var(--glass-border);
+      backdrop-filter: blur(20px); box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+      transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
       opacity: 0;
       animation: fadeIn 1.6s 1s ease-out forwards;
+      cursor: pointer;
     }
-    [data-theme="light"] .qr-magnet { box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    [data-theme="light"] .qr-magnet { box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
 
     .qr-magnet:hover {
-      transform: translateY(-8px);
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 50px 120px rgba(0,0,0,0.5);
       border-color: var(--accent);
     }
 
     .qr-img {
       width: 100%; border-radius: 20px;
-      filter: none; /* SIN BRILLO */
+      filter: drop-shadow(0 0 8px rgba(168, 223, 252, 0.3));
+      animation: qrFloat 5s infinite ease-in-out;
     }
 
     .qr-call {
-      margin-top: 1.6rem; font-weight: 700; color: var(--accent);
+      margin-top: 1.6rem; font-weight: 800; color: var(--accent);
       font-size: clamp(1.1rem, 3vw, 1.3rem); letter-spacing: 0.1em;
       text-transform: uppercase; text-align: center;
+      text-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    @keyframes qrFloat {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-8px) rotate(1deg); }
     }
 
     /* === BOTÓN PREMIUM - "ACCEDER AL CANAL" === */
@@ -272,10 +289,10 @@
 
     /* === FOOTER === */
     .footer {
-      margin-top: clamp(3.5rem, 9vw, 5.5rem); width: 100%;
+      margin-top: clamp(3rem, 8vw, 5rem); width: 100%;
       opacity: 0;
       animation: fadeIn 1.6s 1.5s ease-out forwards;
-      text-align: center; padding-bottom: 3.5rem;
+      text-align: center; padding-bottom: 3rem;
     }
     .elite {
       display: flex; align-items: center; justify-content: center; gap: 1rem;
@@ -284,7 +301,7 @@
       text-transform: uppercase;
     }
     .elite-logo { 
-      width: clamp(210px, 36vw, 270px); 
+      width: clamp(200px, 35vw, 260px); 
       filter: brightness(0) invert(1) opacity(0.9); transition: 0.5s; 
     }
     [data-theme="light"] .elite-logo { filter: brightness(0) invert(0) opacity(0.9); }
@@ -319,7 +336,7 @@
   <!-- EXPLOSIÓN -->
   <div class="explosion" id="explosion"></div>
 
-  <!-- PORTAL -->
+  <!-- PORTAL - LOGO ORIGINAL -->
   <div class="portal" id="portal">
     <div class="portal-ring"></div>
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
@@ -348,10 +365,10 @@
         </div>
       </div>
 
-      <!-- BOTÓN PREMIUM -->
+      <!-- BOTÓN DESPUÉS -->
       <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
- AFTER             alt="WhatsApp" class="btn-icon">
+             alt="WhatsApp" class="btn-icon">
         <span class="es">Accede al Canal</span>
         <span class="en">Access the Channel</span>
         <span class="fr">Accéder au Canal</span>
