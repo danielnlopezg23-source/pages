@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TICS | Horticultura Inteligente</title>
-  <meta name="description" content="TICS – El sistema de comunicación TI para la horticultura moderna. Mantenimientos, incidencias, comunicados. Todo en un solo lugar." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>TICS | 00:00:00</title>
+  <meta name="description" content="Algo está naciendo. Algo que cambiará todo. TICS." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
@@ -13,307 +13,419 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --bg: #fafafa;
-      --text: #1a1a2e;
-      --light: #ffffff;
-      --border: rgba(84, 83, 134, 0.12);
+      --dark: #0f0f1a;
+      --light: #fafafa;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Roboto', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
+      background: #000;
+      color: #fff;
       overflow-x: hidden;
+      height: 100vh;
     }
 
-    /* === HERO SECTION === */
-    .hero {
-      min-height: 100vh;
+    /* === FULLSCREEN VIDEO BACKGROUND === */
+    #bgVideo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      opacity: 0.38;
+      filter: brightness(0.7) contrast(1.1);
+    }
+
+    /* === OVERLAY GRADIENT + NOISE === */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(84,83,134,0.22) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(194,223,234,0.15) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(15,15,26,0.9) 0%, rgba(10,10,18,0.95) 100%);
+      pointer-events: none;
+    }
+    .noise {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 3;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.12"/></svg>') repeat;
+      pointer-events: none;
+      animation: noise 8s steps(10) infinite;
+    }
+    @keyframes noise { from { background-position: 0 0; } to { background-position: 100px 100px; } }
+
+    /* === CONTAINER PRINCIPAL === */
+    .container {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding: 2rem;
-      position: relative;
-      background: linear-gradient(135deg, rgba(194,223,234,0.03) 0%, rgba(244,199,206,0.03) 100%);
-    }
-    .brand {
-      margin-bottom: 2.5rem;
-    }
-    .logo-tics {
-      width: 170px;
-      margin-bottom: 1rem;
-    }
-    .by-line {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--primary);
-      letter-spacing: 0.06em;
-    }
-    .logo-elite {
-      width: 230px;
     }
 
-    .hero-title {
+    /* === LOGO TICS - MISTERIOSO === */
+    .logo-tics {
+      width: 180px;
+      filter: drop-shadow(0 0 50px rgba(84,83,134,0.9));
+      animation: logoPulse 4s infinite ease-in-out;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    @keyframes logoPulse {
+      0%, 100% { filter: drop-shadow(0 0 50px rgba(84,83,134,0.9)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 90px rgba(84,83,134,1)); transform: scale(1.06); }
+    }
+
+    /* === COUNTDOWN ULTRA PREMIUM === */
+    .countdown {
+      margin: 3rem 0 2rem;
+      display: flex;
+      gap: 2.5rem;
+      opacity: 0;
+      animation: fadeIn 2s 1.5s forwards;
+    }
+    .countdown-item {
+      min-width: 100px;
+    }
+    .countdown-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 4.8rem;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--primary), #3a3a6b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(84,83,134,0.6);
+    }
+    .countdown-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
+    /* === MARCA ELITE - EN SOMBRA, SOLO AL HOVER === */
+    .brand-elite {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      z-index: 11;
+    }
+    .brand-elite:hover { opacity: 1; }
+    .logo-elite {
+      width: 220px;
+      filter: brightness(0) invert(1) opacity(0.12);
+      transition: all 0.6s ease;
+    }
+    .brand-elite:hover .logo-elite {
+      filter: brightness(0) invert(1) opacity(0.35);
+      transform: scale(1.05);
+    }
+
+    /* === TÍTULO MÍSTICO === */
+    .mystic-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: transparent;
+      background: linear-gradient(90deg, transparent, #545386, transparent);
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-size: 200% 100%;
+      animation: shimmer 6s infinite linear, fadeIn 2s 0.8s forwards;
+      opacity: 0;
+      position: relative;
+    }
+    .mystic-title::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 300px; height: 1px;
+      background: rgba(84,83,134,0.4);
+      transform: translate(-50%, -50%);
+      animation: lineExpand 3s 2s forwards;
+      opacity: 0;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    @keyframes lineExpand { to { width: 600px; opacity: 1; } }
+
+    /* === BOTÓN INVISIBLE → VISIBLE AL SCROLL === */
+    .btn-reveal {
+      margin-top: 3rem;
+      padding: 1.4rem 3.2rem;
+      background: transparent;
+      border: 2px solid transparent;
+      color: rgba(255,255,255,0);
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 4.2rem;
-      color: var(--primary);
-      margin: 1.5rem 0;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
+      font-size: 1.3rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.8s ease;
+      opacity: 0;
+      animation: btnReveal 2s 3s forwards;
     }
-    .hero-subtitle {
-      font-size: 1.4rem;
-      color: var(--neutral);
-      max-width: 720px;
-      margin: 0 auto 3rem;
-      font-weight: 400;
+    .btn-reveal::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(84,83,134,0.3), transparent);
+      transition: 1.2s;
+    }
+    .btn-reveal:hover::before { left: 100%; }
+    .btn-reveal.visible {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      opacity: 1;
+      box-shadow: 0 0 40px rgba(84,83,134,0.6);
+    }
+    .btn-reveal.visible:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 60px rgba(84,83,134,0.9);
     }
 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
+    /* === QR OCULTO - SOLO AL CLICK === */
+    .qr-secret {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: white;
+      padding: 2.5rem;
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      border: 6px solid var(--primary);
+      z-index: 100;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-align: center;
+    }
+    .qr-secret.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .qr-secret img {
+      width: 260px;
+      border-radius: 18px;
+    }
+    .qr-secret p {
+      margin-top: 1.2rem;
+      font-weight: 700;
+      color: #222;
+      font-size: 1.1rem;
+    }
+    .close-qr {
+      position: absolute;
+      top: -12px; right: -12px;
+      width: 36px; height: 36px;
       background: var(--primary);
       color: white;
-      padding: 1.3rem 3rem;
-      border-radius: 60px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-decoration: none;
-      transition: all 0.4s ease;
-      box-shadow: 0 12px 35px rgba(84, 83, 134, 0.3);
-    }
-    .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 45px rgba(84, 83, 134, 0.45);
-    }
-    .whatsapp-icon {
-      width: 30px;
-      height: 30px;
-      filter: brightness(0) invert(1);
-    }
-
-    /* === SECCIÓN QUÉ ES TICS === */
-    .section {
-      padding: 6rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 2.8rem;
-      color: var(--primary);
-      text-align: center;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.03em;
-    }
-    .section-subtitle {
-      font-size: 1.25rem;
-      color: var(--neutral);
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 4rem;
-      font-weight: 400;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.5rem;
-      margin-top: 3rem;
-    }
-    .feature-card {
-      background: var(--light);
-      padding: 2.2rem;
-      border-radius: 20px;
-      text-align: center;
-      border: 1px solid var(--border);
-      transition: all 0.4s ease;
-    }
-    .feature-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-      border-color: var(--primary);
-    }
-    .feature-icon {
-      width: 68px;
-      height: 68px;
-      margin-bottom: 1.5rem;
-      filter: drop-shadow(0 4px 12px rgba(84,83,134,0.2));
-    }
-    .feature-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
+      border-radius: 50%;
       font-size: 1.4rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-    .feature-desc {
-      color: #555;
-      font-size: 1rem;
-    }
-
-    /* === SECCIÓN QR + CANAL === */
-    .cta-section {
-      background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
-      padding: 6rem 2rem;
-      text-align: center;
-      color: var(--text);
-    }
-    .cta-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 2.6rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-    .cta-text {
-      max-width: 700px;
-      margin: 0 auto 3rem;
-      font-size: 1.2rem;
-      color: var(--neutral);
-    }
-    .qr-container {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 2rem;
-      max-width: 380px;
-      margin: 0 auto;
-    }
-    .qr-box {
-      background: white;
-      padding: 2rem;
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-      border: 4px solid var(--primary);
-    }
-    .qr-box img {
-      width: 100%;
-      border-radius: 16px;
-    }
-    .qr-box p {
-      margin-top: 1rem;
-      font-weight: 600;
-      color: #444;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    /* === FOOTER TAGLINE === */
-    .footer-tag {
-      text-align: center;
-      padding: 3rem 2rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--primary);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      background: var(--light);
-      border-top: 1px solid var(--border);
+    /* === PARTICULAS CANVAS === */
+    #particles { position: fixed; top:0; left:0; width:100%; height:100%; z-index:4; }
+
+    /* === ANIMACIONES === */
+    @keyframes fadeIn { to { opacity:1; transform: none; } }
+
+    /* === SCROLL INDICATOR === */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.2em;
+      animation: pulse 2s infinite;
     }
+    @keyframes pulse { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
 
     /* === RESPONSIVE === */
     @media (max-width: 768px) {
-      .hero-title { font-size: 3rem; }
-      .hero-subtitle { font-size: 1.2rem; }
-      .section-title { font-size: 2.3rem; }
-      .cta-title { font-size: 2.2rem; }
-      .logo-tics { width: 140px; }
-      .logo-elite { width: 190px; }
-      .btn-primary { padding: 1.1rem 2.5rem; font-size: 1.1rem; }
+      .countdown { gap:1.5rem; }
+      .countdown-num { font-size:3.2rem; }
+      .mystic-title { font-size:1.8rem; letter-spacing:0.15em; }
+      .logo-tics { width:140px; }
+      .btn-reveal { padding:1.2rem 2.5rem; font-size:1.1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="brand">
-      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-           alt="TICS" class="logo-tics">
-      <div class="by-line">
-        <span>by</span>
-        <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-             alt="The Elite Group" class="logo-elite">
-      </div>
+  <!-- VIDEO BACKGROUND (LOOP, MUTED, SUBTLE) -->
+  <video id="bgVideo" autoplay muted loop playsinline>
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-organic-motion-34302-small.mp4" type="video/mp4">
+  </video>
+
+  <!-- OVERLAY + NOISE -->
+  <div class="overlay"></div>
+  <div class="noise"></div>
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+
+    <!-- LOGO TICS -->
+    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
+         alt="TICS" class="logo-tics" style="animation-delay: 0.5s; opacity:0;" onload="this.style.opacity=1; this.style.animation='logoPulse 4s infinite ease-in-out'">
+
+    <!-- TÍTULO MÍSTICO -->
+    <h1 class="mystic-title">TICS</h1>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown" id="countdown">
+      <div class="countdown-item"><div class="countdown-num" id="days">00</div><div class="countdown-label">Días</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="hours">00</div><div class="countdown-label">Horas</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="minutes">00</div><div class="countdown-label">Minutos</div></div>
+      <div class="countdown-item"><div class="countdown-num" id="seconds">00</div><div class="countdown-label">Segundos</div></div>
     </div>
 
-    <h1 class="hero-title">TICS</h1>
-    <p class="hero-subtitle">
-      El sistema de comunicación TI que conecta a tu equipo horticultor con la información crítica en tiempo real.
-    </p>
+    <!-- BOTÓN REVELADO -->
+    <button class="btn-reveal" id="revealBtn">
+      <span class="es">DESCUBRE</span>
+      <span class="en">REVEAL</span>
+      <span class="fr">DÉVOILER</span>
+    </button>
 
-    <a href="#join" class="btn-primary">
-      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
-           alt="WhatsApp" class="whatsapp-icon">
-      <span>Únete al Canal TICS</span>
-    </a>
-  </section>
+    <!-- SCROLL HINT -->
+    <div class="scroll-hint">SCROLL</div>
+  </div>
 
-  <!-- QUÉ ES TICS -->
-  <section class="section">
-    <h2 class="section-title">Comunicación Horticultora del Futuro</h2>
-    <p class="section-subtitle">
-      TICS unifica mantenimientos preventivos, reportes de incidencias, comunicados oficiales y alertas técnicas en una sola plataforma accesible por WhatsApp.
-    </p>
+  <!-- MARCA ELITE (OCULTA HASTA HOVER) -->
+  <div class="brand-elite">
+    <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
+         alt="The Elite Group" class="logo-elite">
+  </div>
 
-    <div class="features">
-      <div class="feature-card">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/main/icons/maintenance.svg" alt="Mantenimiento" class="feature-icon">
-        <h3 class="feature-title">Mantenimientos Programados</h3>
-        <p class="feature-desc">Notificaciones automáticas antes, durante y después de cada intervención técnica.</p>
-      </div>
-      <div class="feature-card">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/main/icons/incident.svg" alt="Incidencias" class="feature-icon">
-        <h3 class="feature-title">Reportes de Incidencias</h3>
-        <p class="feature-desc">Registro inmediato con fotos, ubicación y seguimiento en tiempo real.</p>
-      </div>
-      <div class="feature-card">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/main/icons/broadcast.svg" alt="Comunicados" class="feature-icon">
-        <h3 class="feature-title">Comunicados Oficiales</h3>
-        <p class="feature-desc">Anuncios corporativos, actualizaciones y normativas con confirmación de lectura.</p>
-      </div>
-    </div>
-  </section>
+  <!-- QR SECRETO -->
+  <div class="qr-secret" id="qrSecret">
+    <div class="close-qr" id="closeQr">×</div>
+    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR TICS">
+    <p>Escanea para entrar al núcleo</p>
+  </div>
 
-  <!-- CTA + QR -->
-  <section class="cta-section" id="join">
-    <h2 class="cta-title">Acceso Inmediato</h2>
-    <p class="cta-text">
-      Únete al canal oficial de TICS y sé el primero en recibir actualizaciones técnicas, alertas críticas y herramientas exclusivas para tu operación horticultora.
-    </p>
+  <script>
+    // === VIDEO FALLBACK ===
+    const video = document.getElementById('bgVideo');
+    video.playbackRate = 0.6;
 
-    <div class="qr-container">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" target="_blank" class="btn-primary">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
-             alt="WhatsApp" class="whatsapp-icon">
-        <span>Abrir en WhatsApp</span>
-      </a>
+    // === PARTICULAS CANVAS (ETHEREAL) ===
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
 
-      <div class="qr-box">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
-             alt="QR TICS">
-        <p>Escanea con tu cámara</p>
-      </div>
-    </div>
-  </section>
+    function init() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = [];
+      for(let i = 0; i < 50; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 3 + 1,
+          speed: Math.random() * 0.5 + 0.2,
+          opacity: Math.random() * 0.4 + 0.1,
+          hue: 260 + Math.random() * 20
+        });
+      }
+    }
 
-  <!-- FOOTER -->
-  <footer class="footer-tag">
-    TICS • Technology Information Communication System
-  </footer>
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 70%, 70%, ${p.opacity})`;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#545386';
+        ctx.fill();
+        p.y -= p.speed;
+        if (p.y < -p.r) p.y = h + p.r;
+        p.x += Math.sin(Date.now() * 0.001 + p.r) * 0.3;
+      });
+      requestAnimationFrame(draw);
+    }
 
+    window.addEventListener('resize', init);
+    init();
+    draw();
+
+    // === COUNTDOWN (7 DÍAS) ===
+    const launch = new Date();
+    launch.setDate(launch.getDate() + 7);
+    launch.setHours(0,0,0,0);
+
+    function update() {
+      const diff = launch - new Date();
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;font-size:2rem;color:#545386;">ACTIVADO</div>';
+        return;
+      }
+      const d = Math.floor(diff / 86400000).toString().padStart(2,'0');
+      const h = Math.floor((diff % 86400000) / 3600000).toString().padStart(2,'0');
+      const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2,'0');
+      const s = Math.floor((diff % 60000) / 1000).toString().padStart(2,'0');
+      document.getElementById('days').textContent = d;
+      document.getElementById('hours').textContent = h;
+      document.getElementById('minutes').textContent = m;
+      document.getElementById('seconds').textContent = s;
+    }
+    setInterval(update, 1000);
+    update();
+
+    // === BOTÓN REVELA QR ===
+    const btn = document.getElementById('revealBtn');
+    const qr = document.getElementById('qrSecret');
+    const close = document.getElementById('closeQr');
+
+    btn.addEventListener('click', () => {
+      btn.classList.add('visible');
+      setTimeout(() => qr.classList.add('show'), 300);
+    });
+    close.addEventListener('click', () => {
+      qr.classList.remove('show');
+      setTimeout(() => btn.classList.remove('visible'), 600);
+    });
+
+    // === IDIOMA ===
+    const lang = (navigator.language || navigator.userLanguage).slice(0,2).toLowerCase();
+    document.documentElement.lang = ['en','fr'].includes(lang) ? lang : 'es';
+
+    // === SCROLL REVEAL ELITE LOGO ===
+    let scrolled = false;
+    window.addEventListener('scroll', () => {
+      if (!scrolled && window.scrollY > 100) {
+        document.querySelector('.brand-elite').style.opacity = '1';
+        scrolled = true;
+      }
+    });
+  </script>
 </body>
 </html>
