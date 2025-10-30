@@ -4,410 +4,162 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. La conquista comienza." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+  <meta name="description" content="TICS." />
   <style>
-    :root {
-      --primary: #545386;
-      --accent-1: #C2DFEA;
-      --accent-2: #F4C7CE;
-      --accent-3: #d8d2c4;
-      --neutral: #383A35;
-      --bg: #000000;
-      --text: #ffffff;
-      --glow: rgba(84,83,134,0.85);
-      --pulse: rgba(194,223,234,0.4);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      height: 100vh;
-      position: relative;
-    }
+    /* === RESET ABSOLUTO === */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { width:100%; height:100%; overflow:hidden; background:#000; font-family:sans-serif; }
+    
+    /* === VOID CANVAS === */
+    #void { position:fixed; top:0; left:0; width:100%; height:100%; }
 
-    /* === GLITCH PRELOADER: DOMINIO ABSOLUTO === */
-    #glitch-preloader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999999;
-      opacity: 1;
-      transition: opacity 2.2s ease;
-    }
-    .glitch-logo {
-      width: 380px;
-      filter: brightness(0) invert(1);
-      position: relative;
-      animation: glitchDominance 3.5s steps(1) forwards;
-    }
-    .glitch-logo::before, .glitch-logo::after {
-      content: '';
+    /* === TICS: EL ORIGEN === */
+    #tics {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png') center/contain no-repeat;
-      opacity: 0;
-    }
-    .glitch-logo::before {
-      animation: glitch1 3.5s steps(1) forwards;
-      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    }
-    .glitch-logo::after {
-      animation: glitch2 3.5s steps(1) forwards;
-      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-    }
-    @keyframes glitch1 {
-      0%, 100% { transform: translate(0); opacity: 0; }
-      10% { transform: translate(-8px, -6px); opacity: 1; filter: hue-rotate(120deg); }
-      20% { transform: translate(6px, 4px); opacity: 1; filter: hue-rotate(240deg); }
-      30% { transform: translate(-4px, 8px); opacity: 1; filter: hue-rotate(0deg); }
-      40% { opacity: 0; }
-    }
-    @keyframes glitch2 {
-      0%, 100% { transform: translate(0); opacity: 0; }
-      15% { transform: translate(10px, -8px); opacity: 1; filter: hue-rotate(300deg); }
-      25% { transform: translate(-8px, 6px); opacity: 1; filter: hue-rotate(60deg); }
-      35% { transform: translate(4px, -10px); opacity: 1; filter: hue-rotate(180deg); }
-      45% { opacity: 0; }
-    }
-    @keyframes glitchDominance {
-      0% { transform: scale(0.1); filter: brightness(0) invert(1) drop-shadow(0 0 0 #545386); }
-      25% { transform: scale(1.8); filter: brightness(0) invert(1) drop-shadow(0 0 400px #545386); }
-      50% { transform: scale(0.7); filter: brightness(0) invert(1) drop-shadow(0 0 100px #545386); }
-      75% { transform: scale(1.1); }
-      100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 80px #545386); }
-    }
-
-    /* === CONQUEST SCENE: 120vh COMPACT DOMINATION === */
-    .conquest {
-      min-height: 120vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem 2rem;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font: 900 28vw/1 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      letter-spacing: -0.02em;
+      color: #fff;
       text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* === TICS: MONOLITO VIVO === */
-    .monolith {
-      width: 420px;
-      filter: drop-shadow(0 0 120px var(--glow));
-      animation: monolithBreathe 8s infinite ease-in-out;
-      position: relative;
-      z-index: 20;
-    }
-    @keyframes monolithBreathe {
-      0%,100% { transform: scale(1) rotateX(0) rotateY(0); filter: drop-shadow(0 0 120px var(--glow)); }
-      50% { transform: scale(1.03) rotateX(2deg) rotateY(3deg); filter: drop-shadow(0 0 180px var(--glow)); }
-    }
-
-    /* === TÍTULO: TICS - 18rem, 0.45em, INMORTAL === */
-    .immortal-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 18rem;
-      letter-spacing: 0.45em;
-      margin: 1.2rem 0 2rem;
-      background: linear-gradient(135deg, #ffffff 0%, #f0f0ff 30%, #545386 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 
-        0 20px 60px rgba(84,83,134,0.5),
-        0 0 100px rgba(84,83,134,0.3);
-      position: relative;
-      z-index: 15;
-      animation: titleConquer 4s ease-out forwards;
-      transform: translateY(80px);
+      pointer-events: none;
+      mix-blend-mode: difference;
       opacity: 0;
-    }
-    @keyframes titleConquer {
-      to { transform: translateY(0); opacity: 1; }
+      transition: opacity 0s;
     }
 
-    /* === PISTA: EL SUSURRO DE LA CONQUISTA === */
-    .conquest-whisper {
-      font-size: 1.6rem;
-      max-width: 720px;
-      margin: 0 auto 4rem;
-      color: rgba(255,255,255,0.78);
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      line-height: 1.8;
-      animation: whisperIn 3s 1s ease-out forwards;
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    @keyframes whisperIn { to { opacity: 1; transform: translateY(0); } }
-
-    /* === ACCIONES: PORTAL + SELLO === */
-    .portal-seal {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3.5rem;
-      animation: portalRise 3s 1.5s ease-out forwards;
-      opacity: 0;
-      transform: translateY(60px);
-    }
-    @keyframes portalRise { to { opacity: 1; transform: translateY(0); } }
-
-    .portal-btn {
-      background: var(--primary);
-      color: white;
-      padding: 2.2rem 5.5rem;
-      border-radius: 80px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.8rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 1.6rem;
-      box-shadow: 0 40px 90px rgba(84,83,134,0.7);
-      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-      z-index: 12;
-    }
-    .portal-btn::before {
-      content: '';
+    /* === ACCESO: WHATSAPP + QR === */
+    #access {
       position: absolute;
-      top: 0; left: -150%;
-      width: 300%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: 1.2s;
-    }
-    .portal-btn:hover::before { left: 150%; }
-    .portal-btn:hover {
-      transform: translateY(-14px) scale(1.08);
-      box-shadow: 0 60px 120px rgba(84,83,134,0.9);
-    }
-    .whatsapp-icon { width: 52px; height: 52px; filter: brightness(0) invert(1); }
-
-    .seal-qr {
-      background: white;
-      padding: 3.2rem;
-      border-radius: 50px;
-      max-width: 460px;
-      box-shadow: 0 50px 120px rgba(0,0,0,0.4);
-      border: 9px solid var(--primary);
-      transition: all 0.7s ease;
-      position: relative;
-      z-index: 11;
-    }
-    .seal-qr:hover {
-      transform: translateY(-16px) rotate(1deg);
-      box-shadow: 0 70px 150px rgba(0,0,0,0.5);
-    }
-    .seal-qr img { width: 100%; border-radius: 32px; }
-    .seal-qr p {
-      margin-top: 1.6rem;
-      font-weight: 900;
-      color: #000;
-      font-size: 1.4rem;
-      letter-spacing: 0.08em;
-    }
-
-    /* === ELITE: EL TRONO === */
-    .throne {
-      margin-top: 6rem;
-      display: flex;
-      align-items: center;
-      gap: 1.8rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 1.6rem;
-      color: rgba(255,255,255,0.8);
-      letter-spacing: 0.12em;
-      animation: throneRise 3s 2s ease-out forwards;
-      opacity: 0;
-    }
-    @keyframes throneRise { to { opacity: 1; } }
-    .logo-throne {
-      width: 380px;
-      filter: brightness(0) invert(1) opacity(0.85);
-      transition: all 0.7s ease;
-    }
-    .throne:hover .logo-throne { opacity: 1; transform: scale(1.04); }
-
-    /* === TAGLINE: EL DECRETO === */
-    .decree {
-      margin-top: 4rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: rgba(255,255,255,0.6);
-      letter-spacing: 0.38em;
-      text-transform: uppercase;
-      animation: decreeIn 3s 2.3s ease-out forwards;
-      opacity: 0;
-    }
-    @keyframes decreeIn { to { opacity: 1; } }
-
-    /* === SCROLL DOMINATION ARROW === */
-    .domination-arrow {
-      position: absolute;
-      bottom: 4rem;
+      bottom: 8vh;
       left: 50%;
       transform: translateX(-50%);
-      width: 40px;
-      height: 70px;
-      border: 4px solid rgba(255,255,255,0.5);
-      border-radius: 25px;
-      animation: arrowPulse 2.5s infinite;
+      display: flex;
+      gap: 6vw;
+      opacity: 0;
     }
-    .domination-arrow::before {
-      content: '';
+    .access-item {
+      width: 14vw;
+      max-width: 120px;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .access-item:hover {
+      transform: scale(1.15) translateY(-8px);
+    }
+    .access-item img { width:100%; border-radius:50%; box-shadow:0 0 40px rgba(255,255,255,0.15); }
+
+    /* === ELITE: BY === */
+    #elite {
       position: absolute;
-      top: 14px;
+      bottom: 2vh;
       left: 50%;
       transform: translateX(-50%);
-      width: 8px;
-      height: 16px;
-      background: rgba(255,255,255,0.7);
-      border-radius: 4px;
-      animation: arrowFall 2.5s infinite;
+      font: 500 2.8vw/1 'Helvetica Neue', sans-serif;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.4);
+      white-space: nowrap;
+      opacity: 0;
     }
-    @keyframes arrowPulse { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
-    @keyframes arrowFall { 0% { transform: translateX(-50%) translateY(0); } 100% { transform: translateX(-50%) translateY(32px); opacity:0; } }
+    #elite img { height: 3.2vw; vertical-align: middle; margin-left: 1.2vw; filter: brightness(0) invert(1) opacity(0.6); }
 
-    /* === NEBULA BACKGROUND (CANVAS) === */
-    #nebula-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.55; }
-
-    /* === RESPONSIVE DOMINATION === */
-    @media (max-width: 768px) {
-      .immortal-title { font-size: 8rem; letter-spacing: 0.28em; }
-      .monolith { width: 280px; }
-      .conquest-whisper { font-size: 1.3rem; }
-      .portal-btn { padding: 1.8rem 4rem; font-size: 1.5rem; }
-      .whatsapp-icon { width: 44px; height: 44px; }
-      .seal-qr { max-width: 360px; padding: 2.6rem; }
-      .logo-throne { width: 280px; }
+    /* === TAGLINE: MICRO === */
+    #tagline {
+      position: absolute;
+      top: 2vh;
+      right: 2vw;
+      font: 300 1.8vw/1 'Helvetica Neue', sans-serif;
+      letter-spacing: 0.4em;
+      color: rgba(255,255,255,0.25);
+      opacity: 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- GLITCH PRELOADER -->
-  <div id="glitch-preloader">
-    <div class="glitch-logo"></div>
-  </div>
+  <canvas id="void"></canvas>
 
-  <!-- NEBULA BACKGROUND -->
-  <canvas id="nebula-canvas"></canvas>
+  <div id="tics">TICS</div>
 
-  <!-- CONQUEST SCENE -->
-  <div class="conquest">
-
-    <!-- MONOLITO -->
-    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="monolith">
-
-    <!-- TÍTULO INMORTAL -->
-    <h1 class="immortal-title">TICS</h1>
-
-    <!-- SUSURRO -->
-    <p class="conquest-whisper">
-      Un nuevo orden se alza. <br>
-      No es una herramienta. Es el destino.
-    </p>
-
-    <!-- PORTAL + SELLO -->
-    <div class="portal-seal">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="portal-btn" target="_blank">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
-             alt="WhatsApp" class="whatsapp-icon">
-        <span>INGRESAR</span>
-      </a>
-
-      <div class="seal-qr">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
-             alt="QR TICS">
-        <p>SELLO DE ACCESO</p>
-      </div>
+  <div id="access">
+    <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" target="_blank" class="access-item">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp">
+    </a>
+    <div class="access-item">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" alt="QR">
+    </div>
     </div>
 
-    <!-- TRONO -->
-    <div class="throne">
-      <span>by</span>
-      <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-           alt="The Elite Group" class="logo-throne">
-    </div>
-
-    <!-- DECRETO -->
-    <p class="decree">Technology Information Communication System</p>
-
-    <!-- DOMINATION ARROW -->
-    <div class="domination-arrow"></div>
+  <div id="elite">
+    by <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" alt="The Elite Group">
   </div>
+
+  <div id="tagline">Technology Information Communication System</div>
 
   <script>
-    // === GLITCH PRELOADER → DOMINIO TOTAL ===
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('glitch-preloader').style.opacity = '0';
-        setTimeout(() => {
-          document.getElementById('glitch-preloader').style.display = 'none';
-        }, 2200);
-      }, 3500);
-    });
-
-    // === NEBULA: NUBE CÓSMICA DE DATOS ===
-    const canvas = document.getElementById('nebula-canvas');
+    // === VOID: EL UNIVERSO PRIMIGENIO ===
+    const canvas = document.getElementById('void');
     const ctx = canvas.getContext('2d');
-    let w, h, nebulae = [];
+    let w, h, stars = [], time = 0;
 
     function init() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      nebulae = [];
-      for(let i = 0; i < 3; i++) {
-        nebulae.push({
-          x: w * (0.2 + Math.random() * 0.6),
-          y: h * (0.2 + Math.random() * 0.6),
-          r: 300 + Math.random() * 400,
-          hue: 210 + Math.random() * 40,
-          speed: 0.03 + Math.random() * 0.02
+      stars = [];
+      for(let i = 0; i < 800; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.2,
+          blink: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.3 + 0.1
         });
       }
     }
 
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      const time = performance.now() * 0.0001;
-      nebulae.forEach(n => {
-        const gradient = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
-        gradient.addColorStop(0, `hsla(${n.hue}, 70%, 70%, 0.25)`);
-        gradient.addColorStop(0.6, `hsla(${n.hue + 20}, 60%, 60%, 0.1)`);
-        gradient.addColorStop(1, 'transparent');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, w, h);
+    function animate() {
+      ctx.fillStyle = 'rgba(0,0,0,0.08)';
+      ctx.fillRect(0, 0, w, h);
+      time += 0.016;
 
-        n.x += Math.sin(time + n.speed) * 0.8;
-        n.y += Math.cos(time + n.speed) * 0.6;
-        if(n.x < -n.r) n.x = w + n.r;
-        if(n.x > w + n.r) n.x = -n.r;
-        if(n.y < -n.r) n.y = h + n.r;
-        if(n.y > h + n.r) n.y = -n.r;
+      stars.forEach(s => {
+        const pulse = 0.5 + 0.5 * Math.sin(time * s.speed + s.blink);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * pulse, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${pulse * 0.8})`;
+        ctx.fill();
+
+        s.x += (Math.random() - 0.5) * 0.1;
+        s.y += (Math.random() - 0.5) * 0.1;
+        if(s.x < 0 || s.x > w) s.x = Math.random() * w;
+        if(s.y < 0 || s.y > h) s.y = Math.random() * h;
       });
-      requestAnimationFrame(draw);
+
+      requestAnimationFrame(animate);
     }
 
+    // === REVELACIÓN: 0.8s ===
+    window.addEventListener('load', () => {
+      init();
+      animate();
+
+      setTimeout(() => {
+        document.getElementById('tics').style.opacity = '1';
+      }, 800);
+
+      setTimeout(() => {
+        document.getElementById('access').style.opacity = '1';
+      }, 1400);
+
+      setTimeout(() => {
+        document.getElementById('elite').style.opacity = '1';
+      }, 1800);
+
+      setTimeout(() => {
+        document.getElementById('tagline').style.opacity = '1';
+      }, 2200);
+    });
+
     window.addEventListener('resize', init);
-    init();
-    draw();
   </script>
 </body>
 </html>
