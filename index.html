@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS | The Elite Group</title>
-  <meta name="description" content="TICS - Sistema de notificaciones TI en WhatsApp. The Elite Group." />
+  <meta name="description" content="TICS - Notificaciones TI oficiales en WhatsApp. The Elite Group." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -99,7 +99,7 @@
       line-height: 1.8;
     }
 
-    /* BOTÓN CORPORATIVO CON ÍCONO WHATSAPP */
+    /* BOTÓN CORPORATIVO CON WHATSAPP BLANCO (CSS FILTER) */
     .btn-whatsapp {
       display: inline-flex;
       align-items: center;
@@ -120,9 +120,10 @@
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(84, 83, 134, 0.35);
     }
-    .btn-whatsapp img {
+    .whatsapp-icon {
       width: 26px;
       height: 26px;
+      filter: brightness(0) invert(1); /* MORADO → BLANCO */
     }
 
     /* QR */
@@ -178,7 +179,7 @@
       .hero h1 { font-size: 2.1rem; }
       .hero p { font-size: 1rem; }
       .btn-whatsapp { padding: 1rem 1.8rem; font-size: 1rem; gap: 0.7rem; }
-      .btn-whatsapp img { width: 22px; height: 22px; }
+      .whatsapp-icon { width: 22px; height: 22px; }
       .qr-container { max-width: 260px; padding: 1.4rem; }
     }
   </style>
@@ -208,9 +209,10 @@
       <h1>Notificaciones TI en Tiempo Real</h1>
       <p>Recibe alertas críticas, mantenimientos y actualizaciones oficiales directamente en tu móvil.</p>
 
-      <!-- BOTÓN CON ÍCONO WHATSAPP CORPORATIVO -->
+      <!-- BOTÓN CON WHATSAPP BLANCO (CSS) -->
       <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
-        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
+             alt="WhatsApp" class="whatsapp-icon">
         Unirse al Canal
       </a>
 
