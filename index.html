@@ -4,102 +4,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. El nuevo estándar." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="description" content="TICS. El sistema que redefine la comunicación en horticultura." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
-      --accent-1: #C2DFEA;
-      --accent-2: #F4C7CE;
-      --accent-3: #d8d2c4;
-      --neutral: #383A35;
-      --bg: #0f0f1a;
-      --text: #f5f5f7;
-      --glow: rgba(84,83,134,0.45);
+      --accent: #C2DFEA;
+      --bg: #0a0a14;
+      --text: #f0f0f5;
+      --subtle: rgba(255,255,255,0.65);
+      --card-bg: rgba(84,83,134,0.08);
+      --border: rgba(84,83,134,0.18);
     }
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow:hidden; background:var(--bg); font-family:'Inter',sans-serif; color:var(--text); }
+    html, body { width:100%; height:100%; overflow:auto; background:var(--bg); font-family:'Inter',sans-serif; color:var(--text); scroll-behavior:smooth; }
     
-    /* === LAYOUT: PRECISO, CORPORATIVO, MODERNO === */
-    .container {
-      width:100%; height:100%; display:grid; place-items:center; padding:4rem;
-      position:relative;
+    /* === COMPACT CARD: 480px ALTO, CENTRADO === */
+    .card {
+      width:100%; max-width:420px; min-height:480px;
+      margin:8vh auto; padding:2.8rem 2.2rem;
+      background:var(--card-bg); backdrop-filter:blur(16px);
+      border:1px solid var(--border); border-radius:28px;
+      display:flex; flex-direction:column; align-items:center;
+      box-shadow:0 25px 70px rgba(0,0,0,0.22);
+      position:relative; overflow:hidden;
+    }
+    .card::before {
+      content:''; position:absolute; top:0; left:0; width:100%; height:100%;
+      background:radial-gradient(circle at 30% 20%, rgba(194,223,234,0.12) 0%, transparent 60%);
+      pointer-events:none;
     }
 
-    /* === LOGO: 160px, PERFECTO === */
+    /* === LOGO: 96px, PERFECTO === */
     .logo {
-      width:160px; height:auto; margin-bottom:3rem;
-      filter:drop-shadow(0 12px 30px rgba(84,83,134,0.25));
+      width:96px; height:auto; margin-bottom:1.8rem;
+      filter:drop-shadow(0 6px 18px rgba(84,83,134,0.22));
     }
 
-    /* === TICS: 14rem, Inter 900, ESPACIADO PERFECTO === */
+    /* === TICS: 4.8rem, Inter 900, ESPACIADO === */
     .title {
-      font-weight:900; font-size:14rem; line-height:0.92; letter-spacing:-0.06em;
-      background:linear-gradient(135deg, #ffffff 0%, #e8e8ed 45%, #c0c0d8 100%);
+      font-weight:900; font-size:4.8rem; line-height:0.94; letter-spacing:-0.04em;
+      background:linear-gradient(135deg, #ffffff 0%, #e0e0e8 50%, #a8a8c0 100%);
       -webkit-background-clip:text; background-clip:text;
       -webkit-text-fill-color:transparent;
-      margin:0 0 2.5rem;
+      margin:0 0 1.2rem;
     }
 
-    /* === PISTA: INTRIGA PURA, 1.4rem, 300 === */
+    /* === PISTA: INTRIGA, 1rem, 400 === */
     .hint {
-      font-weight:300; font-size:1.4rem; max-width:720px; text-align:center;
-      letter-spacing:0.02em; line-height:1.7; opacity:0.88;
-      margin-bottom:4rem;
+      font-weight:400; font-size:1rem; text-align:center; line-height:1.6;
+      max-width:320px; margin:0 auto 2.2rem; color:var(--subtle);
     }
 
-    /* === ACCIONES: BOTÓN + QR, ALINEADOS === */
+    /* === ACCIONES: BOTÓN + QR, COMPACTOS === */
     .actions {
-      display:flex; gap:3rem; align-items:center;
+      display:flex; gap:1.8rem; align-items:center; width:100%; justify-content:center;
+      margin-bottom:2rem;
     }
     .btn {
-      background:var(--primary); color:#fff; padding:1.4rem 3.2rem;
-      border-radius:16px; font-weight:700; font-size:1.2rem;
-      text-decoration:none; display:inline-flex; align-items:center; gap:1rem;
-      box-shadow:0 16px 40px rgba(84,83,134,0.35);
-      transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+      background:var(--primary); color:#fff; padding:0.9rem 2rem;
+      border-radius:12px; font-weight:600; font-size:0.95rem;
+      text-decoration:none; display:inline-flex; align-items:center; gap:0.7rem;
+      box-shadow:0 10px 25px rgba(84,83,134,0.3);
+      transition:all 0.35s ease;
     }
-    .btn:hover { transform:translateY(-6px); box-shadow:0 24px 50px rgba(84,83,134,0.45); }
-    .btn-icon { width:32px; height:32px; filter:brightness(0) invert(1); }
+    .btn:hover { transform:translateY(-3px); box-shadow:0 16px 35px rgba(84,83,134,0.4); }
+    .btn-icon { width:22px; height:22px; filter:brightness(0) invert(1); }
 
     .qr {
-      background:#fff; padding:2.2rem; border-radius:20px;
-      box-shadow:0 20px 45px rgba(0,0,0,0.18); border:4px solid var(--primary);
+      background:#fff; padding:1.2rem; border-radius:14px;
+      box-shadow:0 12px 28px rgba(0,0,0,0.15); border:3px solid var(--primary);
     }
-    .qr img { width:100%; border-radius:12px; }
-    .qr p { margin-top:1.2rem; font-weight:600; color:#222; font-size:1.1rem; text-align:center; }
+    .qr img { width:78px; height:78px; border-radius:8px; }
+    .qr p { margin-top:0.7rem; font-weight:600; color:#222; font-size:0.82rem; text-align:center; }
 
-    /* === FOOTER: CORPORATIVO, DISCRETO === */
+    /* === FOOTER: ULTRA COMPACTO === */
     .footer {
-      position:absolute; bottom:3rem; left:50%; transform:translateX(-50%);
-      display:flex; flex-direction:column; align-items:center; gap:1rem;
+      display:flex; flex-direction:column; align-items:center; gap:0.6rem; width:100%;
     }
     .brand {
-      display:flex; align-items:center; gap:1rem; font-weight:500; font-size:1rem; color:rgba(255,255,255,0.65); letter-spacing:0.06em;
+      display:flex; align-items:center; gap:0.7rem; font-weight:500; font-size:0.82rem; color:var(--subtle); letter-spacing:0.04em;
     }
-    .brand img { height:40px; filter:brightness(0) invert(1) opacity(0.75); }
+    .brand img { height:26px; filter:brightness(0) invert(1) opacity(0.7); }
     .tagline {
-      font-weight:300; font-size:0.95rem; letter-spacing:0.28em; color:rgba(255,255,255,0.5);
+      font-weight:300; font-size:0.72rem; letter-spacing:0.22em; color:var(--subtle);
     }
 
-    /* === BG: SUBTLE GROWTH GRID === */
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.12; }
+    /* === BG: MINIMAL GROWTH NODES === */
+    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; opacity:0.08; }
 
-    /* === RESPONSIVE: PERFECTO === */
-    @media (max-width:1024px) {
-      .title { font-size:10rem; }
-      .hint { font-size:1.25rem; }
-      .actions { gap:2rem; }
-      .btn { padding:1.2rem 2.8rem; font-size:1.1rem; }
-      .logo { width:140px; }
-    }
-    @media (max-width:768px) {
-      .title { font-size:7.5rem; letter-spacing:-0.05em; }
-      .hint { font-size:1.15rem; }
-      .actions { flex-direction:column; }
-      .btn { padding:1.1rem 2.4rem; }
-      .logo { width:120px; margin-bottom:2rem; }
-      .footer { bottom:2rem; }
+    /* === RESPONSIVE: IMPECABLE === */
+    @media (max-width:480px) {
+      .card { margin:6vh auto; padding:2.2rem 1.8rem; min-height:440px; }
+      .title { font-size:4.2rem; }
+      .hint { font-size:0.95rem; }
+      .actions { gap:1.4rem; }
+      .btn { padding:0.8rem 1.7rem; font-size:0.9rem; }
+      .qr img { width:68px; height:68px; }
+      .logo { width:82px; }
     }
   </style>
 </head>
@@ -107,20 +109,20 @@
 
   <canvas id="bg"></canvas>
 
-  <div class="container">
+  <div class="card">
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" alt="TICS" class="logo">
 
     <h1 class="title">TICS</h1>
 
     <p class="hint">
-      Un sistema que no explica. <br>
-      Demuestra.
+      Un sistema que no habla. <br>
+      Conecta.
     </p>
 
     <div class="actions">
       <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" alt="WhatsApp" class="btn-icon">
-        <span>Acceso Exclusivo</span>
+        <span>Entrar</span>
       </a>
 
       <div class="qr">
@@ -139,7 +141,7 @@
   </div>
 
   <script>
-    // === BG: GRID + GROWTH NODES ===
+    // === BG: MINIMAL NODES (8-12) ===
     const canvas = document.getElementById('bg');
     const ctx = canvas.getContext('2d');
     let w, h, nodes = [], t = 0;
@@ -148,30 +150,24 @@
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
       nodes = [];
-      const cols = Math.floor(w / 80) + 1;
-      const rows = Math.floor(h / 80) + 1;
-      for(let y = 0; y < rows; y++) {
-        for(let x = 0; x < cols; x++) {
-          if(Math.random() > 0.7) {
-            nodes.push({
-              x: x * 80 + 40,
-              y: y * 80 + 40,
-              pulse: Math.random() * Math.PI * 2
-            });
-          }
-        }
+      for(let i = 0; i < 10; i++) {
+        nodes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          pulse: Math.random() * Math.PI * 2
+        });
       }
     }
 
     function draw() {
       ctx.clearRect(0, 0, w, h);
-      t += 0.02;
+      t += 0.018;
 
       nodes.forEach(n => {
-        const size = 2 + 2 * Math.sin(t + n.pulse);
+        const size = 1.5 + 1.5 * Math.sin(t + n.pulse);
         ctx.beginPath();
         ctx.arc(n.x, n.y, size, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(194,223,234,0.4)';
+        ctx.fillStyle = 'rgba(194,223,234,0.35)';
         ctx.fill();
       });
 
