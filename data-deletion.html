@@ -33,25 +33,27 @@
     h2 { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem; }
     .highlight { background: var(--secondary-2); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; font-weight: 500; color: #900; border-left: 4px solid var(--primary); }
 
-    /* LISTA NUMERADA CON ESPACIADO CORREGIDO */
-    ol { 
-      margin: 1.2rem 0; 
-      padding-left: 2.5rem; 
-      counter-reset: item;
+    /* LISTA NUMERADA CORREGIDA: 1., 2., 3. */
+    .steps-list {
+      margin: 1.2rem 0;
+      padding-left: 2.8rem;
+      list-style: none;
+      counter-reset: step-counter;
     }
-    ol li {
+    .steps-list li {
       position: relative;
-      margin: 1rem 0;
-      padding-left: 0.5rem;
+      margin: 1.1rem 0;
+      padding-left: 0.8rem;
       line-height: 1.6;
+      counter-increment: step-counter;
     }
-    ol li::before {
-      content: counter(item) ".";
-      counter-increment: item;
+    .steps-list li::before {
+      content: counter(step-counter) ".";
       position: absolute;
-      left: -2rem;
-      font-weight: 600;
+      left: -2.2rem;
+      font-weight: 700;
       color: var(--primary);
+      font-size: 1.1em;
     }
 
     footer { background: var(--primary); color: white; text-align: center; padding: 2.5rem 0; margin-top: 3.5rem; }
@@ -67,8 +69,8 @@
       .page-title { font-size: 1.8rem; }
       .section { padding: 1.8rem; }
       h2 { font-size: 1.4rem; }
-      ol { padding-left: 2rem; }
-      ol li::before { left: -1.8rem; }
+      .steps-list { padding-left: 2.2rem; }
+      .steps-list li::before { left: -1.8rem; font-size: 1em; }
     }
   </style>
 </head>
@@ -101,7 +103,7 @@
     <div class="section">
       <h2>Cómo Salir</h2>
       <p>Abre el canal TICS en WhatsApp y:</p>
-      <ol>
+      <ol class="steps-list">
         <li>Toca el nombre del canal (arriba)</li>
         <li>Selecciona <strong>"Dejar de seguir"</strong></li>
         <li>Confirma</li>
