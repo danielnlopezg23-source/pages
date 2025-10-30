@@ -51,7 +51,7 @@
     .portal {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       display: flex; justify-content: center; align-items: center;
-      cursor: pointer; z-index: 1000;
+      z-index: 1000;
       transition: opacity 0.8s ease;
     }
     .portal-ring {
@@ -77,8 +77,9 @@
       transition: all 0.8s cubic-bezier(0.23,1,0.32,1);
       z-index: 10;
       transform-style: preserve-3d;
+      cursor: pointer;
     }
-    .portal:hover .portal-logo {
+    .portal-logo:hover {
       transform: scale(1.08) translateZ(40px);
       filter: drop-shadow(0 0 80px var(--accent-glow));
     }
@@ -339,13 +340,13 @@
 </head>
 <body data-theme="dark">
 
-  <!-- TOGGLE MODO CLARO/OSCURO – SOL Y LUNA 100% VISIBLES -->
+  <!-- TOGGLE MODO CLARO/OSCURO -->
   <div class="theme-toggle" id="themeToggle">
     <!-- Luna (modo oscuro) -->
     <svg class="icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
-    <!-- Sol (modo claro) – CORREGIDO -->
+    <!-- Sol (modo claro) -->
     <svg class="icon icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path d="M12 2.25a.75.75 0 01.75-.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM12 20.25a.75.75 0 01.75-.75v1.5a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zM21.75 12a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM3.75 12a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM18.364 5.636a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM5.636 18.364a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM18.364 18.364a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM5.636 5.636a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM12 8a4 4 0 100 8 4 4 0 000-8z"/>
     </svg>
@@ -412,28 +413,30 @@
     const currentTheme = localStorage.getItem('theme') || 'dark';
     body.setAttribute('data-theme', currentTheme);
 
-    themeToggle.addEventListener('click', () => {
+    themeToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // Evita que el clic llegue al portal
       const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       body.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
     });
 
-    // === EXPLOSIÓN + FADE SUAVE ===
-    const portal = document.getElementById('portal');
+    // === EXPLOSIÓN + FADE SUAVE – SOLO AL TOCAR EL LOGO ===
+    const portalLogo = document.getElementById('portalLogo');
     const explosion = document.getElementById('explosion');
     const content = document.getElementById('content');
-    const portalLogo = document.getElementById('portalLogo');
     const contentLogo = document.getElementById('contentLogo');
 
-    portal.addEventListener('click', () => {
+    portalLogo.addEventListener('click', (e) => {
+      e.stopPropagation(); // Asegura que solo el logo active
+
       explosion.classList.add('active');
       portalLogo.style.transform = 'scale(3) rotate(360deg)';
       portalLogo.style.opacity = '0';
       portalLogo.style.transition = 'all 1s ease';
 
       setTimeout(() => {
-        portal.style.opacity = '0';
-        portal.style.pointerEvents = 'none';
+        document.getElementById('portal').style.opacity = '0';
+        document.getElementById('portal').style.pointerEvents = 'none';
       }, 600);
 
       setTimeout(() => {
@@ -458,9 +461,7 @@
       }
 
       window.addEventListener('scroll', checkScroll);
-      window.addEventListener('resize', () => {
-        setTimeout(checkScroll, 100);
-      });
+      window.addEventListener('resize', () => setTimeout(checkScroll, 100));
     }
 
     // === PARTÍCULAS ===
