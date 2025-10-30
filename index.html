@@ -10,19 +10,20 @@
     :root {
       --primary: #545386;
       --accent: #C2DFEA;
-      --text: #1a1a2e;
+      --text-dark: #1a1a2e;
       --bg: #ffffff;
+      --particle: #545386;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
       height: 100%;
       font-family: 'Roboto', sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--text-dark);
       overflow: hidden;
     }
 
-    /* FONDO CON PARTÍCULAS AZULES */
+    /* FONDO CON PARTÍCULAS VISIBLES */
     .bg-animation {
       position: fixed;
       top: 0; left: 0;
@@ -33,16 +34,17 @@
     }
     .particle {
       position: absolute;
-      background: var(--primary);
+      background: var(--particle);
       border-radius: 50%;
-      opacity: 0.15;
-      animation: float 18s infinite linear;
+      opacity: 0.4; /* MÁS VISIBLE */
+      box-shadow: 0 0 8px rgba(84, 83, 134, 0.6);
+      animation: float 16s infinite linear;
     }
     @keyframes float {
-      0% { transform: translateY(100vh) translateX(-50%); opacity: 0; }
-      10% { opacity: 0.15; }
-      90% { opacity: 0.15; }
-      100% { transform: translateY(-100px) translateX(120%); opacity: 0; }
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      15% { opacity: 0.4; }
+      85% { opacity: 0.4; }
+      100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
     }
 
     .container {
@@ -57,80 +59,93 @@
       text-align: center;
     }
 
-    /* MARCA PREMIUM */
+    /* MARCA */
     .brand {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
     .logo-tics {
-      width: 150px;
-      filter: drop-shadow(0 0 25px rgba(84, 83, 134, 0.5));
-      animation: pulse-glow 2.5s infinite ease-in-out;
+      width: 160px;
+      filter: drop-shadow(0 0 30px rgba(84, 83, 134, 0.7));
+      animation: pulse-glow 2.8s infinite ease-in-out;
     }
     @keyframes pulse-glow {
-      0%, 100% { filter: drop-shadow(0 0 25px rgba(84, 83, 134, 0.5)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 45px rgba(84, 83, 134, 0.8)); transform:  scale(1.05); }
+      0%, 100% { 
+        filter: drop-shadow(0 0 30px rgba(84, 83, 134, 0.7));
+        transform: scale(1);
+      }
+      50% { 
+        filter: drop-shadow(0 0 55px rgba(84, 83, 134, 1));
+        transform: scale(1.08);
+      }
     }
     .brand-text {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.9rem;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
+      font-weight: 800;
+      font-size: 1.15rem;
       color: var(--primary);
-      margin-top: 0.8rem;
+      margin-top: 1rem;
+      letter-spacing: 0.05em;
     }
-    .by-text { font-size: 0.9rem; opacity: 0.8; }
+    .by-text { 
+      font-size: 0.95rem; 
+      opacity: 0.85; 
+      font-weight: 600;
+    }
     .logo-elite {
-      width: 220px;
+      width: 240px;
       height: auto;
     }
 
-    /* TÍTULO INTRIGANTE */
+    /* TÍTULO IMPACTANTE */
     .title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 4.2rem;
+      font-size: 4.5rem;
       font-weight: 900;
-      color: var(--primary);
-      margin: 0 0 1rem;
-      letter-spacing: -0.06em;
-      background: linear-gradient(90deg, var(--primary), #3a3a6b);
+      color: transparent;
+      background: linear-gradient(135deg, var(--primary), #3a3a6b);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: reveal 2s ease-out;
+      margin: 0 0 1.2rem;
+      letter-spacing: -0.07em;
+      animation: reveal 1.8s ease-out;
+      text-shadow: 0 4px 12px rgba(84, 83, 134, 0.3);
     }
     .subtitle {
-      font-size: 1.35rem;
-      color: #444;
-      margin-bottom: 2.8rem;
-      max-width: 700px;
-      line-height: 1.6;
-      animation: reveal 2.3s ease-out;
+      font-size: 1.4rem;
+      color: #2d2d2d;
+      margin-bottom: 3rem;
+      max-width: 720px;
+      line-height: 1.7;
+      font-weight: 400;
+      animation: reveal 2.1s ease-out;
     }
 
-    /* BOTÓN + QR */
+    /* ACCIONES */
     .action-area {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
-      animation: reveal 2.6s ease-out;
+      gap: 2.5rem;
+      animation: reveal 2.4s ease-out;
     }
     .btn-whatsapp {
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.1rem;
       background: var(--primary);
       color: white;
-      padding: 1.3rem 3rem;
-      border-radius: 50px;
+      padding: 1.4rem 3.2rem;
+      border-radius: 60px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.2rem;
-      transition: all 0.4s ease;
-      box-shadow: 0 10px 30px rgba(84, 83, 134, 0.3);
+      font-size: 1.25rem;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 12px 35px rgba(84, 83, 134, 0.35);
       position: relative;
       overflow: hidden;
     }
@@ -139,53 +154,54 @@
       position: absolute;
       top: 0; left: -100%;
       width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: 0.6s;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 0.7s;
     }
     .btn-whatsapp:hover::before { left: 100%; }
     .btn-whatsapp:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(84, 83, 134, 0.4);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 18px 45px rgba(84, 83, 134, 0.5);
     }
     .whatsapp-icon {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       filter: brightness(0) invert(1);
     }
 
     /* QR PREMIUM */
     .qr-box {
       background: white;
-      padding: 1.8rem;
-      border-radius: 18px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-      border: 3px solid var(--primary);
-      max-width: 280px;
-      animation: float-qr 4s infinite ease-in-out;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+      border: 4px solid var(--primary);
+      max-width: 300px;
+      animation: float-qr 3.5s infinite ease-in-out;
     }
     .qr-box img {
       width: 100%;
       height: auto;
-      border-radius: 12px;
+      border-radius: 14px;
     }
     .qr-box p {
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      color: #555;
-      font-weight: 500;
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      color: #444;
+      font-weight: 600;
     }
     @keyframes float-qr {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-10px); }
     }
 
     .coming-soon {
-      margin-top: 3rem;
-      font-size: 1.1rem;
+      margin-top: 3.5rem;
+      font-size: 1.15rem;
       color: var(--primary);
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      animation: reveal 2.9s ease-out;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: reveal 2.7s ease-out;
     }
 
     /* IDIOMAS */
@@ -194,10 +210,98 @@
     [lang="es"] .fr, [lang="en"] .fr { display: none; }
 
     @keyframes reveal {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .title { font-size: 3rem; }
-      .subtitle { font-size: 1.
+      .title { font-size: 3.2rem; }
+      .subtitle { font-size: 1.2rem; }
+      .logo-tics { width: 130px; }
+      .logo-elite { width: 190px; }
+      .btn-whatsapp { padding: 1.2rem 2.6rem; font-size: 1.15rem; }
+      .qr-box { max-width: 260px; padding: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FONDO ANIMADO -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
+  <div class="container">
+
+    <!-- MARCA -->
+    <div class="brand">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
+           alt="TICS" class="logo-tics">
+      <div class="brand-text">
+        <span class="by-text">by</span>
+        <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
+             alt="The Elite Group" class="logo-elite">
+      </div>
+    </div>
+
+    <!-- TÍTULOS -->
+    <h1 class="title">
+      <span class="es">PRÓXIMAMENTE</span>
+      <span class="en">COMING SOON</span>
+      <span class="fr">BIENTÔT DISPONIBLE</span>
+    </h1>
+    <p class="subtitle">
+      <span class="es">Un nuevo estándar en comunicaciones TI</span>
+      <span class="en">A new standard in IT communications</span>
+      <span class="fr">Un nouveau standard en communication TI</span>
+    </p>
+
+    <!-- ACCIONES -->
+    <div class="action-area">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
+             alt="WhatsApp" class="whatsapp-icon">
+        <span class="es">Seguir en WhatsApp</span>
+        <span class="en">Follow on WhatsApp</span>
+        <span class="fr">Suivre sur WhatsApp</span>
+      </a>
+
+      <div class="qr-box">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
+             alt="QR TICS">
+        <p>
+          <span class="es">Escanea para unirte</span>
+          <span class="en">Scan to join</span>
+          <span class="fr">Scannez pour rejoindre</span>
+        </p>
+      </div>
+    </div>
+
+    <p class="coming-soon">TICS • Technology Information Communication System</p>
+  </div>
+
+  <!-- PARTÍCULAS JS -->
+  <script>
+    const bg = document.getElementById('bgAnimation');
+    const particles = 45;
+    for (let i = 0; i < particles; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 5 + 2;
+      p.style.width = p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 16 + 's';
+      p.style.animationDuration = (Math.random() * 10 + 12) + 's';
+      bg.appendChild(p);
+    }
+
+    // DETECCIÓN DE IDIOMA
+    const userLang = (navigator.language || navigator.userLanguage).slice(0, 2).toLowerCase();
+    const html = document.documentElement;
+    if (['en', 'fr'].includes(userLang)) {
+      html.lang = userLang;
+    } else {
+      html.lang = 'es';
+    }
+  </script>
+</body>
+</html>
