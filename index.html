@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. Algo se acerca." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <meta name="description" content="TICS. La conquista comienza." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
@@ -13,9 +13,10 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --bg: #0b0b16;
-      --text: #f8f8fc;
-      --glow: rgba(84,83,134,0.7);
+      --bg: #000000;
+      --text: #ffffff;
+      --glow: rgba(84,83,134,0.85);
+      --pulse: rgba(194,223,234,0.4);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
@@ -24,11 +25,12 @@
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-      line-height: 1.6;
+      height: 100vh;
+      position: relative;
     }
 
-    /* === PRELOADER: BIG BANG === */
-    #preloader {
+    /* === GLITCH PRELOADER: DOMINIO ABSOLUTO === */
+    #glitch-preloader {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -36,346 +38,369 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      z-index: 999999;
       opacity: 1;
-      transition: opacity 2s ease;
+      transition: opacity 2.2s ease;
     }
-    .bang-logo {
-      width: 320px;
+    .glitch-logo {
+      width: 380px;
       filter: brightness(0) invert(1);
-      animation: bigBang 2.8s ease-out forwards;
+      position: relative;
+      animation: glitchDominance 3.5s steps(1) forwards;
     }
-    @keyframes bigBang {
-      0% { transform: scale(0); filter: brightness(0) invert(1) drop-shadow(0 0 0 #545386); opacity: 0; }
-      30% { transform: scale(2.2); filter: brightness(0) invert(1) drop-shadow(0 0 300px #545386); opacity: 1; }
-      70% { transform: scale(0.9); filter: brightness(0) invert(1) drop-shadow(0 0 80px #545386); }
-      100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 50px #545386); }
+    .glitch-logo::before, .glitch-logo::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png') center/contain no-repeat;
+      opacity: 0;
+    }
+    .glitch-logo::before {
+      animation: glitch1 3.5s steps(1) forwards;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+    .glitch-logo::after {
+      animation: glitch2 3.5s steps(1) forwards;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+    @keyframes glitch1 {
+      0%, 100% { transform: translate(0); opacity: 0; }
+      10% { transform: translate(-8px, -6px); opacity: 1; filter: hue-rotate(120deg); }
+      20% { transform: translate(6px, 4px); opacity: 1; filter: hue-rotate(240deg); }
+      30% { transform: translate(-4px, 8px); opacity: 1; filter: hue-rotate(0deg); }
+      40% { opacity: 0; }
+    }
+    @keyframes glitch2 {
+      0%, 100% { transform: translate(0); opacity: 0; }
+      15% { transform: translate(10px, -8px); opacity: 1; filter: hue-rotate(300deg); }
+      25% { transform: translate(-8px, 6px); opacity: 1; filter: hue-rotate(60deg); }
+      35% { transform: translate(4px, -10px); opacity: 1; filter: hue-rotate(180deg); }
+      45% { opacity: 0; }
+    }
+    @keyframes glitchDominance {
+      0% { transform: scale(0.1); filter: brightness(0) invert(1) drop-shadow(0 0 0 #545386); }
+      25% { transform: scale(1.8); filter: brightness(0) invert(1) drop-shadow(0 0 400px #545386); }
+      50% { transform: scale(0.7); filter: brightness(0) invert(1) drop-shadow(0 0 100px #545386); }
+      75% { transform: scale(1.1); }
+      100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 80px #545386); }
     }
 
-    /* === COMPACT CONTAINER: 1.5x SCREEN === */
-    .container {
-      min-height: 150vh;
+    /* === CONQUEST SCENE: 120vh COMPACT DOMINATION === */
+    .conquest {
+      min-height: 120vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 3rem 2rem;
-      position: relative;
       text-align: center;
-    }
-
-    /* === LOGO TICS: FLOATING ORB === */
-    .logo-orb {
-      width: 240px;
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 0 70px var(--glow));
-      animation: orbFloat 7s infinite ease-in-out;
       position: relative;
       z-index: 10;
     }
-    @keyframes orbFloat {
-      0%,100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(3deg); }
+
+    /* === TICS: MONOLITO VIVO === */
+    .monolith {
+      width: 420px;
+      filter: drop-shadow(0 0 120px var(--glow));
+      animation: monolithBreathe 8s infinite ease-in-out;
+      position: relative;
+      z-index: 20;
+    }
+    @keyframes monolithBreathe {
+      0%,100% { transform: scale(1) rotateX(0) rotateY(0); filter: drop-shadow(0 0 120px var(--glow)); }
+      50% { transform: scale(1.03) rotateX(2deg) rotateY(3deg); filter: drop-shadow(0 0 180px var(--glow)); }
     }
 
-    /* === TÍTULO: TICS MONUMENTAL === */
-    .title-monumental {
+    /* === TÍTULO: TICS - 18rem, 0.45em, INMORTAL === */
+    .immortal-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 12rem;
-      letter-spacing: 0.35em;
-      margin: 0 0 1.8rem;
-      background: linear-gradient(135deg, #ffffff 0%, #e0e0f0 35%, #545386 100%);
+      font-size: 18rem;
+      letter-spacing: 0.45em;
+      margin: 1.2rem 0 2rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f0ff 30%, #545386 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 15px 50px rgba(84,83,134,0.45);
-      animation: titlePulse 3s infinite ease-in-out;
+      text-shadow: 
+        0 20px 60px rgba(84,83,134,0.5),
+        0 0 100px rgba(84,83,134,0.3);
       position: relative;
+      z-index: 15;
+      animation: titleConquer 4s ease-out forwards;
+      transform: translateY(80px);
+      opacity: 0;
     }
-    @keyframes titlePulse {
-      0%,100% { transform: scale(1); filter: drop-shadow(0 0 60px var(--glow)); }
-      50% { transform: scale(1.02); filter: drop-shadow(0 0 90px var(--glow)); }
+    @keyframes titleConquer {
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    /* === PISTA SUTIL === */
-    .hint {
-      font-size: 1.4rem;
-      max-width: 600px;
-      margin: 0 auto 3.5rem;
-      color: rgba(255,255,255,0.7);
+    /* === PISTA: EL SUSURRO DE LA CONQUISTA === */
+    .conquest-whisper {
+      font-size: 1.6rem;
+      max-width: 720px;
+      margin: 0 auto 4rem;
+      color: rgba(255,255,255,0.78);
       font-weight: 300;
-      letter-spacing: 0.08em;
-      animation: fadeIn 2s 1.2s ease-out forwards;
+      letter-spacing: 0.12em;
+      line-height: 1.8;
+      animation: whisperIn 3s 1s ease-out forwards;
       opacity: 0;
+      transform: translateY(40px);
     }
-    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes whisperIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* === COUNTDOWN: CRYSTAL CORE === */
-    .countdown-core {
-      display: flex;
-      gap: 2.8rem;
-      margin: 3rem 0;
-      animation: fadeIn 2s 1.5s ease-out forwards;
-      opacity: 0;
-    }
-    .core-unit {
-      background: rgba(84,83,134,0.18);
-      backdrop-filter: blur(22px);
-      border: 2px solid rgba(84,83,134,0.35);
-      border-radius: 36px;
-      padding: 2rem 1.6rem;
-      min-width: 130px;
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .core-unit:hover {
-      transform: translateY(-12px) scale(1.08);
-      border-color: #C2DFEA;
-      box-shadow: 0 30px 70px rgba(84,83,134,0.4);
-    }
-    .core-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 4.8rem;
-      color: #ffffff;
-      text-shadow: 0 8px 25px rgba(0,0,0,0.35);
-    }
-    .core-label {
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: rgba(255,255,255,0.75);
-      margin-top: 0.6rem;
-      font-weight: 500;
-    }
-
-    /* === ACCIONES: DUAL CORE === */
-    .dual-core {
+    /* === ACCIONES: PORTAL + SELLO === */
+    .portal-seal {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2.8rem;
-      margin-top: 2rem;
-      animation: fadeIn 2s 1.8s ease-out forwards;
+      gap: 3.5rem;
+      animation: portalRise 3s 1.5s ease-out forwards;
       opacity: 0;
+      transform: translateY(60px);
     }
-    .btn-core {
+    @keyframes portalRise { to { opacity: 1; transform: translateY(0); } }
+
+    .portal-btn {
       background: var(--primary);
       color: white;
-      padding: 1.8rem 4.5rem;
-      border-radius: 70px;
+      padding: 2.2rem 5.5rem;
+      border-radius: 80px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 1.45rem;
+      font-size: 1.8rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 1.3rem;
-      box-shadow: 0 25px 60px rgba(84,83,134,0.55);
-      transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+      gap: 1.6rem;
+      box-shadow: 0 40px 90px rgba(84,83,134,0.7);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
+      z-index: 12;
     }
-    .btn-core::before {
+    .portal-btn::before {
       content: '';
       position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: 1s;
+      top: 0; left: -150%;
+      width: 300%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 1.2s;
     }
-    .btn-core:hover::before { left: 100%; }
-    .btn-core:hover {
-      transform: translateY(-10px) scale(1.06);
-      box-shadow: 0 35px 80px rgba(84,83,134,0.7);
+    .portal-btn:hover::before { left: 150%; }
+    .portal-btn:hover {
+      transform: translateY(-14px) scale(1.08);
+      box-shadow: 0 60px 120px rgba(84,83,134,0.9);
     }
-    .whatsapp-icon { width: 42px; height: 42px; filter: brightness(0) invert(1); }
+    .whatsapp-icon { width: 52px; height: 52px; filter: brightness(0) invert(1); }
 
-    .qr-core {
+    .seal-qr {
       background: white;
-      padding: 2.8rem;
-      border-radius: 40px;
-      max-width: 400px;
-      box-shadow: 0 35px 90px rgba(0,0,0,0.3);
-      border: 7px solid var(--primary);
-      transition: all 0.6s ease;
+      padding: 3.2rem;
+      border-radius: 50px;
+      max-width: 460px;
+      box-shadow: 0 50px 120px rgba(0,0,0,0.4);
+      border: 9px solid var(--primary);
+      transition: all 0.7s ease;
+      position: relative;
+      z-index: 11;
     }
-    .qr-core:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 45px 110px rgba(0,0,0,0.38);
+    .seal-qr:hover {
+      transform: translateY(-16px) rotate(1deg);
+      box-shadow: 0 70px 150px rgba(0,0,0,0.5);
     }
-    .qr-core img { width: 100%; border-radius: 26px; }
-    .qr-core p { margin-top: 1.4rem; font-weight: 700; color: #111; font-size: 1.2rem; }
+    .seal-qr img { width: 100%; border-radius: 32px; }
+    .seal-qr p {
+      margin-top: 1.6rem;
+      font-weight: 900;
+      color: #000;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+    }
 
-    /* === ELITE MARK === */
-    .elite-mark {
-      margin-top: 5rem;
+    /* === ELITE: EL TRONO === */
+    .throne {
+      margin-top: 6rem;
       display: flex;
       align-items: center;
-      gap: 1.2rem;
+      gap: 1.8rem;
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 1.25rem;
-      color: rgba(255,255,255,0.65);
-      letter-spacing: 0.1em;
-      animation: fadeIn 2s 2s ease-out forwards;
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.12em;
+      animation: throneRise 3s 2s ease-out forwards;
       opacity: 0;
     }
-    .logo-elite-mark {
-      width: 300px;
-      filter: brightness(0) invert(1) opacity(0.75);
-      transition: opacity 0.6s;
+    @keyframes throneRise { to { opacity: 1; } }
+    .logo-throne {
+      width: 380px;
+      filter: brightness(0) invert(1) opacity(0.85);
+      transition: all 0.7s ease;
     }
-    .elite-mark:hover .logo-elite-mark { opacity: 1; }
+    .throne:hover .logo-throne { opacity: 1; transform: scale(1.04); }
 
-    /* === TAGLINE === */
-    .tagline-core {
-      margin-top: 3.5rem;
+    /* === TAGLINE: EL DECRETO === */
+    .decree {
+      margin-top: 4rem;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.32em;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.38em;
       text-transform: uppercase;
-      animation: fadeIn 2s 2.2s ease-out forwards;
+      animation: decreeIn 3s 2.3s ease-out forwards;
       opacity: 0;
     }
+    @keyframes decreeIn { to { opacity: 1; } }
 
-    /* === SCROLL HINT === */
-    .scroll-hint {
+    /* === SCROLL DOMINATION ARROW === */
+    .domination-arrow {
       position: absolute;
-      bottom: 3rem;
+      bottom: 4rem;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.25em;
-      animation: pulseHint 2s infinite;
+      width: 40px;
+      height: 70px;
+      border: 4px solid rgba(255,255,255,0.5);
+      border-radius: 25px;
+      animation: arrowPulse 2.5s infinite;
     }
-    @keyframes pulseHint { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
+    .domination-arrow::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 16px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 4px;
+      animation: arrowFall 2.5s infinite;
+    }
+    @keyframes arrowPulse { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
+    @keyframes arrowFall { 0% { transform: translateX(-50%) translateY(0); } 100% { transform: translateX(-50%) translateY(32px); opacity:0; } }
 
-    /* === PARTICLES BACKGROUND (CANVAS) === */
-    #particles-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.6; }
+    /* === NEBULA BACKGROUND (CANVAS) === */
+    #nebula-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.55; }
 
-    /* === RESPONSIVE === */
+    /* === RESPONSIVE DOMINATION === */
     @media (max-width: 768px) {
-      .title-monumental { font-size: 6.5rem; letter-spacing: 0.22em; }
-      .logo-orb { width: 180px; }
-      .countdown-core { gap: 1.8rem; }
-      .core-num { font-size: 3.2rem; }
-      .btn-core { padding: 1.5rem 3.5rem; font-size: 1.25rem; }
-      .qr-core { max-width: 320px; padding: 2.2rem; }
-      .logo-elite-mark { width: 220px; }
+      .immortal-title { font-size: 8rem; letter-spacing: 0.28em; }
+      .monolith { width: 280px; }
+      .conquest-whisper { font-size: 1.3rem; }
+      .portal-btn { padding: 1.8rem 4rem; font-size: 1.5rem; }
+      .whatsapp-icon { width: 44px; height: 44px; }
+      .seal-qr { max-width: 360px; padding: 2.6rem; }
+      .logo-throne { width: 280px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- PRELOADER -->
-  <div id="preloader">
-    <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="bang-logo">
+  <!-- GLITCH PRELOADER -->
+  <div id="glitch-preloader">
+    <div class="glitch-logo"></div>
   </div>
 
-  <!-- PARTICLES -->
-  <canvas id="particles-canvas"></canvas>
+  <!-- NEBULA BACKGROUND -->
+  <canvas id="nebula-canvas"></canvas>
 
-  <!-- COMPACT CONTAINER -->
-  <div class="container">
+  <!-- CONQUEST SCENE -->
+  <div class="conquest">
 
-    <!-- LOGO ORB -->
+    <!-- MONOLITO -->
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="logo-orb">
+         alt="TICS" class="monolith">
 
-    <!-- TÍTULO -->
-    <h1 class="title-monumental">TICS</h1>
+    <!-- TÍTULO INMORTAL -->
+    <h1 class="immortal-title">TICS</h1>
 
-    <!-- PISTA -->
-    <p class="hint">
-      Algo crece. Algo se alinea. En 7 días, todo cambia.
+    <!-- SUSURRO -->
+    <p class="conquest-whisper">
+      Un nuevo orden se alza. <br>
+      No es una herramienta. Es el destino.
     </p>
 
-    <!-- COUNTDOWN -->
-    <div class="countdown-core" id="countdown">
-      <div class="core-unit"><div class="core-num" id="days">00</div><div class="core-label">Días</div></div>
-      <div class="core-unit"><div class="core-num" id="hours">00</div><div class="core-label">Horas</div></div>
-      <div class="core-unit"><div class="core-num" id="minutes">00</div><div class="core-label">Minutos</div></div>
-      <div class="core-unit"><div class="core-num" id="seconds">00</div><div class="core-label">Segundos</div></div>
-    </div>
-
-    <!-- ACCIONES -->
-    <div class="dual-core">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-core" target="_blank">
+    <!-- PORTAL + SELLO -->
+    <div class="portal-seal">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="portal-btn" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
              alt="WhatsApp" class="whatsapp-icon">
-        <span>Entrar</span>
+        <span>INGRESAR</span>
       </a>
 
-      <div class="qr-core">
+      <div class="seal-qr">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS">
-        <p>Escanea</p>
+        <p>SELLO DE ACCESO</p>
       </div>
     </div>
 
-    <!-- ELITE MARK -->
-    <div class="elite-mark">
+    <!-- TRONO -->
+    <div class="throne">
       <span>by</span>
       <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-           alt="The Elite Group" class="logo-elite-mark">
+           alt="The Elite Group" class="logo-throne">
     </div>
 
-    <!-- TAGLINE -->
-    <p class="tagline-core">Technology Information Communication System</p>
+    <!-- DECRETO -->
+    <p class="decree">Technology Information Communication System</p>
 
-    <!-- SCROLL HINT -->
-    <div class="scroll-hint">SCROLL</div>
+    <!-- DOMINATION ARROW -->
+    <div class="domination-arrow"></div>
   </div>
 
   <script>
-    // === PRELOADER → REVEAL ===
+    // === GLITCH PRELOADER → DOMINIO TOTAL ===
     window.addEventListener('load', () => {
       setTimeout(() => {
-        document.getElementById('preloader').style.opacity = '0';
+        document.getElementById('glitch-preloader').style.opacity = '0';
         setTimeout(() => {
-          document.getElementById('preloader').style.display = 'none';
-        }, 2000);
-      }, 2800);
+          document.getElementById('glitch-preloader').style.display = 'none';
+        }, 2200);
+      }, 3500);
     });
 
-    // === PARTICLES: POLEN DIGITAL ===
-    const canvas = document.getElementById('particles-canvas');
+    // === NEBULA: NUBE CÓSMICA DE DATOS ===
+    const canvas = document.getElementById('nebula-canvas');
     const ctx = canvas.getContext('2d');
-    let w, h, particles = [];
+    let w, h, nebulae = [];
 
     function init() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      particles = [];
-      for(let i = 0; i < 45; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: Math.random() * 2.5 + 1,
-          speed: Math.random() * 0.6 + 0.2,
-          hue: 180 + Math.random() * 40,
-          opacity: Math.random() * 0.4 + 0.1
+      nebulae = [];
+      for(let i = 0; i < 3; i++) {
+        nebulae.push({
+          x: w * (0.2 + Math.random() * 0.6),
+          y: h * (0.2 + Math.random() * 0.6),
+          r: 300 + Math.random() * 400,
+          hue: 210 + Math.random() * 40,
+          speed: 0.03 + Math.random() * 0.02
         });
       }
     }
 
     function draw() {
       ctx.clearRect(0, 0, w, h);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue}, 70%, 75%, ${p.opacity})`;
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = '#C2DFEA';
-        ctx.fill();
-        p.y -= p.speed;
-        if(p.y < -p.r) p.y = h + p.r;
-        p.x += Math.sin(Date.now() * 0.001 + p.r) * 0.4;
+      const time = performance.now() * 0.0001;
+      nebulae.forEach(n => {
+        const gradient = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
+        gradient.addColorStop(0, `hsla(${n.hue}, 70%, 70%, 0.25)`);
+        gradient.addColorStop(0.6, `hsla(${n.hue + 20}, 60%, 60%, 0.1)`);
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, w, h);
+
+        n.x += Math.sin(time + n.speed) * 0.8;
+        n.y += Math.cos(time + n.speed) * 0.6;
+        if(n.x < -n.r) n.x = w + n.r;
+        if(n.x > w + n.r) n.x = -n.r;
+        if(n.y < -n.r) n.y = h + n.r;
+        if(n.y > h + n.r) n.y = -n.r;
       });
       requestAnimationFrame(draw);
     }
@@ -383,29 +408,6 @@
     window.addEventListener('resize', init);
     init();
     draw();
-
-    // === COUNTDOWN ===
-    const launch = new Date();
-    launch.setDate(launch.getDate() + 7);
-    launch.setHours(0,0,0,0);
-
-    function update() {
-      const diff = launch - new Date();
-      if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = '<div style="font-size:4rem;color:#fff;font-family:Montserrat;font-weight:900;">ACTIVADO</div>';
-        return;
-      }
-      const d = String(Math.floor(diff / 86400000)).padStart(2,'0');
-      const h = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
-      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
-      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
-      document.getElementById('days').textContent = d;
-      document.getElementById('hours').textContent = h;
-      document.getElementById('minutes').textContent = m;
-      document.getElementById('seconds').textContent = s;
-    }
-    setInterval(update, 1000);
-    update();
   </script>
 </body>
 </html>
