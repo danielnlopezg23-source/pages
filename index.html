@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TICS | Lanzamiento Exclusivo</title>
-  <meta name="description" content="TICS – Technology Information Communication System. El nuevo estándar global en comunicaciones TI. Lanzamiento inminente." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>TICS | Horticultura Inteligente</title>
+  <meta name="description" content="TICS – El sistema de comunicación TI para la horticultura moderna. Mantenimientos, incidencias, comunicados. Todo en un solo lugar." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
@@ -13,285 +13,307 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --bg: #ffffff;
-      --text-dark: #1a1a2e;
-      --particle: #545386;
+      --bg: #fafafa;
+      --text: #1a1a2e;
+      --light: #ffffff;
+      --border: rgba(84, 83, 134, 0.12);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height: 100%; font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text-dark); overflow: hidden; }
-    
-    /* === CANVAS BACKGROUND PREMIUM === */
-    #bgCanvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; }
-
-    /* === CONTAINER PRINCIPAL === */
-    .container {
-      position: relative; z-index:10; height:100%; display:flex; flex-direction:column;
-      justify-content:center; align-items:center; padding:2rem; text-align:center;
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    /* === MARCA PREMIUM === */
+    /* === HERO SECTION === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      background: linear-gradient(135deg, rgba(194,223,234,0.03) 0%, rgba(244,199,206,0.03) 100%);
+    }
     .brand {
-      margin-bottom: 3rem; position:relative;
+      margin-bottom: 2.5rem;
     }
     .logo-tics {
-      width: 180px; filter: drop-shadow(0 0 40px rgba(84,83,134,.6));
-      animation: logoGlow 3s infinite ease-in-out;
+      width: 170px;
+      margin-bottom: 1rem;
     }
-    @keyframes logoGlow {
-      0%,100% { filter: drop-shadow(0 0 40px rgba(84,83,134,.6)); transform:scale(1); }
-      50% { filter: drop-shadow(0 0 70px rgba(84,83,134,1)); transform:scale(1.05); }
+    .by-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+      letter-spacing: 0.06em;
     }
-    .brand-text {
-      display:flex; align-items:center; justify-content:center; gap:1rem;
-      font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.3rem;
-      color:var(--primary); margin-top:1.2rem; letter-spacing:.08em;
+    .logo-elite {
+      width: 230px;
     }
-    .by-text { font-weight:700; font-size:1rem; opacity:.9; }
-    .logo-elite { width:260px; }
 
-    /* === TÍTULO HERO ULTRA PREMIUM === */
     .hero-title {
-      font-family:'Montserrat',sans-serif; font-weight:900; font-size:5.8rem;
-      line-height:1; letter-spacing:-.06em; margin:0 0 1.5rem;
-      background: linear-gradient(135deg, var(--primary) 0%, #3a3a6b 50%, var(--accent-1) 100%);
-      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-      text-shadow: 0 6px 20px rgba(84,83,134,.25);
-      animation: titleReveal 2s cubic-bezier(.2,.8,.2,1) forwards;
-      opacity:0; transform:translateY(60px);
-    }
-    @keyframes titleReveal {
-      to { opacity:1; transform:translateY(0); }
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 4.2rem;
+      color: var(--primary);
+      margin: 1.5rem 0;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
     }
     .hero-subtitle {
-      font-size:1.55rem; color:#2d2d2d; max-width:780px; line-height:1.75; font-weight:400;
-      margin-bottom:4rem; opacity:0; animation: subtitleReveal 2s .5s cubic-bezier(.2,.8,.2,1) forwards;
-      transform:translateY(40px);
-    }
-    @keyframes subtitleReveal {
-      to { opacity:1; transform:translateY(0); }
-    }
-
-    /* === COUNTDOWN PREMIUM === */
-    .countdown {
-      display:flex; gap:2rem; margin-bottom:4rem; opacity:0;
-      animation: countdownReveal 2s 1s cubic-bezier(.2,.8,.2,1) forwards; transform:translateY(30px);
-    }
-    @keyframes countdownReveal { to { opacity:1; transform:translateY(0); } }
-    .countdown-item {
-      background:rgba(84,83,134,.08); padding:1.6rem 1.2rem; border-radius:20px;
-      min-width:110px; backdrop-filter:blur(12px); border:1px solid rgba(84,83,134,.15);
-    }
-    .countdown-num {
-      font-family:'Montserrat',sans-serif; font-weight:900; font-size:3.2rem; color:var(--primary);
-      line-height:1;
-    }
-    .countdown-label {
-      font-size:.95rem; color:var(--neutral); text-transform:uppercase; letter-spacing:.12em; font-weight:500;
+      font-size: 1.4rem;
+      color: var(--neutral);
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      font-weight: 400;
     }
 
-    /* === ACCIONES PREMIUM === */
-    .action-area {
-      display:flex; flex-direction:column; align-items:center; gap:3rem;
-      animation: actionsReveal 2s 1.5s cubic-bezier(.2,.8,.2,1) forwards; opacity:0; transform:translateY(30px);
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--primary);
+      color: white;
+      padding: 1.3rem 3rem;
+      border-radius: 60px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 12px 35px rgba(84, 83, 134, 0.3);
     }
-    @keyframes actionsReveal { to { opacity:1; transform:translateY(0); } }
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 45px rgba(84, 83, 134, 0.45);
+    }
+    .whatsapp-icon {
+      width: 30px;
+      height: 30px;
+      filter: brightness(0) invert(1);
+    }
 
-    .btn-whatsapp {
-      display:inline-flex; align-items:center; gap:1.2rem; background:var(--primary);
-      color:#fff; padding:1.5rem 3.5rem; border-radius:60px; text-decoration:none;
-      font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.3rem;
-      transition:all .5s cubic-bezier(.25,.8,.25,1); position:relative; overflow:hidden;
-      box-shadow:0 15px 40px rgba(84,83,134,.4);
+    /* === SECCIÓN QUÉ ES TICS === */
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .btn-whatsapp::before {
-      content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
-      transition:.8s;
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 2.8rem;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
     }
-    .btn-whatsapp:hover::before { left:100%; }
-    .btn-whatsapp:hover {
-      transform:translateY(-6px) scale(1.03); box-shadow:0 22px 55px rgba(84,83,134,.55);
+    .section-subtitle {
+      font-size: 1.25rem;
+      color: var(--neutral);
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      font-weight: 400;
     }
-    .whatsapp-icon { width:36px; height:36px; filter:brightness(0) invert(1); }
 
-    /* === QR PREMIUM FLOAT === */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .feature-card {
+      background: var(--light);
+      padding: 2.2rem;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: all 0.4s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      border-color: var(--primary);
+    }
+    .feature-icon {
+      width: 68px;
+      height: 68px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 4px 12px rgba(84,83,134,0.2));
+    }
+    .feature-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .feature-desc {
+      color: #555;
+      font-size: 1rem;
+    }
+
+    /* === SECCIÓN QR + CANAL === */
+    .cta-section {
+      background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+      padding: 6rem 2rem;
+      text-align: center;
+      color: var(--text);
+    }
+    .cta-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 2.6rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .cta-text {
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-size: 1.2rem;
+      color: var(--neutral);
+    }
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      max-width: 380px;
+      margin: 0 auto;
+    }
     .qr-box {
-      background:#fff; padding:2.2rem; border-radius:24px; max-width:320px;
-      box-shadow:0 20px 60px rgba(0,0,0,.18); border:5px solid var(--primary);
-      animation:floatQR 4s infinite ease-in-out;
+      background: white;
+      padding: 2rem;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      border: 4px solid var(--primary);
     }
-    .qr-box img { width:100%; border-radius:16px; }
-    .qr-box p { margin-top:1.3rem; font-weight:600; color:#444; font-size:1.05rem; }
-    @keyframes floatQR {
-      0%,100% { transform:translateY(0) rotate(0deg); }
-      50% { transform:translateY(-12px) rotate(1deg); }
+    .qr-box img {
+      width: 100%;
+      border-radius: 16px;
+    }
+    .qr-box p {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #444;
     }
 
     /* === FOOTER TAGLINE === */
-    .tagline {
-      margin-top:4.5rem; font-family:'Montserrat',sans-serif; font-weight:800;
-      font-size:1.2rem; color:var(--primary); letter-spacing:.2em; text-transform:uppercase;
-      opacity:0; animation:taglineReveal 2s 2s cubic-bezier(.2,.8,.2,1) forwards;
+    .footer-tag {
+      text-align: center;
+      padding: 3rem 2rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: var(--light);
+      border-top: 1px solid var(--border);
     }
-    @keyframes taglineReveal { to { opacity:1; } }
 
-    /* === MULTI-IDIOMA === */
-    [lang="en"] .es, [lang="fr"] .es,
-    [lang="es"] .en, [lang="fr"] .en,
-    [lang="es"] .fr, [lang="en"] .fr { display:none; }
-
-    /* === RESPONSIVE PREMIUM === */
+    /* === RESPONSIVE === */
     @media (max-width: 768px) {
-      .hero-title { font-size:3.8rem; }
-      .hero-subtitle { font-size:1.3rem; }
-      .logo-tics { width:140px; }
-      .logo-elite { width:200px; }
-      .countdown { gap:1.2rem; }
-      .countdown-item { padding:1.2rem .8rem; min-width:80px; }
-      .countdown-num { font-size:2.4rem; }
-      .btn-whatsapp { padding:1.3rem 2.8rem; font-size:1.2rem; }
-      .qr-box { max-width:270px; padding:1.8rem; }
+      .hero-title { font-size: 3rem; }
+      .hero-subtitle { font-size: 1.2rem; }
+      .section-title { font-size: 2.3rem; }
+      .cta-title { font-size: 2.2rem; }
+      .logo-tics { width: 140px; }
+      .logo-elite { width: 190px; }
+      .btn-primary { padding: 1.1rem 2.5rem; font-size: 1.1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CANVAS BACKGROUND PREMIUM -->
-  <canvas id="bgCanvas"></canvas>
-
-  <div class="container">
-
-    <!-- MARCA -->
+  <!-- HERO -->
+  <section class="hero">
     <div class="brand">
       <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
            alt="TICS" class="logo-tics">
-      <div class="brand-text">
-        <span class="by-text">by</span>
+      <div class="by-line">
+        <span>by</span>
         <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
              alt="The Elite Group" class="logo-elite">
       </div>
     </div>
 
-    <!-- HERO -->
-    <h1 class="hero-title">
-      <span class="es">LANZAMIENTO EXCLUSIVO</span>
-      <span class="en">EXCLUSIVE LAUNCH</span>
-      <span class="fr">LANCEMENT EXCLUSIF</span>
-    </h1>
+    <h1 class="hero-title">TICS</h1>
     <p class="hero-subtitle">
-      <span class="es">El nuevo estándar global en comunicaciones TI. Tecnología, innovación y excelencia.</span>
-      <span class="en">The new global standard in IT communications. Technology, innovation, excellence.</span>
-      <span class="fr">Le nouveau standard mondial en communication TI. Technologie, innovation, excellence.</span>
+      El sistema de comunicación TI que conecta a tu equipo horticultor con la información crítica en tiempo real.
     </p>
 
-    <!-- COUNTDOWN -->
-    <div class="countdown" id="countdown">
-      <div class="countdown-item"><div class="countdown-num" id="days">00</div><div class="countdown-label">Días</div></div>
-      <div class="countdown-item"><div class="countdown-num" id="hours">00</div><div class="countdown-label">Horas</div></div>
-      <div class="countdown-item"><div class="countdown-num" id="minutes">00</div><div class="countdown-label">Minutos</div></div>
-      <div class="countdown-item"><div class="countdown-num" id="seconds">00</div><div class="countdown-label">Segundos</div></div>
-    </div>
+    <a href="#join" class="btn-primary">
+      <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
+           alt="WhatsApp" class="whatsapp-icon">
+      <span>Únete al Canal TICS</span>
+    </a>
+  </section>
 
-    <!-- ACCIONES -->
-    <div class="action-area">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-whatsapp" target="_blank">
+  <!-- QUÉ ES TICS -->
+  <section class="section">
+    <h2 class="section-title">Comunicación Horticultora del Futuro</h2>
+    <p class="section-subtitle">
+      TICS unifica mantenimientos preventivos, reportes de incidencias, comunicados oficiales y alertas técnicas en una sola plataforma accesible por WhatsApp.
+    </p>
+
+    <div class="features">
+      <div class="feature-card">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/main/icons/maintenance.svg" alt="Mantenimiento" class="feature-icon">
+        <h3 class="feature-title">Mantenimientos Programados</h3>
+        <p class="feature-desc">Notificaciones automáticas antes, durante y después de cada intervención técnica.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/main/icons/incident.svg" alt="Incidencias" class="feature-icon">
+        <h3 class="feature-title">Reportes de Incidencias</h3>
+        <p class="feature-desc">Registro inmediato con fotos, ubicación y seguimiento en tiempo real.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/main/icons/broadcast.svg" alt="Comunicados" class="feature-icon">
+        <h3 class="feature-title">Comunicados Oficiales</h3>
+        <p class="feature-desc">Anuncios corporativos, actualizaciones y normativas con confirmación de lectura.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + QR -->
+  <section class="cta-section" id="join">
+    <h2 class="cta-title">Acceso Inmediato</h2>
+    <p class="cta-text">
+      Únete al canal oficial de TICS y sé el primero en recibir actualizaciones técnicas, alertas críticas y herramientas exclusivas para tu operación horticultora.
+    </p>
+
+    <div class="qr-container">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" target="_blank" class="btn-primary">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
              alt="WhatsApp" class="whatsapp-icon">
-        <span class="es">Únete al Canal Exclusivo</span>
-        <span class="en">Join Exclusive Channel</span>
-        <span class="fr">Rejoignez le Canal Exclusif</span>
+        <span>Abrir en WhatsApp</span>
       </a>
 
       <div class="qr-box">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS">
-        <p>
-          <span class="es">Escanea para acceso prioritario</span>
-          <span class="en">Scan for priority access</span>
-          <span class="fr">Scannez pour accès prioritaire</span>
-        </p>
+        <p>Escanea con tu cámara</p>
       </div>
     </div>
+  </section>
 
-    <p class="tagline">TICS • Technology Information Communication System</p>
-  </div>
+  <!-- FOOTER -->
+  <footer class="footer-tag">
+    TICS • Technology Information Communication System
+  </footer>
 
-  <!-- JS PREMIUM: CANVAS + COUNTDOWN + LANG -->
-  <script>
-    // === CANVAS BACKGROUND (PARTÍCULAS + GRADIENT FLOW) ===
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let w, h, particles = [], gradient;
-
-    function initCanvas() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-      particles = [];
-      for(let i=0; i<60; i++){
-        particles.push({
-          x: Math.random()*w,
-          y: Math.random()*h,
-          r: Math.random()*4+2,
-          d: Math.random()*60,
-          color: `rgba(84,83,134,${Math.random()*0.3+0.1})`,
-          speed: Math.random()*0.8+0.3
-        });
-      }
-      gradient = ctx.createLinearGradient(0,0,w,h);
-      gradient.addColorStop(0, 'rgba(194,223,234,0.03)');
-      gradient.addColorStop(1, 'rgba(244,199,206,0.03)');
-    }
-
-    function draw() {
-      ctx.clearRect(0,0,w,h);
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0,0,w,h);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fillStyle = p.color;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = '#545386';
-        ctx.fill();
-        p.y -= p.speed;
-        if(p.y < -p.r) p.y = h + p.r;
-        p.x += Math.sin(p.d)*0.5;
-      });
-      requestAnimationFrame(draw);
-    }
-
-    window.addEventListener('resize', initCanvas);
-    initCanvas();
-    draw();
-
-    // === COUNTDOWN (7 DÍAS DESDE HOY) ===
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 7); // 7 días de expectativa
-    launchDate.setHours(9,0,0,0);
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = launchDate - now;
-      if(diff <= 0) {
-        document.getElementById('countdown').innerHTML = '<div style="grid-column:1/-1;font-family:Montserrat;font-weight:900;font-size:2rem;color:var(--primary);">¡LANZADO!</div>';
-        return;
-      }
-      const d = Math.floor(diff / (1000*60*60*24));
-      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-      const s = Math.floor((diff % (1000*60)) / 1000);
-      document.getElementById('days').textContent = d.toString().padStart(2,'0');
-      document.getElementById('hours').textContent = h.toString().padStart(2,'0');
-      document.getElementById('minutes').textContent = m.toString().padStart(2,'0');
-      document.getElementById('seconds').textContent = s.toString().padStart(2,'0');
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // === DETECCIÓN DE IDIOMA ===
-    const userLang = (navigator.language || navigator.userLanguage).slice(0,2).toLowerCase();
-    const html = document.documentElement;
-    html.lang = ['en','fr'].includes(userLang) ? userLang : 'es';
-  </script>
 </body>
 </html>
