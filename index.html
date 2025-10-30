@@ -25,7 +25,10 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; }
+    html, body { 
+      height: 100%; 
+      overflow: hidden; 
+    }
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
@@ -91,22 +94,25 @@
       100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; }
     }
 
-    /* === CONTENIDO: FADE SUAVE === */
+    /* === CONTENIDO: FADE SUAVE + SCROLL LIMITADO === */
     .content {
-      position: absolute; top: 0; left: 0; width: 100vw; height: auto;
+      position: absolute; top: 0; left: 0; width: 100vw;
       min-height: 100vh;
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       padding: clamp(2rem, 8vw, 4rem) 0;
       text-align: center; margin: 0 auto;
       opacity: 0; visibility: hidden; pointer-events: none;
       transition: opacity 1.8s ease;
-      z-index: 900; overflow-y: auto;
-    }
-    .content > * {
-      max-width: 90vw; margin-left: auto; margin-right: auto; text-align: center;
+      z-index: 900;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
     }
     .content.revealed {
       opacity: 1; visibility: visible; pointer-events: auto;
+      overflow-y: auto;
+    }
+    .content > * {
+      max-width: 90vw; margin-left: auto; margin-right: auto; text-align: center;
     }
 
     /* === LOGO INTEGRADO === */
@@ -168,7 +174,7 @@
     }
     .btn-icon { width: clamp(30px, 6vw, 36px); height: auto; filter: brightness(0) invert(1); }
 
-    /* === QR MAGNÉTICO (IRRESISTIBLE) === */
+    /* === QR MAGNÉTICO === */
     .qr-magnet {
       position: relative; max-width: 360px; margin: 0 auto;
       padding: clamp(2rem, 6vw, 2.8rem); border-radius: 32px;
@@ -244,7 +250,7 @@
       50% { transform: translateX(-50%) scaleX(1); }
     }
 
-    /* === SCROLLDOWN ADAPTATIVO === */
+    /* === SCROLLDOWN INTELIGENTE === */
     .scrolldown {
       position: fixed; bottom: clamp(1.5rem, 4vh, 2.5rem); left: 50%;
       transform: translateX(-50%);
@@ -255,12 +261,18 @@
       animation: fadeIn 1.6s 2s ease-out forwards, bounce 2s infinite ease-in-out;
       text-shadow: 0 0 15px var(--accent-glow);
       z-index: 950;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
     }
     .scrolldown::after {
       content: ''; position: absolute; bottom: -1.5rem; left: 50%;
       width: 2px; height: 30px; background: var(--accent);
       transform: translateX(-50%);
       animation: scrollLine 2s infinite ease-in-out;
+    }
+    .scrolldown.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
     @keyframes bounce {
       0%, 100% { transform: translateX(-50%) translateY(0); }
@@ -367,15 +379,15 @@
     </div>
   </div>
 
-  <!-- SCROLLDOWN ADAPTATIVO -->
-  <div class="scrolldown">
+  <!-- SCROLLDOWN INTELIGENTE -->
+  <div class="scrolldown" id="scrolldown">
     <span class="es">SCROLL DOWN</span>
     <span class="en">SCROLL DOWN</span>
     <span class="fr">DÉFILEZ</span>
   </div>
 
   <!-- VERSIÓN -->
-  <div class="version">v1.4.6</div>
+  <div class="version">v1.4.7</div>
 
   <!-- FONDO -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
@@ -387,6 +399,7 @@
     const content = document.getElementById('content');
     const portalLogo = document.getElementById('portalLogo');
     const contentLogo = document.getElementById('contentLogo');
+    const scrolldown = document.getElementById('scrolldown');
 
     portal.addEventListener('click', () => {
       explosion.classList.add('active');
@@ -403,8 +416,46 @@
         content.classList.add('revealed');
         document.body.style.overflowY = 'auto';
         contentLogo.src = portalLogo.src;
+        checkScroll();
       }, 1200);
     });
+
+    // === SCROLLDOWN INTELIGENTE + SCROLL LIMITADO ===
+    function checkScroll() {
+      const contentEl = document.getElementById('content');
+      const footer = document.querySelector('.footer');
+      const viewportHeight = window.innerHeight;
+      const contentHeight = contentEl.scrollHeight;
+      const footerTop = footer.getBoundingClientRect().top;
+
+      // Mostrar solo si hay contenido por debajo del viewport
+      if (contentHeight > viewportHeight && footerTop > viewportHeight + 100) {
+        scrolldown.style.opacity = '1';
+        scrolldown.classList.remove('hidden');
+      } else {
+        scrolldown.classList.add('hidden');
+      }
+
+      // Limitar scroll al contenido real
+      const maxScroll = contentHeight - viewportHeight;
+      contentEl.style.maxHeight = `${viewportHeight}px`;
+      contentEl.style.overflowY = 'auto';
+
+      // Actualizar en scroll
+      contentEl.addEventListener('scroll', () => {
+        const scrollTop = contentEl.scrollTop;
+        const nearBottom = scrollTop >= maxScroll - 100;
+
+        if (nearBottom || scrollTop === 0) {
+          scrolldown.classList.add('hidden');
+        } else {
+          scrolldown.classList.remove('hidden');
+        }
+      });
+
+      // Actualizar en resize
+      window.addEventListener('resize', checkScroll);
+    }
 
     // === PARTÍCULAS ===
     const canvas = document.getElementById('bg-canvas');
