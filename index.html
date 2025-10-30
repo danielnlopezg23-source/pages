@@ -18,6 +18,8 @@
       --accent-glow: rgba(168, 223, 252, 0.5);
       --danger: #ff2d55;
       --danger-glow: rgba(255, 45, 85, 0.6);
+      --success: #00ff9d;
+      --success-glow: rgba(0, 255, 157, 0.6);
       --text: #ffffff;
       --bg: #0a0a0f;
       --glass: rgba(20, 20, 40, 0.72);
@@ -203,7 +205,7 @@
       animation: fadeIn 1s 1.5s ease-out forwards;
     }
 
-    /* === ESTADO DE PELIGRO === */
+    /* === ESTADOS === */
     .qr-danger {
       border-color: var(--danger) !important;
       box-shadow: 0 0 60px var(--danger-glow) !important;
@@ -212,23 +214,21 @@
     .qr-danger .qr-call { color: var(--danger); text-shadow: 0 0 30px var(--danger-glow); }
     .qr-danger .qr-timer { color: var(--danger); }
 
+    .qr-success {
+      border-color: var(--success) !important;
+      box-shadow: 0 0 60px var(--success-glow) !important;
+      animation: successGlow 2s ease-out;
+    }
+    .qr-success .qr-call { color: var(--success); }
+    .qr-success .qr-timer { display: none; }
+
     @keyframes dangerPulse {
       0%, 100% { box-shadow: 0 0 60px var(--danger-glow); }
       50% { box-shadow: 0 0 100px var(--danger-glow); }
     }
-
-    /* === ACCESO CONCEDIDO === */
-    .qr-success {
-      border-color: #00ff9d !important;
-      box-shadow: 0 0 60px rgba(0, 255, 157, 0.6) !important;
-      animation: successGlow 2s ease-out;
-    }
-    .qr-success .qr-call { color: #00ff9d; }
-    .qr-success .qr-timer { display: none; }
-
     @keyframes successGlow {
-      0% { box-shadow: 0 0 60px rgba(0, 255, 157, 0.6); }
-      100% { box-shadow: 0 0 30px rgba(0, 255, 157, 0.3); }
+      0% { box-shadow: 0 0 60px var(--success-glow); }
+      100% { box-shadow: 0 0 30px var(--success-glow); }
     }
 
     /* === FOOTER === */
@@ -335,86 +335,106 @@
     const contentLogo = document.getElementById('contentLogo');
 
     portal.addEventListener('click', () => {
-      // Explosión
       explosion.classList.add('active');
-      
-      // Logo se expande y desaparece
       portalLogo.style.transform = 'scale(3) rotate(360deg)';
       portalLogo.style.opacity = '0';
       portalLogo.style.transition = 'all 1s ease';
 
-      // Ocultar portal
       setTimeout(() => {
         portal.style.opacity = '0';
         portal.style.pointerEvents = 'none';
       }, 600);
 
-      // Mostrar contenido con fade suave
       setTimeout(() => {
         content.classList.add('revealed');
         document.body.style.overflowY = 'auto';
         contentLogo.src = portalLogo.src;
-        startQRTimer(); // Iniciar contador
+        startQRTimer();
       }, 1200);
     });
 
-    // === CONTADOR QR: 20 SEGUNDOS ===
+    // === CONTADOR QR: 20 SEGUNDOS (CORREGIDO) ===
     let timer;
     const qrMagnet = document.getElementById('qrMagnet');
+    const qrCall = qrMagnet.querySelector('.qr-call');
     const qrTimer = document.getElementById('qrTimer');
+    const currentLang = document.documentElement.lang;
+
+    function getText(key) {
+      const texts = {
+        es: {
+          scan: "ESCANEA AHORA",
+          urgent: "¡ESCANEA YA!",
+          denied: "ACCESO DENEGADO",
+          granted: "¡ACCESO CONCEDIDO!",
+          time: "Tiempo: "
+        },
+        en: {
+          scan: "SCAN NOW",
+          urgent: "SCAN NOW!",
+          denied: "ACCESS DENIED",
+          granted: "ACCESS GRANTED!",
+          time: "Time: "
+        },
+        fr: {
+          scan: "SCANNEZ MAINTENANT",
+          urgent: "SCANNEZ VITE!",
+          denied: "ACCÈS REFUSÉ",
+          granted: "ACCÈS ACCORDÉ!",
+          time: "Temps: "
+        }
+      };
+      return texts[currentLang][key];
+    }
+
+    function updateCallText(text) {
+      const span = qrCall.querySelector(`.${currentLang}`);
+      if (span) span.textContent = text;
+    }
+
+    function updateTimerText(seconds) {
+      const span = qrTimer.querySelector(`.${currentLang}`);
+      if (span) span.textContent = getText('time') + seconds + 's';
+    }
 
     function startQRTimer() {
       let timeLeft = 20;
       qrTimer.style.opacity = '1';
+      updateTimerText(timeLeft);
 
       timer = setInterval(() => {
         timeLeft--;
-        qrTimer.innerHTML = `
-          <span class="es">Tiempo: ${timeLeft}s</span>
-          <span class="en">Time: ${timeLeft}s</span>
-          <span class="fr">Temps: ${timeLeft}s</span>
-        `;
+        updateTimerText(timeLeft);
 
         if (timeLeft <= 10) {
           qrMagnet.classList.add('qr-danger');
-          qrMagnet.querySelector('.qr-call').innerHTML = `
-            <span class="es">¡ESCANEA YA!</span>
-            <span class="en">SCAN NOW!</span>
-            <span class="fr">SCANNEZ VITE!</span>
-          `;
+          updateCallText(getText('urgent'));
         }
 
         if (timeLeft <= 0) {
           clearInterval(timer);
-          qrMagnet.querySelector('.qr-call').innerHTML = `
-            <span class="es">ACCESO DENEGADO</span>
-            <span class="en">ACCESS DENIED</span>
-            <span class="fr">ACCÈS REFUSÉ</span>
-          `;
+          updateCallText(getText('denied'));
+          qrTimer.style.opacity = '0';
         }
       }, 1000);
 
-      // Detectar escaneo (simulado con clic o tap)
-      qrMagnet.addEventListener('click', grantAccess);
-      qrMagnet.addEventListener('touchstart', grantAccess);
+      // Detectar escaneo
+      const handleScan = () => {
+        clearInterval(timer);
+        qrMagnet.classList.remove('qr-danger');
+        qrMagnet.classList.add('qr-success');
+        updateCallText(getText('granted'));
+        qrTimer.style.display = 'none';
+        qrMagnet.style.cursor = 'default';
+        qrMagnet.removeEventListener('click', handleScan);
+        qrMagnet.removeEventListener('touchstart', handleScan);
+      };
+
+      qrMagnet.addEventListener('click', handleScan);
+      qrMagnet.addEventListener('touchstart', handleScan);
     }
 
-    function grantAccess() {
-      clearInterval(timer);
-      qrMagnet.classList.remove('qr-danger');
-      qrMagnet.classList.add('qr-success');
-      qrMagnet.querySelector('.qr-call').innerHTML = `
-        <span class="es">¡ACCESO CONCEDIDO!</span>
-        <span class="en">ACCESS GRANTED!</span>
-        <span class="fr">ACCÈS ACCORDÉ!</span>
-      `;
-      qrTimer.style.display = 'none';
-      qrMagnet.style.cursor = 'default';
-      qrMagnet.removeEventListener('click', grantAccess);
-      qrMagnet.removeEventListener('touchstart', grantAccess);
-    }
-
-    // === PARTÍCULAS ===
+    // === PARTÍCULAS + IDIOMA ===
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let w, h, particles = [], time = 0;
@@ -458,11 +478,6 @@
     window.addEventListener('resize', init);
     init();
     draw();
-
-    // === IDIOMA ===
-    const userLang = (navigator.language || navigator.userLanguage || 'es').slice(0, 2).toLowerCase();
-    const lang = ['es', 'en', 'fr'].includes(userLang) ? userLang : 'es';
-    document.documentElement.lang = lang;
   </script>
 </body>
 </html>
