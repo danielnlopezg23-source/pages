@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TICS</title>
-  <meta name="description" content="TICS. El sistema que redefine la comunicación TI en horticultura." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="TICS. Algo se acerca." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #545386;
@@ -13,9 +13,9 @@
       --accent-2: #F4C7CE;
       --accent-3: #d8d2c4;
       --neutral: #383A35;
-      --bg: #0a0a14;
-      --text: #f5f5f7;
-      --glow: rgba(84,83,134,0.6);
+      --bg: #0b0b16;
+      --text: #f8f8fc;
+      --glow: rgba(84,83,134,0.7);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
@@ -24,10 +24,10 @@
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-      line-height: 1.8;
+      line-height: 1.6;
     }
 
-    /* === PRELOADER: EXPLOSIÓN DE LUZ === */
+    /* === PRELOADER: BIG BANG === */
     #preloader {
       position: fixed;
       top: 0; left: 0;
@@ -38,259 +38,234 @@
       align-items: center;
       z-index: 9999;
       opacity: 1;
-      transition: opacity 1.8s ease;
+      transition: opacity 2s ease;
     }
-    .preloader-logo {
-      width: 280px;
+    .bang-logo {
+      width: 320px;
       filter: brightness(0) invert(1);
-      animation: explodeLight 2.2s ease-out forwards;
+      animation: bigBang 2.8s ease-out forwards;
     }
-    @keyframes explodeLight {
-      0% { transform: scale(0.3); filter: brightness(0) invert(1) drop-shadow(0 0 0 #545386); opacity: 0; }
-      40% { transform: scale(1.6); filter: brightness(0) invert(1) drop-shadow(0 0 200px #545386); opacity: 1; }
-      100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 40px #545386); opacity: 1; }
+    @keyframes bigBang {
+      0% { transform: scale(0); filter: brightness(0) invert(1) drop-shadow(0 0 0 #545386); opacity: 0; }
+      30% { transform: scale(2.2); filter: brightness(0) invert(1) drop-shadow(0 0 300px #545386); opacity: 1; }
+      70% { transform: scale(0.9); filter: brightness(0) invert(1) drop-shadow(0 0 80px #545386); }
+      100% { transform: scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 50px #545386); }
     }
 
-    /* === SCROLLABLE FULL-PAGE SECTIONS === */
-    .section {
-      min-height: 100vh;
+    /* === COMPACT CONTAINER: 1.5x SCREEN === */
+    .container {
+      min-height: 150vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 4rem 2rem;
+      padding: 3rem 2rem;
       position: relative;
-      overflow: hidden;
-    }
-
-    /* === HERO SECTION === */
-    .hero {
       text-align: center;
-      background: radial-gradient(circle at center, rgba(84,83,134,0.15) 0%, transparent 70%);
-    }
-    .logo-tics-hero {
-      width: 200px;
-      margin-bottom: 2.5rem;
-      filter: drop-shadow(0 0 50px var(--glow));
-      animation: floatSubtle 5s infinite ease-in-out;
-    }
-    @keyframes floatSubtle {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
     }
 
-    .title-hero {
+    /* === LOGO TICS: FLOATING ORB === */
+    .logo-orb {
+      width: 240px;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 70px var(--glow));
+      animation: orbFloat 7s infinite ease-in-out;
+      position: relative;
+      z-index: 10;
+    }
+    @keyframes orbFloat {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
+    }
+
+    /* === TÍTULO: TICS MONUMENTAL === */
+    .title-monumental {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 9.5rem;
-      letter-spacing: 0.18em;
-      margin: 0 0 1.5rem;
-      background: linear-gradient(135deg, #ffffff 0%, #C2DFEA 40%, #545386 100%);
+      font-size: 12rem;
+      letter-spacing: 0.35em;
+      margin: 0 0 1.8rem;
+      background: linear-gradient(135deg, #ffffff 0%, #e0e0f0 35%, #545386 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 12px 40px rgba(84,83,134,0.4);
-      animation: titleReveal 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-      opacity: 0;
-      transform: translateY(60px);
+      text-shadow: 0 15px 50px rgba(84,83,134,0.45);
+      animation: titlePulse 3s infinite ease-in-out;
+      position: relative;
     }
-    @keyframes titleReveal {
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes titlePulse {
+      0%,100% { transform: scale(1); filter: drop-shadow(0 0 60px var(--glow)); }
+      50% { transform: scale(1.02); filter: drop-shadow(0 0 90px var(--glow)); }
     }
 
-    .subtitle-hero {
-      font-size: 1.6rem;
-      max-width: 800px;
-      margin: 0 auto 4rem;
-      color: rgba(255,255,255,0.85);
-      font-weight: 400;
-      animation: fadeIn 2s 0.6s ease-out forwards;
+    /* === PISTA SUTIL === */
+    .hint {
+      font-size: 1.4rem;
+      max-width: 600px;
+      margin: 0 auto 3.5rem;
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      animation: fadeIn 2s 1.2s ease-out forwards;
       opacity: 0;
     }
     @keyframes fadeIn { to { opacity: 1; } }
 
-    /* === COUNTDOWN SECTION === */
-    .countdown-section {
-      background: linear-gradient(135deg, rgba(84,83,134,0.08) 0%, rgba(194,223,234,0.05) 100%);
-    }
-    .countdown-wrapper {
+    /* === COUNTDOWN: CRYSTAL CORE === */
+    .countdown-core {
       display: flex;
-      gap: 4rem;
-      animation: fadeIn 2s 1s ease-out forwards;
+      gap: 2.8rem;
+      margin: 3rem 0;
+      animation: fadeIn 2s 1.5s ease-out forwards;
       opacity: 0;
     }
-    .count-block {
-      text-align: center;
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(84,83,134,0.25);
-      border-radius: 32px;
-      padding: 2.2rem 1.8rem;
-      min-width: 140px;
-      transition: all 0.5s ease;
+    .core-unit {
+      background: rgba(84,83,134,0.18);
+      backdrop-filter: blur(22px);
+      border: 2px solid rgba(84,83,134,0.35);
+      border-radius: 36px;
+      padding: 2rem 1.6rem;
+      min-width: 130px;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     }
-    .count-block:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 60px rgba(84,83,134,0.3);
+    .core-unit:hover {
+      transform: translateY(-12px) scale(1.08);
+      border-color: #C2DFEA;
+      box-shadow: 0 30px 70px rgba(84,83,134,0.4);
     }
-    .count-num {
+    .core-num {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 5rem;
+      font-size: 4.8rem;
       color: #ffffff;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      text-shadow: 0 8px 25px rgba(0,0,0,0.35);
     }
-    .count-label {
-      font-size: 1.05rem;
+    .core-label {
+      font-size: 0.95rem;
       text-transform: uppercase;
-      letter-spacing: 0.22em;
-      color: rgba(255,255,255,0.7);
-      margin-top: 0.8rem;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.75);
+      margin-top: 0.6rem;
       font-weight: 500;
     }
 
-    /* === CTA SECTION === */
-    .cta-section {
-      text-align: center;
-      background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
-      color: var(--neutral);
-    }
-    .cta-title {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
-      font-size: 3.2rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-    }
-    .cta-text {
-      font-size: 1.35rem;
-      max-width: 700px;
-      margin: 0 auto 3.5rem;
-      color: #333;
-    }
-
-    .actions-grid {
+    /* === ACCIONES: DUAL CORE === */
+    .dual-core {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3rem;
-      max-width: 400px;
-      margin: 0 auto;
+      gap: 2.8rem;
+      margin-top: 2rem;
+      animation: fadeIn 2s 1.8s ease-out forwards;
+      opacity: 0;
     }
-    .btn-cta {
+    .btn-core {
       background: var(--primary);
       color: white;
-      padding: 1.7rem 4.2rem;
-      border-radius: 60px;
+      padding: 1.8rem 4.5rem;
+      border-radius: 70px;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.35rem;
+      font-weight: 900;
+      font-size: 1.45rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 1.2rem;
-      box-shadow: 0 20px 50px rgba(84,83,134,0.45);
-      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      gap: 1.3rem;
+      box-shadow: 0 25px 60px rgba(84,83,134,0.55);
+      transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
     }
-    .btn-cta:hover {
-      transform: translateY(-8px) scale(1.04);
-      box-shadow: 0 30px 70px rgba(84,83,134,0.6);
-    }
-    .whatsapp-icon { width: 40px; height: 40px; filter: brightness(0) invert(1); }
-
-    .qr-cta {
-      background: white;
-      padding: 2.6rem;
-      border-radius: 34px;
-      max-width: 380px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-      border: 6px solid var(--primary);
-      transition: all 0.5s ease;
-    }
-    .qr-cta:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.32);
-    }
-    .qr-cta img { width: 100%; border-radius: 22px; }
-    .qr-cta p { margin-top: 1.3rem; font-weight: 700; color: #222; font-size: 1.15rem; }
-
-    /* === FOOTER SECTION === */
-    .footer-section {
-      background: var(--bg);
-      text-align: center;
-      padding: 5rem 2rem;
-    }
-    .elite-footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.2rem;
-      margin-bottom: 2rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 0.08em;
-    }
-    .logo-elite-footer {
-      width: 280px;
-      filter: brightness(0) invert(1) opacity(0.8);
-      transition: opacity 0.5s;
-    }
-    .elite-footer:hover .logo-elite-footer { opacity: 1; }
-
-    .tagline-footer {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-    }
-
-    /* === SCROLL INDICATOR === */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 32px;
-      height: 52px;
-      border: 3px solid rgba(255,255,255,0.4);
-      border-radius: 20px;
-      animation: pulseScroll 2s infinite;
-    }
-    .scroll-indicator::before {
+    .btn-core::before {
       content: '';
       position: absolute;
-      top: 10px;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: 1s;
+    }
+    .btn-core:hover::before { left: 100%; }
+    .btn-core:hover {
+      transform: translateY(-10px) scale(1.06);
+      box-shadow: 0 35px 80px rgba(84,83,134,0.7);
+    }
+    .whatsapp-icon { width: 42px; height: 42px; filter: brightness(0) invert(1); }
+
+    .qr-core {
+      background: white;
+      padding: 2.8rem;
+      border-radius: 40px;
+      max-width: 400px;
+      box-shadow: 0 35px 90px rgba(0,0,0,0.3);
+      border: 7px solid var(--primary);
+      transition: all 0.6s ease;
+    }
+    .qr-core:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 45px 110px rgba(0,0,0,0.38);
+    }
+    .qr-core img { width: 100%; border-radius: 26px; }
+    .qr-core p { margin-top: 1.4rem; font-weight: 700; color: #111; font-size: 1.2rem; }
+
+    /* === ELITE MARK === */
+    .elite-mark {
+      margin-top: 5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.1em;
+      animation: fadeIn 2s 2s ease-out forwards;
+      opacity: 0;
+    }
+    .logo-elite-mark {
+      width: 300px;
+      filter: brightness(0) invert(1) opacity(0.75);
+      transition: opacity 0.6s;
+    }
+    .elite-mark:hover .logo-elite-mark { opacity: 1; }
+
+    /* === TAGLINE === */
+    .tagline-core {
+      margin-top: 3.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      animation: fadeIn 2s 2.2s ease-out forwards;
+      opacity: 0;
+    }
+
+    /* === SCROLL HINT === */
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
       left: 50%;
       transform: translateX(-50%);
-      width: 6px;
-      height: 12px;
-      background: rgba(255,255,255,0.6);
-      border-radius: 3px;
-      animation: scrollDown 2s infinite;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.25em;
+      animation: pulseHint 2s infinite;
     }
-    @keyframes pulseScroll {
-      0%,100% { opacity: 0.4; }
-      50% { opacity: 1; }
-    }
-    @keyframes scrollDown {
-      0% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
-      100% { transform: translateX(-50%) translateY(22px); opacity: 0; }
-    }
+    @keyframes pulseHint { 0%,100% { opacity:0.5; } 50% { opacity:1; } }
+
+    /* === PARTICLES BACKGROUND (CANVAS) === */
+    #particles-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.6; }
 
     /* === RESPONSIVE === */
     @media (max-width: 768px) {
-      .title-hero { font-size: 5.5rem; letter-spacing: 0.12em; }
-      .subtitle-hero { font-size: 1.3rem; }
-      .countdown-wrapper { gap: 2rem; }
-      .count-num { font-size: 3.5rem; }
-      .logo-tics-hero { width: 160px; }
-      .btn-cta { padding: 1.4rem 3rem; font-size: 1.2rem; }
-      .qr-cta { max-width: 300px; padding: 2rem; }
-      .logo-elite-footer { width: 210px; }
+      .title-monumental { font-size: 6.5rem; letter-spacing: 0.22em; }
+      .logo-orb { width: 180px; }
+      .countdown-core { gap: 1.8rem; }
+      .core-num { font-size: 3.2rem; }
+      .btn-core { padding: 1.5rem 3.5rem; font-size: 1.25rem; }
+      .qr-core { max-width: 320px; padding: 2.2rem; }
+      .logo-elite-mark { width: 220px; }
     }
   </style>
 </head>
@@ -299,63 +274,63 @@
   <!-- PRELOADER -->
   <div id="preloader">
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="preloader-logo">
+         alt="TICS" class="bang-logo">
   </div>
 
-  <!-- HERO -->
-  <section class="section hero" id="hero">
+  <!-- PARTICLES -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- COMPACT CONTAINER -->
+  <div class="container">
+
+    <!-- LOGO ORB -->
     <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/TICS_LOGO.png" 
-         alt="TICS" class="logo-tics-hero">
+         alt="TICS" class="logo-orb">
 
-    <h1 class="title-hero">TICS</h1>
-    <p class="subtitle-hero">
-      El sistema de comunicación TI que conecta tu operación horticultora con precisión absoluta.
+    <!-- TÍTULO -->
+    <h1 class="title-monumental">TICS</h1>
+
+    <!-- PISTA -->
+    <p class="hint">
+      Algo crece. Algo se alinea. En 7 días, todo cambia.
     </p>
 
-    <div class="scroll-indicator"></div>
-  </section>
-
-  <!-- COUNTDOWN -->
-  <section class="section countdown-section">
-    <div class="countdown-wrapper" id="countdown">
-      <div class="count-block"><div class="count-num" id="days">00</div><div class="count-label">Días</div></div>
-      <div class="count-block"><div class="count-num" id="hours">00</div><div class="count-label">Horas</div></div>
-      <div class="count-block"><div class="count-num" id="minutes">00</div><div class="count-label">Minutos</div></div>
-      <div class="count-block"><div class="count-num" id="seconds">00</div><div class="count-label">Segundos</div></div>
+    <!-- COUNTDOWN -->
+    <div class="countdown-core" id="countdown">
+      <div class="core-unit"><div class="core-num" id="days">00</div><div class="core-label">Días</div></div>
+      <div class="core-unit"><div class="core-num" id="hours">00</div><div class="core-label">Horas</div></div>
+      <div class="core-unit"><div class="core-num" id="minutes">00</div><div class="core-label">Minutos</div></div>
+      <div class="core-unit"><div class="core-num" id="seconds">00</div><div class="core-label">Segundos</div></div>
     </div>
-  </section>
 
-  <!-- CTA -->
-  <section class="section cta-section">
-    <h2 class="cta-title">Acceso Exclusivo</h2>
-    <p class="cta-text">
-      Únete al canal oficial y recibe alertas críticas, mantenimientos programados y comunicados en tiempo real.
-    </p>
-
-    <div class="actions-grid">
-      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-cta" target="_blank">
+    <!-- ACCIONES -->
+    <div class="dual-core">
+      <a href="https://whatsapp.com/channel/0029VbB1vHK5K3zYboS9Wg06" class="btn-core" target="_blank">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ca05f1ecb9becfefa33431b3346abbeadcc26697/whatsapp.png" 
              alt="WhatsApp" class="whatsapp-icon">
-        <span>Entrar al Canal</span>
+        <span>Entrar</span>
       </a>
 
-      <div class="qr-cta">
+      <div class="qr-core">
         <img src="https://github.com/danielnlopezg23-source/theelitegroupimages/raw/ea30f88ed357da30587e76306ec10ad6789c8b07/QR_TICS.png" 
              alt="QR TICS">
-        <p>Escanea con tu cámara</p>
+        <p>Escanea</p>
       </div>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <section class="section footer-section">
-    <div class="elite-footer">
+    <!-- ELITE MARK -->
+    <div class="elite-mark">
       <span>by</span>
       <img src="https://raw.githubusercontent.com/danielnlopezg23-source/theelitegroupimages/f897ca5a814453de70dc29aa7beb2133e4e2930e/The%20Elite%20Group.png" 
-           alt="The Elite Group" class="logo-elite-footer">
+           alt="The Elite Group" class="logo-elite-mark">
     </div>
-    <p class="tagline-footer">Technology Information Communication System</p>
-  </section>
+
+    <!-- TAGLINE -->
+    <p class="tagline-core">Technology Information Communication System</p>
+
+    <!-- SCROLL HINT -->
+    <div class="scroll-hint">SCROLL</div>
+  </div>
 
   <script>
     // === PRELOADER → REVEAL ===
@@ -364,9 +339,50 @@
         document.getElementById('preloader').style.opacity = '0';
         setTimeout(() => {
           document.getElementById('preloader').style.display = 'none';
-        }, 1900);
-      }, 2200);
+        }, 2000);
+      }, 2800);
     });
+
+    // === PARTICLES: POLEN DIGITAL ===
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    function init() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = [];
+      for(let i = 0; i < 45; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 2.5 + 1,
+          speed: Math.random() * 0.6 + 0.2,
+          hue: 180 + Math.random() * 40,
+          opacity: Math.random() * 0.4 + 0.1
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 70%, 75%, ${p.opacity})`;
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = '#C2DFEA';
+        ctx.fill();
+        p.y -= p.speed;
+        if(p.y < -p.r) p.y = h + p.r;
+        p.x += Math.sin(Date.now() * 0.001 + p.r) * 0.4;
+      });
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', init);
+    init();
+    draw();
 
     // === COUNTDOWN ===
     const launch = new Date();
@@ -376,7 +392,7 @@
     function update() {
       const diff = launch - new Date();
       if (diff <= 0) {
-        document.getElementById('countdown').innerHTML = '<div style="font-size:3.5rem;color:#fff;font-family:Montserrat;font-weight:900;">¡ACTIVADO!</div>';
+        document.getElementById('countdown').innerHTML = '<div style="font-size:4rem;color:#fff;font-family:Montserrat;font-weight:900;">ACTIVADO</div>';
         return;
       }
       const d = String(Math.floor(diff / 86400000)).padStart(2,'0');
